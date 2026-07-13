@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Simulation</title>
+</head>
+<body>
+    <header>
+        <a href="{% url 'deliverys:main' %}" class="home-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house">
+                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/>
+                <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            </svg>
+        </a>
+        <div class="nav-container">
+            <div class="nav-left">
+                <span>설명</span>
+            </div>
+            <div class="nav-right">
+                <span>해보기</span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="stage-group">
+            {% block stage_list %}
+                <div class="stage-item">음식 담기</div>
+                <div class="stage-item">메뉴 담기</div>
+                <div class="stage-item">장바구니 보기</div>
+                <div class="stage-item">결제</div>
+            {% endblock %}
+        </div>
+        <div class="mobile-group">
+            <div class="mobile-guide">
+                {% block guide %}
+                {% endblock %}
+            </div>
+            <div class="mobile-do">
+                {% block mobile_ui %}
+                {% endblock %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>
