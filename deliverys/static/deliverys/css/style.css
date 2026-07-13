@@ -1,1 +1,109 @@
-/* base 템플릿을 위한 css 파일 */
+/* ============================================
+   전체 레이아웃
+   ============================================ */
+body {
+    width: 1440px;
+    height: 1024px;
+    background: #10245C;
+}
+
+/* ============================================
+   헤더 (메뉴바)
+   ============================================ */
+header {
+    display: inline-flex;
+    align-items: center;
+    gap: 321px;
+    padding: 30px 40px;
+
+    border-bottom: 2.5px solid #FFE500;
+    width: 1440px;
+    box-sizing: border-box;
+}
+
+.home-icon {
+    width: 40px;
+    height: 40px;
+    color: #FFE500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-icon svg {
+    width: 40px;
+    height: 40px;
+}
+
+.nav-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 200px;
+}
+
+.nav-left span,
+.nav-right span {
+    color: #FFE500;
+    font-family: Inter, sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+/* ============================================
+   메인 영역
+   ============================================ */
+main {
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+}
+
+/* ============================================
+   단계 표시 바 (stage-group)
+   ============================================ */
+.stage-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stage-item {
+    width: 192px;
+    height: 70px;
+    border-radius: 50px;
+    background: #FFF;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #10245C;
+    font-family: Inter, sans-serif;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.35px;
+}
+
+.stage-item.active {
+    background: #FFE500;
+}
+
+/* ============================================
+   모바일 목업 영역 (설명 / 해보기)
+   ============================================ */
+.mobile-group {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.mobile-guide,
+.mobile-do {
+    width: 393px;
+    height: 852px;
+    background: #FFF;
+}
