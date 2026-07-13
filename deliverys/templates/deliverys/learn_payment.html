@@ -1,14 +1,15 @@
 {% extends 'deliverys/base.html' %}
+{% load static %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'deliverys/css/learn_payment.css' %}">
 {% endblock %}
 
 {% block stage_list %}
-    <div class="stage-item active">음식 담기</div>
+    <div class="stage-item">음식 담기</div>
     <div class="stage-item">메뉴 담기</div>
     <div class="stage-item">장바구니 보기</div>
-    <div class="stage-item">결제</div>
+    <div class="stage-item active">결제</div>
 {% endblock %}
 
 {% block guide %}
@@ -16,5 +17,58 @@
 {% endblock %}
 
 {% block mobile_ui%}
-<!-- 모바일 해보기 부분 -->
+<div class="payment-app" id="paymentApp">
+    <div class="payment-topbar">
+        <button type="button" class="payment-back-btn" data-msg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 19L5 12L12 5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19 12H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <h1 class="payment-title">주문하기</h1>
+        <span class="payment-spacer-circle"></span>
+    </div>
+
+    <div class="payment-scroll">
+        <div class="payment-summary-card">
+            <div class="cart-payment-rows">
+                <div class="cart-payment-row">
+                    <span>메뉴 금액</span>
+                    <span id="menuAmount">0원</span>
+                </div>
+                <div class="cart-payment-row">
+                    <span>배달팁</span>
+                    <span id="deliveryFeeAmount">0원</span>
+                </div>
+                <hr>
+                <div class="cart-payment-row total">
+                    <span>결제예정금액</span>
+                    <span id="expectedAmount">0원</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-agreement-list" id="agreementList"></div>
+        <p class="payment-confirm-text">위 내용을 확인하였으며 결제에 동의합니다</p>
+    </div>
+
+    <div class="payment-bottombar">
+        <span class="payment-spacer-circle"></span>
+        <button type="button" class="payment-pay-btn" id="payBtn">
+            <span id="payAmount">0원</span> 결제하기
+        </button>
+    </div>
+</div>
+
+<div class="payment-toast" id="paymentToast">이 버튼이 아닙니다!</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // learn_payment.js 에서 사용할 페이지 이동 경로
+    window.LEARN_PAYMENT_URLS = {
+        success: "{% url 'deliverys:learn_success' %}"
+    };
+</script>
+<script src="{% static 'deliverys/js/learn_payment.js' %}"></script>
 {% endblock %}
