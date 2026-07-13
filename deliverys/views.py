@@ -11,8 +11,18 @@ def learn_mission(request):
 def learn_search(request):
     return render(request, 'deliverys/learn_search.html')
 
+# deliverys/views.py
+
 def learn_list(request):
-    return render(request, 'deliverys/learn_list.html')
+    # search_query = request.GET.get('q', '') 
+    
+    # print(f"지정된 검색어: {search_query}")
+
+    # context = {
+    #     'search_query': search_query,
+    # }
+    
+    return render(request, 'deliverys/learn_list.html', context)
 
 def learn_menu(request):
     return render(request, 'deliverys/learn_menu.html')
