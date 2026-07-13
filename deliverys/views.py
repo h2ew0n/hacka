@@ -11,11 +11,14 @@ def learn_mission(request):
 def learn_search(request):
     return render(request, 'deliverys/learn_search.html')
 
-def learn_search_detail(request):
-    return render(request, 'deliverys/learn_search_detail.html')
+def learn_list(request):
+    return render(request, 'deliverys/learn_list.html')
 
 def learn_menu(request):
     return render(request, 'deliverys/learn_menu.html')
+
+def learn_menu_option(request):
+    return render(request, 'deliverys/learn_option.html')
 
 def learn_cart(request):
     return render(request, 'deliverys/learn_cart.html')
