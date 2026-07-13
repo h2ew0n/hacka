@@ -1,0 +1,22 @@
+{% extends 'deliverys/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'deliverys/css/learn_success.css' %}">
+{% endblock %}
+
+{% block stage_list %}{% endblock %}
+{% block guide %}{% endblock %}
+
+{% block mobile_ui %}
+<div class="success-card">
+    <h1 class="success-title">학습 성공!</h1>
+    <p class="success-text">
+        {메뉴} 시키기를 <br> 완료했어요.
+    </p>
+</div>
+
+<a href="{% url 'deliverys:main' %}" class="home-button">
+    <span>처음 화면으로 돌아가기</span>
+</a>
+{% endblock %}
