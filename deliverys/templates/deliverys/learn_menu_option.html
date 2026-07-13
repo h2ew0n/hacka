@@ -1,5 +1,9 @@
 {% extends 'deliverys/base.html' %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'deliverys/css/learn_menu_option.css' %}">
+{% endblock %}
+
 {% block stage_list %}
     <div class="stage-item active">음식 담기</div>
     <div class="stage-item">메뉴 담기</div>
