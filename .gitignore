@@ -1,0 +1,15 @@
+# Django 관련 무시 파일
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+
+# 파이썬 가상환경 무시
+venv/
+.venv/
+env/
+.env/
+
+# 운영체제 임시 파일
+.DS_Store
+Thumbs.db
