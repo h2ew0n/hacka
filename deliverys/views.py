@@ -43,7 +43,6 @@ def main(request):
 
 # --- 학습 모드 ---
 def learn_mission(request):
-    initialize_simulation(request)
     cart_data = request.session.get('cart_data')
     
     if not cart_data:
@@ -63,6 +62,9 @@ def learn_search(request):
     return render(request, 'deliverys/learn_search.html')
 
 def learn_list(request):
+    cart_data = request.session.get('cart_data')
+    if not cart_data:
+        return redirect('deliverys:main')
     # 1. 검색어를 가져오기 (기본값은 '분식')
     keyword = request.GET.get('q', '분식')
 
@@ -145,6 +147,10 @@ def learn_list(request):
     })
 
 def learn_menu(request):
+    cart_data = request.session.get('cart_data')
+    if not cart_data:
+        return redirect('deliverys:main')
+    
     return render(request, 'deliverys/learn_menu.html')
 
 def learn_menu_option(request):
