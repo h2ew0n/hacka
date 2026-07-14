@@ -18,7 +18,7 @@
 {% block mobile_ui %}
 <div class="mobile-screen">
   
-  <form action="/learning/list" method="GET" id="searchForm" style="margin: 0; padding: 0;">
+  <form action="{% url 'deliverys:learn_list' %}" method="GET" id="searchForm" style="margin: 0; padding: 0;">
     <input type="text" name="q" class="search-bar" placeholder="먹고 싶은 음식을 검색해 보세요!">
     <button type="submit" class="search-icon" style="background: none; border: none; padding: 0; cursor: pointer;">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search">
