@@ -16,6 +16,13 @@
 <img src="{% static 'deliverys\images\ttbgy\search.gif' %}">
 {% endblock %}
 
+{% block extra %}
+    <p>
+        미션:<br>{{ store }}에서 {{ menu }}의 {{ count }}인분을 주문해보세요!
+        <br>추가 메뉴: {{ extra|join:", " }}
+    </p>
+{% endblock %}
+
 {% block mobile_ui %}
 <div class="mobile-screen">
   
@@ -141,17 +148,10 @@
   <div class="util-icon-2-pt2"></div>
 </div>
 {% if messages %}
-<script id="django-messages-data" type="application/json">
-[{% for message in messages %}"{{ message|escapejs }}"{% if not forloop.last %},{% endif %}{% endfor %}]
-</script>
 <script>
-  try {
-    window.DJANGO_MESSAGES = JSON.parse(
-      document.getElementById('django-messages-data').textContent
-    );
-  } catch (e) {
-    window.DJANGO_MESSAGES = [];
-  }
+    window.DJANGO_MESSAGES = [
+        {% for message in messages %}"{{ message|escapejs }}"{% if not forloop.last %},{% endif %}{% endfor %}
+    ];
 </script>
 {% endif %}
 
