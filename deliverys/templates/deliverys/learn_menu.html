@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block stage_list %}
-    <div class="stage-item active">음식 담기</div>
-    <div class="stage-item">메뉴 담기</div>
+    <div class="stage-item">음식 담기</div>
+    <div class="stage-item active">메뉴 담기</div>
     <div class="stage-item">장바구니 보기</div>
     <div class="stage-item">결제</div>
 {% endblock %}
@@ -26,17 +26,19 @@
     <header class="learn-menu-header">
         <button
             class="learn-menu-header-button"
+            id="backButton"
             type="button"
             aria-label="뒤로가기"
         >
-            <img
-                src="{% static 'deliverys/icons/back.svg' %}"
-                alt=""
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="20" viewBox="0 0 23 20" fill="none">
+                <path d="M11.75 18.75L1.25 10L11.75 1.25" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21.25 10H1.25" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
         </button>
 
-        <div class="learn-menu-store-name">
-            BBQ 길음센터피스점
+        <!-- 선택한 식당 이름이 JavaScript로 들어갑니다. -->
+        <div class="learn-menu-store-name" id="storeName">
+            BBQ
         </div>
 
         <div class="learn-menu-header-actions">
@@ -45,10 +47,11 @@
                 type="button"
                 aria-label="공유"
             >
-                <img
-                    src="{% static 'deliverys/icons/share.svg' %}"
-                    alt=""
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <path d="M19.25 11.9167V17.4167C19.25 17.9029 19.0568 18.3692 18.713 18.713C18.3692 19.0568 17.9029 19.25 17.4167 19.25H4.58333C4.0971 19.25 3.63079 19.0568 3.28697 18.713C2.94315 18.3692 2.75 17.9029 2.75 17.4167V4.58333C2.75 4.0971 2.94315 3.63079 3.28697 3.28697C3.63079 2.94315 4.0971 2.75 4.58333 2.75H10.0833" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19.25 2.75L11 11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13.75 2.75H19.25V8.25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </button>
 
             <button
@@ -56,10 +59,10 @@
                 type="button"
                 aria-label="검색"
             >
-                <img
-                    src="{% static 'deliverys/icons/search.svg' %}"
-                    alt=""
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <path d="M19.2499 19.2499L15.2716 15.2716" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.0833 17.4167C14.1334 17.4167 17.4167 14.1334 17.4167 10.0833C17.4167 6.03324 14.1334 2.75 10.0833 2.75C6.03324 2.75 2.75 6.03324 2.75 10.0833C2.75 14.1334 6.03324 17.4167 10.0833 17.4167Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </button>
 
             <button
@@ -67,10 +70,11 @@
                 type="button"
                 aria-label="장바구니"
             >
-                <img
-                    src="{% static 'deliverys/icons/cart.svg' %}"
-                    alt=""
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <path d="M6.93819 21C7.48937 21 7.93619 20.5512 7.93619 19.9975C7.93619 19.4438 7.48937 18.995 6.93819 18.995C6.38701 18.995 5.94019 19.4438 5.94019 19.9975C5.94019 20.5512 6.38701 21 6.93819 21Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.9162 21C18.4674 21 18.9142 20.5512 18.9142 19.9975C18.9142 19.4438 18.4674 18.995 17.9162 18.995C17.365 18.995 16.9182 19.4438 16.9182 19.9975C16.9182 20.5512 17.365 21 17.9162 21Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M1 1H2.99601L5.6507 13.4511C5.74808 13.9071 6.00067 14.3148 6.36498 14.6039C6.72929 14.893 7.18254 15.0455 7.64671 15.0351H17.4072C17.8615 15.0344 18.3019 14.878 18.6557 14.5918C19.0096 14.3057 19.2556 13.9068 19.3533 13.4612L21 6.01253H4.06387" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </button>
         </div>
     </header>
@@ -81,91 +85,324 @@
 
             <div class="section-heading">
                 <h2>가장 인기 있는 메뉴</h2>
-                <p>
-                    한 달간 주문수가 많고 만족도가 높은 메뉴예요.
-                </p>
+                <p>한 달간 주문수가 많고 만족도가 높은 메뉴예요.</p>
             </div>
 
-            <div class="menu-list">
+            <!-- 선택한 식당의 메뉴가 JavaScript로 들어갑니다. -->
+            <div class="menu-list" id="menuList"></div>
 
-                <!-- 첫 번째 메뉴 -->
-                <article class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-info">
-                            <h3>황금올리브치킨</h3>
-                            <strong>23,000원</strong>
-                            <span>리뷰 365</span>
-                        </div>
-
-                        <div class="menu-image-box">
-                            <img
-                                class="menu-image"
-                                src="{% static 'deliverys/images/chicken1-1.png' %}"
-                                alt="황금올리브치킨"
-                            >
-
-                            <img
-                                class="plus-icon"
-                                src="{% static 'deliverys/icons/plus.svg' %}"
-                                alt=""
-                            >
-                        </div>
-                    </a>
-                </article>
-
-                <!-- 두 번째 메뉴 -->
-                <article class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-info">
-                            <h3>[황.양.반] 황올 반+양념 반</h3>
-                            <strong>24,000원</strong>
-                            <span>리뷰 256</span>
-                        </div>
-
-                        <div class="menu-image-box">
-                            <img
-                                class="menu-image"
-                                src="{% static 'deliverys/images/chicken2.png' %}"
-                                alt="황올 반 양념 반"
-                            >
-
-                            <img
-                                class="plus-icon"
-                                src="{% static 'deliverys/icons/plus.svg' %}"
-                                alt=""
-                            >
-                        </div>
-                    </a>
-                </article>
-
-                <!-- 세 번째 메뉴 -->
-                <article class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-info">
-                            <h3>황금올리브치킨</h3>
-                            <strong>23,000원</strong>
-                            <span>리뷰 256</span>
-                        </div>
-
-                        <div class="menu-image-box">
-                            <img
-                                class="menu-image"
-                                src="{% static 'deliverys/images/chicken3.png' %}"
-                                alt="황금올리브치킨"
-                            >
-
-                            <img
-                                class="plus-icon"
-                                src="{% static 'deliverys/icons/plus.svg' %}"
-                                alt=""
-                            >
-                        </div>
-                    </a>
-                </article>
-
-            </div>
         </section>
     </main>
 
 </div>
+
+<!-- Django static 경로를 JavaScript에서 사용하기 위한 숨김 데이터 -->
+<div
+    id="staticPathData"
+    data-chicken1="{% static 'deliverys/images/chicken1-1.png' %}"
+    data-chicken2="{% static 'deliverys/images/chicken2.png' %}"
+    data-chicken3="{% static 'deliverys/images/chicken3.png' %}"
+    hidden
+></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const storeNameElement = document.getElementById("storeName");
+    const menuListElement = document.getElementById("menuList");
+    const backButton = document.getElementById("backButton");
+    const staticPathData = document.getElementById("staticPathData");
+
+    const defaultImages = [
+        staticPathData.dataset.chicken1,
+        staticPathData.dataset.chicken2,
+        staticPathData.dataset.chicken3,
+        staticPathData.dataset.chicken1
+    ];
+
+    /*
+     * 식당별 메뉴 데이터
+     * 실제 이미지 파일을 추가하면 image 값만 해당 static 경로로 바꾸면 됩니다.
+     */
+    const restaurantMenus = {
+        "교촌": [
+            { name: "허니콤보", price: 23000, review: 365, image: defaultImages[0] },
+            { name: "레드콤보", price: 23000, review: 284, image: defaultImages[1] },
+            { name: "반반콤보", price: 24000, review: 241, image: defaultImages[2] },
+            { name: "교촌오리지날", price: 20000, review: 198, image: defaultImages[3] }
+        ],
+        "bhc": [
+            { name: "뿌링클", price: 23000, review: 412, image: defaultImages[0] },
+            { name: "맛초킹", price: 23000, review: 326, image: defaultImages[1] },
+            { name: "골드킹", price: 23000, review: 279, image: defaultImages[2] },
+            { name: "후라이드치킨", price: 20000, review: 205, image: defaultImages[3] }
+        ],
+        "bbq": [
+            { name: "황금올리브치킨", price: 23000, review: 365, image: defaultImages[0] },
+            { name: "[황.양.반] 황올 반+양념 반", price: 24000, review: 256, image: defaultImages[1] },
+            { name: "자메이카 통다리구이", price: 24500, review: 232, image: defaultImages[2] },
+            { name: "핫황금올리브 크리스피", price: 24000, review: 187, image: defaultImages[3] }
+        ],
+        "굽네": [
+            { name: "고추바사삭", price: 21000, review: 388, image: defaultImages[0] },
+            { name: "오리지널", price: 18000, review: 265, image: defaultImages[1] },
+            { name: "남해마늘바사삭", price: 22000, review: 221, image: defaultImages[2] },
+            { name: "볼케이노", price: 20000, review: 194, image: defaultImages[3] }
+        ],
+
+        "샹츠 마라": [
+            { name: "마라탕", price: 10000, review: 302, image: defaultImages[0] },
+            { name: "마라샹궈", price: 18000, review: 247, image: defaultImages[1] },
+            { name: "꿔바로우", price: 16000, review: 214, image: defaultImages[2] },
+            { name: "마라볶음밥", price: 9000, review: 163, image: defaultImages[3] }
+        ],
+        "홍콩반점": [
+            { name: "짜장면", price: 7000, review: 341, image: defaultImages[0] },
+            { name: "짬뽕", price: 8000, review: 298, image: defaultImages[1] },
+            { name: "탕수육", price: 16000, review: 257, image: defaultImages[2] },
+            { name: "짜장밥", price: 8000, review: 148, image: defaultImages[3] }
+        ],
+        "춘리마라탕": [
+            { name: "소고기 마라탕", price: 12000, review: 316, image: defaultImages[0] },
+            { name: "마라샹궈", price: 18000, review: 229, image: defaultImages[1] },
+            { name: "크림새우", price: 15000, review: 186, image: defaultImages[2] },
+            { name: "계란볶음밥", price: 8000, review: 141, image: defaultImages[3] }
+        ],
+        "피로반점": [
+            { name: "간짜장", price: 8000, review: 273, image: defaultImages[0] },
+            { name: "차돌짬뽕", price: 10000, review: 244, image: defaultImages[1] },
+            { name: "고추잡채밥", price: 10000, review: 173, image: defaultImages[2] },
+            { name: "깐풍기", price: 18000, review: 152, image: defaultImages[3] }
+        ],
+
+        "엽기떡볶이": [
+            { name: "엽기떡볶이", price: 14000, review: 421, image: defaultImages[0] },
+            { name: "엽기반반", price: 14000, review: 318, image: defaultImages[1] },
+            { name: "로제떡볶이", price: 16000, review: 276, image: defaultImages[2] },
+            { name: "엽기닭볶음탕", price: 24000, review: 189, image: defaultImages[3] }
+        ],
+        "응급실 떡볶이": [
+            { name: "응급실 국물떡볶이", price: 14000, review: 294, image: defaultImages[0] },
+            { name: "부상맛 떡볶이", price: 14000, review: 237, image: defaultImages[1] },
+            { name: "로제 국물떡볶이", price: 16000, review: 202, image: defaultImages[2] },
+            { name: "모둠튀김", price: 7000, review: 181, image: defaultImages[3] }
+        ],
+        "싸다김밥": [
+            { name: "싸다김밥", price: 3500, review: 311, image: defaultImages[0] },
+            { name: "참치김밥", price: 4500, review: 265, image: defaultImages[1] },
+            { name: "돈가스김밥", price: 5000, review: 214, image: defaultImages[2] },
+            { name: "치즈라볶이", price: 7000, review: 177, image: defaultImages[3] }
+        ],
+        "스쿨푸드": [
+            { name: "모짜렐라 스팸계란마리", price: 10000, review: 278, image: defaultImages[0] },
+            { name: "매운 까르보나라 떡볶이", price: 13000, review: 239, image: defaultImages[1] },
+            { name: "장조림버터비빔밥", price: 11000, review: 205, image: defaultImages[2] },
+            { name: "통새우마리", price: 10500, review: 164, image: defaultImages[3] }
+        ],
+
+        "메가mgc": [
+            { name: "메가리카노", price: 3000, review: 356, image: defaultImages[0] },
+            { name: "큐브라떼", price: 4500, review: 226, image: defaultImages[1] },
+            { name: "딸기라떼", price: 4000, review: 211, image: defaultImages[2] },
+            { name: "플레인 크로플", price: 3500, review: 174, image: defaultImages[3] }
+        ],
+        "투썸": [
+            { name: "아메리카노", price: 4700, review: 319, image: defaultImages[0] },
+            { name: "로얄 밀크티", price: 5500, review: 218, image: defaultImages[1] },
+            { name: "스트로베리 초콜릿 생크림", price: 6800, review: 247, image: defaultImages[2] },
+            { name: "티라미수", price: 6500, review: 201, image: defaultImages[3] }
+        ],
+        "던킨": [
+            { name: "글레이즈드 도넛", price: 1900, review: 301, image: defaultImages[0] },
+            { name: "카카오 후로스티드", price: 2100, review: 216, image: defaultImages[1] },
+            { name: "보스턴 크림", price: 2100, review: 188, image: defaultImages[2] },
+            { name: "아이스 아메리카노", price: 4000, review: 154, image: defaultImages[3] }
+        ],
+        "컴포즈": [
+            { name: "빅포즈 아메리카노", price: 2500, review: 337, image: defaultImages[0] },
+            { name: "와플", price: 3500, review: 229, image: defaultImages[1] },
+            { name: "쿠키초코 프라페", price: 4500, review: 191, image: defaultImages[2] },
+            { name: "생초콜릿 라떼", price: 4300, review: 172, image: defaultImages[3] }
+        ],
+
+        "맥도날드": [
+            { name: "빅맥 세트", price: 7200, review: 398, image: defaultImages[0] },
+            { name: "상하이 버거 세트", price: 7400, review: 341, image: defaultImages[1] },
+            { name: "불고기버거 세트", price: 6000, review: 285, image: defaultImages[2] },
+            { name: "맥스파이시 치킨텐더", price: 4500, review: 196, image: defaultImages[3] }
+        ],
+        "롯데리아": [
+            { name: "리아 불고기 세트", price: 7100, review: 316, image: defaultImages[0] },
+            { name: "새우버거 세트", price: 7100, review: 288, image: defaultImages[1] },
+            { name: "한우불고기버거 세트", price: 10000, review: 213, image: defaultImages[2] },
+            { name: "모짜렐라 인 더 버거 세트", price: 8500, review: 184, image: defaultImages[3] }
+        ],
+        "버거킹": [
+            { name: "와퍼 세트", price: 9100, review: 379, image: defaultImages[0] },
+            { name: "콰트로치즈와퍼 세트", price: 10000, review: 302, image: defaultImages[1] },
+            { name: "통새우와퍼 세트", price: 10000, review: 261, image: defaultImages[2] },
+            { name: "치킨킹 세트", price: 8500, review: 193, image: defaultImages[3] }
+        ],
+        "맘스터치": [
+            { name: "싸이버거 세트", price: 7300, review: 402, image: defaultImages[0] },
+            { name: "화이트갈릭버거 세트", price: 7900, review: 298, image: defaultImages[1] },
+            { name: "인크레더블버거 세트", price: 8300, review: 247, image: defaultImages[2] },
+            { name: "딥치즈버거 세트", price: 7800, review: 216, image: defaultImages[3] }
+        ]
+    };
+
+    /*
+     * 앞 페이지에서 식당 이름을 넘기는 방법
+     * 1순위: /learning/menu/?store=bbq
+     * 2순위: localStorage.setItem("selectedRestaurant", "bbq")
+     */
+    const params = new URLSearchParams(window.location.search);
+    const queryStore =
+        params.get("store") ||
+        params.get("restaurant") ||
+        params.get("store_name");
+
+    const savedStore = localStorage.getItem("selectedRestaurant");
+    const requestedStore = queryStore || savedStore || "bbq";
+    const selectedStoreKey = findRestaurantKey(requestedStore);
+
+    renderRestaurant(selectedStoreKey);
+
+    backButton.addEventListener("click", function () {
+        if (window.history.length > 1) {
+            window.history.back();
+        }
+    });
+
+    function normalizeStoreName(value) {
+        return String(value || "")
+            .toLowerCase()
+            .replaceAll(" ", "")
+            .replaceAll("-", "")
+            .replaceAll("_", "")
+            .replace("치킨", "")
+            .replace("커피", "")
+            .replace("플레이스", "")
+            .replace("길음센터피스점", "")
+            .trim();
+    }
+
+    function findRestaurantKey(requestedName) {
+        const normalizedRequestedName = normalizeStoreName(requestedName);
+
+        const matchedKey = Object.keys(restaurantMenus).find(function (key) {
+            const normalizedKey = normalizeStoreName(key);
+
+            return (
+                normalizedKey === normalizedRequestedName ||
+                normalizedRequestedName.includes(normalizedKey) ||
+                normalizedKey.includes(normalizedRequestedName)
+            );
+        });
+
+        return matchedKey || "bbq";
+    }
+
+    function renderRestaurant(storeKey) {
+        const menus = restaurantMenus[storeKey];
+
+        storeNameElement.textContent = getDisplayStoreName(storeKey);
+        localStorage.setItem("selectedRestaurant", storeKey);
+        menuListElement.innerHTML = "";
+
+        menus.forEach(function (menu, index) {
+            const menuItem = document.createElement("article");
+            menuItem.className = "menu-item";
+
+            menuItem.innerHTML = `
+                <a href="#" class="menu-link" data-menu-index="${index}">
+                    <div class="menu-info">
+                        <h3>${escapeHtml(menu.name)}</h3>
+                        <strong>${menu.price.toLocaleString("ko-KR")}원</strong>
+                        <span>리뷰 ${menu.review.toLocaleString("ko-KR")}</span>
+                    </div>
+
+                    <div class="menu-image-box">
+                        <img
+                            class="menu-image"
+                            src="${menu.image}"
+                            alt="${escapeHtml(menu.name)}"
+                        >
+
+                        <span class="menu-add-button" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <g>
+                                    <g filter="url(#menuButtonShadow${index})">
+                                        <path d="M20 36.6667C29.2048 36.6667 36.6667 29.2048 36.6667 20C36.6667 10.7953 29.2048 3.33337 20 3.33337C10.7953 3.33337 3.33337 10.7953 3.33337 20C3.33337 29.2048 10.7953 36.6667 20 36.6667Z" fill="white"/>
+                                    </g>
+                                    <path d="M13.3334 20H26.6667" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20 13.3334V26.6667" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
+                                <defs>
+                                    <filter id="menuButtonShadow${index}" x="-1.66663" y="0.333374" width="43.3334" height="43.3334" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                        <feOffset dy="2"/>
+                                        <feGaussianBlur stdDeviation="2.5"/>
+                                        <feComposite in2="hardAlpha" operator="out"/>
+                                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+            `;
+
+            const menuLink = menuItem.querySelector(".menu-link");
+
+            menuLink.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                localStorage.setItem("selectedRestaurant", storeKey);
+                localStorage.setItem("selectedMenu", JSON.stringify({
+                    store: storeKey,
+                    name: menu.name,
+                    price: menu.price,
+                    review: menu.review,
+                    image: menu.image
+                }));
+
+                /*
+                 * 메뉴 옵션 페이지 URL이 정해지면 아래 주석을 해제하고
+                 * 주소만 프로젝트 URL에 맞게 수정하세요.
+                 */
+                // window.location.href =
+                //     `/learning/menu_option/?store=${encodeURIComponent(storeKey)}&menu=${encodeURIComponent(menu.name)}`;
+            });
+
+            menuListElement.appendChild(menuItem);
+        });
+    }
+
+    function getDisplayStoreName(storeKey) {
+        const displayNames = {
+            "교촌": "교촌치킨",
+            "bhc": "BHC",
+            "bbq": "BBQ",
+            "굽네": "굽네치킨",
+            "메가mgc": "메가MGC커피",
+            "투썸": "투썸플레이스",
+            "컴포즈": "컴포즈커피"
+        };
+
+        return displayNames[storeKey] || storeKey;
+    }
+
+    function escapeHtml(value) {
+        return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+});
+</script>
 {% endblock %}
