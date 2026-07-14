@@ -28,14 +28,23 @@
         </div>
     </header>
     <main>
-        <div class="stage-group">
-            {% block stage_list %}
-                <div class="stage-item">음식 담기</div>
-                <div class="stage-item">메뉴 담기</div>
-                <div class="stage-item">장바구니 보기</div>
-                <div class="stage-item">결제</div>
-            {% endblock %}
+        <div class = "side-group">
+            <div class="stage-group">
+                {% block stage_list %}
+                    <div class="stage-item">음식 담기</div>
+                    <div class="stage-item">메뉴 담기</div>
+                    <div class="stage-item">장바구니 보기</div>
+                    <div class="stage-item">결제</div>
+                {% endblock %}
+            </div>
+            <div class ="mission_box">
+                <span class ="mission">
+                    미션: {미션입니다.미션입니다.미션입니다.미션입니다.미션입니다.미션입니다.}
+                </span>
+            </div>
         </div>
+    
+
         <div class="mobile-group">
             <div class="mobile-guide">
                 {% block guide %}
