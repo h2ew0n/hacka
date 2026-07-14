@@ -1,0 +1,104 @@
+[
+    {
+        "model": "deliverys.mission",
+        "pk": 1,
+        "fields": {
+            "title": "떡볶이 주문하기",
+            "description": "동대문엽기떡볶이에서 엽기떡볶이 2인분을 주문해보세요!",
+            "step_guide": [
+
+            ],
+            "answer_data": {
+                "category": "분식",
+                "store": "동대문엽기떡볶이",
+                "menu": "엽기떡볶이",
+                "count": 2
+            }
+        }
+    },
+    {
+        "model": "deliverys.mission",
+        "pk": 2,
+        "fields": {
+            "title": "짬뽕 주문하기",
+            "description": "홍콩반점에서 짬뽕 1인분을 주문해보세요!",
+            "step_guide": [
+                
+            ],
+            "answer_data": {
+                "category": "중식",
+                "store": "홍콩반점",
+                "menu": "짬뽕",
+                "count": 1
+            }
+        }
+    },
+    {
+        "model": "deliverys.mission",
+        "pk": 3,
+        "fields": {
+            "title": "버거 주문하기",
+            "description": "맥도날드에서 불고기버거 세트 2인분을 주문해보세요!",
+            "step_guide": [
+                
+            ],
+            "answer_data": {
+                "category": "패스트푸드",
+                "store": "맥도날드",
+                "menu": "불고기버거 세트",
+                "count": 2
+            }
+        }
+    },
+    {
+        "model": "deliverys.mission",
+        "pk": 4,
+        "fields": {
+            "title": "라떼 주문하기",
+            "description": "메가MGC커피에서 큐브라떼 1개를 주문해보세요!",
+            "step_guide": [
+                
+            ],
+            "answer_data": {
+                "category": "카페디저트",
+                "store": "메가MGC커피",
+                "menu": "큐브라떼",
+                "count": 1
+            }
+        }
+    },
+    {
+        "model": "deliverys.mission",
+        "pk": 5,
+        "fields": {
+            "title": "치킨 주문하기",
+            "description": "굽네치킨에서 오리지널 4인분을 주문해보세요!",
+            "step_guide": [
+                
+            ],
+            "answer_data": {
+                "category": "치킨",
+                "store": "굽네치킨",
+                "menu": "오리지널",
+                "count": 4
+            }
+        }
+    },
+    {
+        "model": "deliverys.mission",
+        "pk": 6,
+        "fields": {
+            "title": "보쌈 주문하기",
+            "description": "피로족발에서 보쌈 3인분을 주문해보세요!",
+            "step_guide": [
+                
+            ],
+            "answer_data": {
+                "category": "족발보쌈",
+                "store": "피로족발",
+                "menu": "보쌈",
+                "count": 3
+            }
+        }
+    }
+]
