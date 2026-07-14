@@ -1,6 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Mission
 
 # Create your views here.
+def initialize_simulation(request):
+    mission = get_object_or_404(Mission, id=mission_id)
+    request.session['cart_data'] = {
+
+    }
+
 def main(request):
     return render(request, 'deliverys/main.html')
 
