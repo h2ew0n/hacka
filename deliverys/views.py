@@ -79,13 +79,13 @@ def learn_list(request):
     if search_key == "중식":
         target_store = "홍콩반점"
     elif search_key == "패스트푸드":
-        target_store = "패스트푸드가게"
+        target_store = "맥도날드"
     elif search_key == "카페디저트":
-        target_store = "카페디저트가게"
+        target_store = "메가MGC커피"
     elif search_key == "치킨":
-        target_store = "치킨가게"
+        target_store = "굽네치킨"
     elif search_key == "족발보쌈":
-        target_store = "족보가게"
+        target_store = "피로족발"
 
     return render(request, 'deliverys/learn_list.html', {
         'stores': stores,
