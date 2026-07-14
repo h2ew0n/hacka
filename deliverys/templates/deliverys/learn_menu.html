@@ -381,9 +381,26 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     if (backButton) {
     backButton.addEventListener("click", function () {
-        window.history.back();
+        const categoryByStore = {
+            "굽네": "치킨",
+            "홍콩반점": "중식",
+            "메가mgc": "카페디저트",
+            "맥도날드": "패스트푸드",
+            "엽기떡볶이": "분식",
+            "피로족발": "족발보쌈"
+        };
+
+        const category =
+            categoryByStore[selectedStoreKey] || "";
+
+        const listUrl =
+            "{% url 'deliverys:learn_list' %}";
+
+        window.location.href =
+            `${listUrl}?q=${encodeURIComponent(category)}`;
     });
-}
+    }
+
 
     const shareButton = document.querySelector('button[aria-label="공유"]');
     const searchButton = document.querySelector('button[aria-label="검색"]');
