@@ -114,11 +114,18 @@ main {
 .mission{
     color: #FFE500;
     font-family: Inter, sans-serif;
-    font-size: 30px;
+    font-size: 50px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
 
+.mission p {
+    color: #FFE500;
+    font-family: Inter, sans-serif;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 700;
 }
 
 /* ============================================

@@ -12,6 +12,13 @@
     <div class="stage-item active">결제</div>
 {% endblock %}
 
+{% block extra %}
+    <p>
+        미션:<br>{{ store }}에서 {{ menu }}의 {{ count }}인분을 주문해보세요!
+        <br>추가 메뉴: {{ extra|join:", " }}
+    </p>
+{% endblock %}
+
 {% block guide %}
 <!-- 모바일 가이드(설명) 부분 -->
 {% endblock %}

@@ -17,13 +17,9 @@
 
 <div class="mission-card">
     <p class="mission-text">
-        미션:<br>{{ store }}에서 {{ menu }}의 {{ count }}인분을 주문해보세요!
+        미션:<br>{{ store }}에서 {{ menu }}의 {{ count }}인분을 주문해보세요!<br>
+        추가 메뉴: {{ extra|join:", " }}
     </p>
-    <!-- {% if extra %}
-    <p class = "mission-extra">
-        추가 메뉴: {{ extra }}
-    </p>
-    {% endif %} -->
 </div>
 
 <a href="{% url 'deliverys:learn_search' %}" class="start-button">

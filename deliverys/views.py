@@ -235,11 +235,11 @@ def initialize_simulation(request):
     return redirect('deliverys:learn_mission')
 
 def main(request):
-    initialize_simulation(request)
     return render(request, 'deliverys/main.html')
 
 # --- 학습 모드 ---
 def learn_mission(request):
+    initialize_simulation(request)
     cart_data = request.session.get('cart_data')
 
     if not cart_data:
@@ -250,13 +250,27 @@ def learn_mission(request):
     context = {
         'store': answer.get('store'),
         'menu': answer.get('menu'),
-        'count': answer.get('count')
+        'count': answer.get('count'),
+        'extra': answer.get('extra'),
     }
 
     return render(request, 'deliverys/learn_mission.html', context)
 
 def learn_search(request):
-    return render(request, 'deliverys/learn_search.html')
+    cart_data = request.session.get('cart_data')
+    
+    if not cart_data:
+        return redirect('deliverys:main')
+    
+    answer = cart_data.get('answer_data', {})
+    
+    context = {
+        'store': answer.get('store'),
+        'menu': answer.get('menu'),
+        'count': answer.get('count'),
+        'extra': answer.get('extra'),
+    }
+    return render(request, 'deliverys/learn_search.html', context)
 
 def learn_list(request):
     cart_data = request.session.get('cart_data')
@@ -265,6 +279,10 @@ def learn_list(request):
 
     answer = cart_data.get('answer_data', {})
     correct_keyword = answer.get('category')
+    store_mission = answer.get('store'),
+    menu = answer.get('menu'),
+    count =  answer.get('count'),
+    extra = answer.get('extra'),
     # 1. 검색어를 가져오기 (기본값은 '분식')
     keyword = request.GET.get('q', '분식')
 
@@ -339,26 +357,69 @@ def learn_list(request):
         'keyword': keyword,
         'target_store': target_store,
         'error_message': error_message,
+        'store_mission': store_mission,
+        'menu': menu,
+        'count': count,
+        'extra': extra
     })
 
 def learn_menu(request):
     cart_data = request.session.get('cart_data')
     if not cart_data:
         return redirect('deliverys:main')
+    answer = cart_data.get('answer_data', {})
+    
+    context = {
+        'store': answer.get('store'),
+        'menu': answer.get('menu'),
+        'count': answer.get('count'),
+        'extra': answer.get('extra'),
+    }
 
-    return render(request, 'deliverys/learn_menu.html')
+    return render(request, 'deliverys/learn_menu.html', context)
 
 def learn_menu_option(request):
+    cart_data = request.session.get('cart_data')
+    if not cart_data:
+        return redirect('deliverys:main')
+    answer = cart_data.get('answer_data', {})
+   
     context = {
         'store_logos_json': json.dumps(STORE_LOGOS_FOR_JS, ensure_ascii=False),
+        'store': answer.get('store'),
+        'menu': answer.get('menu'),
+        'count': answer.get('count'),
+        'extra': answer.get('extra'),
     }
     return render(request, 'deliverys/learn_menu_option.html', context)
 
 def learn_cart(request):
-    return render(request, 'deliverys/learn_cart.html')
+    cart_data = request.session.get('cart_data')
+    if not cart_data:
+        return redirect('deliverys:main')
+    answer = cart_data.get('answer_data', {})
+   
+    context = {
+        'store': answer.get('store'),
+        'menu': answer.get('menu'),
+        'count': answer.get('count'),
+        'extra': answer.get('extra'),
+    }
+    return render(request, 'deliverys/learn_cart.html', context)
 
 def learn_payment(request):
-    return render(request, 'deliverys/learn_payment.html')
+    cart_data = request.session.get('cart_data')
+    if not cart_data:
+        return redirect('deliverys:main')
+    answer = cart_data.get('answer_data', {})
+   
+    context = {
+        'store': answer.get('store'),
+        'menu': answer.get('menu'),
+        'count': answer.get('count'),
+        'extra': answer.get('extra'),
+    }
+    return render(request, 'deliverys/learn_payment.html', context)
 
 def learn_success(request):
     return render(request, 'deliverys/learn_success.html')

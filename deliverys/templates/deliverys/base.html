@@ -37,9 +37,15 @@
                     <div class="stage-item">결제</div>
                 {% endblock %}
             </div>
+            
             <div class ="mission_box">
                 <span class ="mission">
-                    미션: {미션입니다.미션입니다.미션입니다.미션입니다.미션입니다.미션입니다.}
+                    {% block extra %}
+                        <p>
+                            미션:<br>{{ store }}에서 {{ menu }}의 {{ count }}인분을 주문해보세요!
+                            <br>추가 메뉴: {{ extra|join:", " }}
+                        </p>
+                    {% endblock %}
                 </span>
             </div>
         </div>
