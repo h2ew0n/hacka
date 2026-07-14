@@ -190,11 +190,11 @@
 
 }
 
-/* 메인 카드 영역 (둥근 흰색 판) */
+/* [수정] 메인 카드 영역 (둥근 흰색 판) */
 .main-card {
-  width: 423px;
+  width: 393px;            
   height: 656px;
-  left: -15px;
+  left: 0;               
   top: 247px;
   position: absolute;
   background: white;
@@ -202,29 +202,40 @@
   border-radius: 69px;
 }
 
-/* 탭 메뉴 */
+
 .tab-menu {
-  left: 42px;
+  width: 100%;             
   top: 26px;
   position: absolute;
-  display: inline-flex;
-  gap: 38px;
+  display: flex;           
+  justify-content: center; 
+  gap: 25px;               
 }
 
 .tab-item {
   color: black;
   font-size: 16px;
   font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1;
 }
 
+.tab-item:hover {
+  transform: translateY(-4px); 
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.08);
+  z-index: 5;
+}
+
+/* [수정] 검은색 인디케이터 밑줄 위치 조정 */
 .tab-indicator {
-  width: 76px;
+  width: 64px;             
   height: 0px;
-  left: 35px;
+  left: 63px;              
   top: 62px;
   position: absolute;
   outline: 5px black solid;
-  outline-offset: -2.50px;
+  outline-offset: -2.0px;
 }
 
 /* 카테고리 전체 공통 정렬 */
@@ -242,6 +253,15 @@
   height: 67px;
   background: rgba(217, 217, 217, 0.50);
   border-radius: 10px;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1;
+}
+
+.category-box:hover {
+  background-color: rgba(255, 230, 0, 0.546);
+  transform: translateY(-4px); 
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.08);
+  z-index: 5;
 }
 
 /* 글자 줄바꿈 원천 방지 및 너비 가변 확장 */
@@ -335,7 +355,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
- cursor: pointer;
+  cursor: pointer;
 
   
   color: black;
@@ -396,34 +416,40 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1;
+}
+
+.nav-icon:hover {
+  transform: translateY(-4px); 
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.08);
+  z-index: 5;
 }
 
 
-.cart-toast {
-  position: fixed;
-  bottom: 60px;
+#cartToast {
+  position: absolute;
+  bottom: 40px; /* 아이폰 하단 네비게이션 위에 알맞게 안착 */
   left: 50%;
-  transform: translate(-50%, 20px);
-  background: rgba(0, 0, 0, 0.85);
+  transform: translateX(-50%);
+  background-color: rgba(255, 75, 75, 0.92); /* 미션 경고용 피드백 컬러 */
   color: white;
-  padding: 14px 28px;
+  padding: 12px 22px;
   border-radius: 30px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  z-index: 99999;
-  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
   white-space: nowrap;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   
-
+  /* 등장 애니메이션 제어용 */
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
-
-.cart-toast.show {
+/* 자바스크립트 클래스(.add("show")) 추가 시 나타남 */
+#cartToast.show {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, 0);
 }
