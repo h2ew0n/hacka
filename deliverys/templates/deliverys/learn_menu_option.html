@@ -227,13 +227,15 @@
 
 <!--
     외부 JS에서는 Django의 static 태그를 사용할 수 없으므로
-    기본 이미지 주소만 HTML에서 전달합니다.
+    기본 이미지 주소, 그리고 가게 로고 매핑(STORE_LOGOS)을 여기서 전달합니다.
+    STORE_LOGOS의 실제 값은 views.py의 category_data 한 곳에서만 관리됩니다.
 -->
 <script>
     window.LEARN_MENU_OPTION_CONFIG = {
         defaultImage: "{% static 'deliverys/images/chicken3.png' %}",
         cartUrl: "{% url 'deliverys:learn_cart' %}"
     };
+    window.STORE_LOGOS = {{ store_logos_json|safe }};
 </script>
 
 <script src="{% static 'deliverys/js/learn_menu_option.js' %}"></script>

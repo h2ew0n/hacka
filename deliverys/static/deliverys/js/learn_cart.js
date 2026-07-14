@@ -17,6 +17,10 @@
          }
        ]
    위 값이 없을 경우, 화면 확인용 기본 샘플 데이터를 사용한다.
+
+   [이미지 처리 규칙]
+   - image 값이 이모지 등 짧은 텍스트면 그대로 텍스트로 보여준다.
+   - image 값이 URL(http... 또는 /로 시작)이면 실제 <img> 태그로 렌더링한다.
    ============================================ */
 
 (function () {
@@ -98,6 +102,19 @@
         return cartItems.reduce((sum, item) => sum + item.unitPrice * item.qty, 0);
     }
 
+    /* ---------- 이미지 렌더링 (이모지 텍스트 vs 실제 이미지 URL 구분) ---------- */
+    function isImageUrl(value) {
+        return typeof value === "string" && /^(https?:\/\/|\/)/.test(value);
+    }
+
+    function imageMarkup(value, altText) {
+        if (isImageUrl(value)) {
+            const safeAlt = String(altText || "").replace(/"/g, "&quot;");
+            return `<img src="${value}" alt="${safeAlt}" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`;
+        }
+        return value || "🍗";
+    }
+
     /* ---------- 토스트 메시지 ---------- */
     let toastTimer = null;
     function showToast(message) {
@@ -122,7 +139,7 @@
     }
 
     function renderStore() {
-        document.getElementById("storeThumb").textContent = store.image || "🍗";
+        document.getElementById("storeThumb").innerHTML = imageMarkup(store.image, store.name || "가게");
         document.getElementById("storeName").textContent = store.name || "가게 이름";
     }
 
@@ -145,7 +162,7 @@
                         ${optionHtml}
                         <p class="cart-item-price">${formatWon(item.unitPrice * item.qty)}</p>
                     </div>
-                    <div class="cart-item-thumb">${item.image || "🍗"}</div>
+                    <div class="cart-item-thumb">${imageMarkup(item.image, item.menuName)}</div>
                 </div>
                 <div class="cart-item-controls">
                     <button type="button" class="cart-opt-btn" data-msg>옵션 변경</button>
@@ -179,11 +196,11 @@
             <div class="cart-reco-item">
                 <div class="cart-reco-info">
                     <div class="cart-reco-thumb-info">
-                        <div class="cart-reco-thumb">${reco.image}</div>
+                        <div class="cart-reco-thumb">${imageMarkup(reco.image, reco.name)}</div>
                         <div class="cart-reco-name-price">
                             <p class="cart-reco-name">${reco.name}</p>
                             <p class="cart-reco-price">${formatWon(reco.price)}</p>
-                        </div>     
+                        </div>
                     </div>
                     <button type="button" class="cart-reco-add-btn" data-msg>+</button>
                 </div>
@@ -223,10 +240,13 @@
 
     function renderPayment() {
         const menuTotal = getMenuTotal();
-        const total = menuTotal + DELIVERY_FEE;
+        // 알뜰배달을 선택했을 때만 배달팁(1000원)이 추가된다.
+        const saverSelected = DELIVERY_METHODS.find((d) => d.id === SAVER_DELIVERY_ID)?.selected;
+        const deliveryFee = saverSelected ? DELIVERY_FEE : 0;
+        const total = menuTotal + deliveryFee;
 
         document.getElementById("menuAmount").textContent = formatWon(menuTotal);
-        document.getElementById("deliveryFeeAmount").textContent = formatWon(DELIVERY_FEE);
+        document.getElementById("deliveryFeeAmount").textContent = deliveryFee === 0 ? "0원" : formatWon(deliveryFee);
         document.getElementById("expectedAmount").textContent = formatWon(total);
         document.getElementById("bottomTotal").textContent = formatWon(total);
     }
@@ -248,7 +268,7 @@
             showToast("알뜰 배달을 선택해주세요!");
             return;
         }
-        
+
         const menuTotal = getMenuTotal();
         const total = menuTotal + DELIVERY_FEE;
 
