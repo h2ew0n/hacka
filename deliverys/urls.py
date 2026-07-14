@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('learning/mission/', views.learn_mission, name='learn_mission'),   # 2. 미션 화면
     path('learning/search/', views.learn_search, name='learn_search'),  # 3. 메뉴 검색
-    path('learning/list', views.learn_list, name='learn_list'),     # 4. 식당 리스트
+    path('learning/list/', views.learn_list, name='learn_list'),     # 4. 식당 리스트
     path('learning/menu/', views.learn_menu, name='learn_menu'),    # 5. 메뉴 선택
     path('learning/menu_option/', views.learn_menu_option, name='learn_menu_option'),   # 6. 메뉴 옵션
     path('learning/cart/', views.learn_cart, name='learn_cart'),    # 7. 장바구니
