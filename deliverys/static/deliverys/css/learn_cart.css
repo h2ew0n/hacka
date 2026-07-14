@@ -1,0 +1,463 @@
+/* ============================================
+   장바구니 화면 (learn_cart)
+   ============================================ */
+.cart-app {
+    width: 393px;
+    height: 852px;
+    display: flex;
+    flex-direction: column;
+    background: #FFF;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #191919;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ---------- 상단바 ---------- */
+.cart-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 16px 10px;
+}
+
+.cart-icon-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #191919;
+}
+
+.cart-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* ---------- 탭 ---------- */
+.cart-tabs {
+    display: inline-flex;
+    padding: 15px 45px 10px;
+    align-items: center;
+    gap: 40px;
+    border-bottom: 2px solid #b4b4b4;
+}
+
+.cart-tab-item {
+    font-size: 18px;
+    font-weight: 500;
+    color: #999;
+    padding-bottom: 8px;
+    text-align: center;
+    font-style: normal;
+    line-height: normal;
+}
+
+.cart-tab-item.active {
+    color: #191919;
+    font-weight: 700;
+}
+
+/* ---------- 스크롤 영역 ---------- */
+.cart-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 16px 100px;
+}
+
+.cart-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* ---------- 가게 정보 ---------- */
+.cart-store-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding-bottom: 14px;
+    padding-top: 10px;
+}
+
+
+.cart-store-thumb {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border-radius: 50%;
+    background: #FFF3D6;
+}
+
+.cart-store-name {
+    font-size: 18px;
+    color: #000;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+/* ---------- 장바구니 메뉴 카드 ---------- */
+.cart-item {
+    border-radius: 16px;
+    background: #FFF;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 22px 6px 6px;  /*-전체 padding-*/
+    margin-bottom: 40px;
+}
+
+.cart-item-main {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 15px;
+}
+
+.cart-item-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.cart-item-option-line {
+    color: #666;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+
+.cart-item-price {
+    color: #000;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    margin-top: 12px;
+}
+
+.cart-item-thumb {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    background: #FFF3D6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+}
+ 
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 18px 15px;
+}
+ 
+.cart-opt-btn {
+    display: flex;
+    padding:10px 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    background: #FFF;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+}
+ 
+.cart-trash-qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+ 
+.cart-trash-btn {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: #FFF;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+}
+ 
+.cart-qty-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 5px;
+    background: #FFF;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+    padding: 10px 12px;
+}
+ 
+.cart-qty-value {
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 10px;
+    text-align: center;
+}
+ 
+.cart-qty-plus {
+    font-size: 16px;
+    font-weight: 700;
+    color: #191919;
+}
+ 
+.cart-add-menu-btn {
+    width: 100%;
+    border-radius: 16px;
+    background: #FFF;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+    padding: 13px 10px;
+    color: #6C6C6C;
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+}
+ 
+/* ---------- 함께 먹으면 좋아요 ---------- */
+.cart-section-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+ 
+.cart-reco-section {
+    margin-bottom: 40px;
+}
+ 
+.cart-reco-content{
+    display: flex;
+    padding: 20px 16px 6px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 16px;
+    background: #FFF;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.cart-reco-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    width: 100%;
+}
+
+.cart-reco-name-price{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3px;
+}
+.cart-reco-thumb-info{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 290px;
+    
+} 
+
+.cart-reco-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: #EEF3FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+ 
+.cart-reco-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+}
+ 
+.cart-reco-name {
+    font-size: 13px;
+    font-weight: 600;
+}
+ 
+.cart-reco-price {
+    font-size: 12px;
+    color: #6C6C6C;
+    margin-top: 2px;
+}
+ 
+.cart-reco-add-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #DADADA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+ 
+.cart-more-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid #EDEDED;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6C6C6C;
+    margin-top: 6px;
+}
+ 
+/* ---------- 수령방법 ---------- */
+.cart-delivery-section {
+    margin-bottom: 40px;
+}
+ 
+.cart-delivery-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 16px;
+    background: #FFF;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+    padding: 16px 14px;
+    margin-bottom: 8px;
+}
+ 
+.cart-delivery-row.selected {
+    border: 2px solid #191919;
+}
+ 
+.cart-delivery-name {
+    font-size: 14px;
+    font-weight: 700;
+}
+ 
+.cart-delivery-time {
+    font-size: 12px;
+    color: #6C6C6C;
+    margin-top: 8px;
+    font-weight: 400;
+}
+ 
+.cart-delivery-fee {
+    font-size: 14px;
+    font-weight: 700;
+}
+ 
+/* ---------- 결제금액 ---------- */
+.cart-payment-section {
+    margin-bottom: 12px;
+}
+ 
+.cart-payment-rows {
+    display: flex;
+    padding: 24px 22px 25px 23px;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 15px;
+    background: #FFF;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+}
+ 
+.cart-payment-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #191919;
+}
+
+.cart-payment-row span{
+    font-weight: 600;
+}
+
+#menuAmount, #deliveryFeeAmount{
+    font-weight: 400;
+}
+ 
+.cart-payment-rows hr {
+    border: none;
+    border-top: 1.5px solid #000;
+    margin: 20px 0;
+}
+ 
+.cart-payment-row.total {
+    font-size: 16px;
+    font-weight: 700;
+}
+ 
+/* ---------- 하단 고정바 ---------- */
+.cart-bottombar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #FFF;
+    border-top: 1px solid #EDEDED;
+    box-sizing: border-box;
+}
+ 
+.cart-bottom-total {
+    font-size: 19px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+ 
+.cart-order-btn {
+    background: #FFE500;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #191919;
+}
+ 
+/* ---------- 토스트 메시지 ---------- */
+.cart-toast {
+    position: absolute;
+    left: 50%;
+    bottom: 90px;
+    transform: translate(-50%, 12px);
+    background: rgba(25, 25, 25, 0.9);
+    color: #FFF;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 20px 20px;
+    border-radius: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+}
+ 
+.cart-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}

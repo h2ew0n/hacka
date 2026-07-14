@@ -1,0 +1,24 @@
+{% extends 'deliverys/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'deliverys/css/learn_mission.css' %}">
+{% endblock %}
+
+{% block stage_list %}{% endblock %}
+{% block guide %}{% endblock %}
+
+{% block mobile_ui %}
+<h1 class="mission-title">미션 제시!</h1>
+
+<div class="mission-card">
+    <p class="mission-text">
+        미션:<br>
+        {가게}에서 {메뉴}의 {추가주문} {{count}}인분을 주문해보세요!
+    </p>
+</div>
+
+<a href="{% url 'deliverys:learn_search' %}" class="start-button">
+    <span>시작</span>
+</a>
+{% endblock %}

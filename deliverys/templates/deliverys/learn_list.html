@@ -1,4 +1,5 @@
 {% extends 'deliverys/base.html' %}
+{% load static %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'deliverys/css/learn_list.css' %}">
@@ -15,6 +16,94 @@
 <!-- 모바일 가이드(설명) 부분 -->
 {% endblock %}
 
-{% block mobile_ui%}
-<!-- 모바일 해보기 부분 -->
+{% block mobile_ui %}
+<div class="iphone-content">
+  <div class="top-search-bar-frame">
+    <a href="/learning/search" style="text-decoration: none; color: inherit;">
+  <div class="vector-arrow-left">←</div>
+    </a>
+    <div class="search-bar-bg">
+      <span class="search-keyword-text">{{ keyword }}</span>
+      <div class="clear-icon-x" onclick="showToast('이 버튼이 아닙니다!')">×</div> 
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart" onclick="showToast('이 버튼이 아닙니다!')"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+  </div>
+
+  <div class="category-tab-frame">
+    <div class="category-tab-list">
+      <div class="tab-item active"><span class="tab-text-bold" onclick="showToast('이 버튼이 아닙니다!')" >전체</span></div>
+      <div class="tab-item"><span class="tab-text-gray" onclick="showToast('이 버튼이 아닙니다!')" >배달 99+</span></div>
+      <div class="tab-item"><span class="tab-text-gray" onclick="showToast('이 버튼이 아닙니다!')" >픽업 99+</span></div>
+      <div class="tab-item"><span class="tab-text-gray" onclick="showToast('이 버튼이 아닙니다!')" >장보기∙쇼핑 99+</span></div>
+    </div>
+  </div>
+  
+  <p class="time-badge"><span class="time-text">약 42분</span></p>
+  <p class="delivery-title"><span class="delivery-title-text">배달</span></p>
+
+  <div class="store-list-frame">
+    {% for store in stores %}
+    <div class="store-item item-{{ forloop.counter }}" data-name="{{ store.name }}" onclick="checkAnswer(this)">
+      <div class="store-item-inner">
+        <img class="store-thumb" src="{{ store.img_url }}" alt="{{ store.name }}" />
+        
+        <div class="store-info-box">
+          <p class="store-name-row"><span class="store-name-text">{{ store.name }}</span></p>
+          
+          <div class="store-meta-row">
+            <div class="star-icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#FFC600" stroke="#FFC600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <div><span class="text-bold-black">{{ store.rating }}</span></div>
+            <div><span class="text-gray-normal">({{ store.review_count }})</span></div>
+            <div><span class="text-gray-normal">최소주문</span></div>
+            <div><span class="text-dark-price">{{ store.min_order }}</span></div>
+          </div>
+          
+          <div class="delivery-time-row">
+            <div class="clock-icon-box">
+              <div class="vector-clock-inner-1"></div>
+              <div class="vector-clock-inner-2"></div>
+              <div class="vector-clock-inner-3"></div>
+            </div>
+            <div><span class="text-normal-black">{{ store.time }}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p>등록된 가게가 없습니다.</p>
+    {% endfor %}
+  </div> <div id="cartToast">틀렸습니다! 미션에 맞는 다른 가게를 골라보세요.</div>
+</div>
+
+<script>
+  let toastTimer = null;
+  
+  function showToast(message) {
+      const toast = document.getElementById("cartToast");
+      if (!toast) return;
+      
+      toast.textContent = message || "이 버튼이 아닙니다!";
+      toast.classList.add("show");
+      
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+          toast.classList.remove("show");
+      }, 1500);
+  }
+
+  function checkAnswer(element) {
+      const correctAnswer = "{{ target_store }}"; 
+      const clickedAnswer = element.getAttribute('data-name');
+      
+      if (clickedAnswer === correctAnswer) {
+          window.location.href = "/learning/menu/?store=" + encodeURIComponent(clickedAnswer);
+      } else {
+          showToast("틀렸습니다! 미션에 맞는 다른 가게를 골라보세요.");
+      }
+  }
+</script>
 {% endblock %}

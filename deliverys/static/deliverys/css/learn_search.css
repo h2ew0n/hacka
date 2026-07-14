@@ -1,0 +1,430 @@
+/* 전역 초기화 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+/* 메인 캔버스 랩퍼 */
+.main-container {
+  width: 1440px;
+  height: 1024px;
+  position: relative;
+  background: #10245C;
+  overflow: hidden;
+}
+
+/* 상단 헤더 영역 */
+.header-section {
+  position: absolute;
+  left: 128px;
+  top: 39px;
+  display: inline-flex;
+  align-items: center;
+  gap: 321px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-inner-1 {
+  width: 10px;
+  height: 15px;
+  left: 15px;
+  top: 20px;
+  position: absolute;
+  outline: 3.33px #FFE500 solid;
+  outline-offset: -1.67px;
+}
+
+.logo-inner-2 {
+  width: 30px;
+  height: 31.67px;
+  left: 5px;
+  top: 3.33px;
+  position: absolute;
+  outline: 3.33px #FFE500 solid;
+  outline-offset: -1.67px;
+}
+
+.header-titles {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 530px;
+}
+
+.title-text {
+  color: #FFE500;
+  font-size: 48px;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+/* 상단 노란색 구분선 */
+.main-container::after {
+  content: '';
+  width: 1484px;
+  height: 0px;
+  left: 0px;
+  top: 130px;
+  position: absolute;
+  outline: 2.50px #FFE500 solid;
+  outline-offset: -1.25px;
+}
+
+/* 메인 콘텐츠 영역 배치 */
+.content-wrapper {
+  display: flex;
+  position: absolute;
+  top: 153px;
+  width: 100%;
+  height: calc(100% - 153px);
+}
+
+/* 왼쪽 사이드바 메뉴 */
+.sidebar-menu {
+  position: absolute;
+  left: 57px;
+  top: 75px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 192px;
+}
+
+.menu-item {
+  position: relative;
+  width: 192px;
+  height: 70px;
+}
+
+.menu-bg {
+  width: 192px;
+  height: 70px;
+  background: white;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.menu-item.active .menu-bg {
+  background: #FFE500;
+}
+
+.menu-text {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: 192px;
+  text-align: center;
+  color: #10245C;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: 1.35px;
+  z-index: 1;
+}
+
+/* 오른쪽 프리뷰 컨테이너 */
+.preview-area {
+  position: absolute;
+  left: 372px;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 200px;
+  width: 986px;
+  height: 852px;
+}
+
+/* 가이드 플레이스홀더 (왼쪽 흰색 판) */
+.guide-placeholder {
+  width: 393px;
+  height: 852px;
+  background: white;
+}
+
+/* 모바일 디바이스 화면 */
+.mobile-screen {
+  width: 393px;
+  height: 852px;
+  position: relative;
+  background: #FFF27B;
+  overflow: hidden;
+}
+
+/* 상단 검색창 */
+.mobile-screen .search-bar {
+  width: 313px;
+  height: 59px;
+  left: 40px;
+  top: 44px;
+  position: absolute;
+  background: white;
+  border-radius: 30px;
+  border: 2px black solid;
+  padding-left: 20px;      
+  padding-right: 45px;     
+  font-size: 15px;          
+  font-weight: 500;
+  color: black;
+  outline: none;
+}
+
+.mobile-screen .search-icon {
+  width: 18px;
+  height: 18px;
+  left: 305px;
+  top: 64px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* [수정] 메인 카드 영역 (둥근 흰색 판) */
+.main-card {
+  width: 393px;            
+  height: 656px;
+  left: 0;               
+  top: 247px;
+  position: absolute;
+  background: white;
+  box-shadow: 0px 0px 20px 20px #FFE500;
+  border-radius: 69px;
+}
+
+
+.tab-menu {
+  width: 100%;             
+  top: 26px;
+  position: absolute;
+  display: flex;           
+  justify-content: center; 
+  gap: 25px;               
+}
+
+.tab-item {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* [수정] 검은색 인디케이터 밑줄 위치 조정 */
+.tab-indicator {
+  width: 64px;             
+  height: 0px;
+  left: 63px;              
+  top: 62px;
+  position: absolute;
+  outline: 5px black solid;
+  outline-offset: -2.0px;
+}
+
+/* 카테고리 전체 공통 정렬 */
+.category-item {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer; /* 마우스 오버 시 손가락 커서 변경 */
+}
+
+.category-box {
+  width: 67px;
+  height: 67px;
+  background: rgba(217, 217, 217, 0.50);
+  border-radius: 10px;
+}
+
+/* 글자 줄바꿈 원천 방지 및 너비 가변 확장 */
+.category-name {
+  width: max-content !important;
+  white-space: nowrap !important;
+  text-align: center;
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  display: block;
+}
+
+.category-icon {
+  position: absolute;
+  top: 0;
+  width: 67px;
+  height: 67px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-icon svg {
+  display: block;
+  margin: 0 auto;
+}
+
+/* 카테고리 개별 위치 고정 (충돌 유발하던 개별 width값 제거) */
+.category-item.chiga    { left: 30px;  top: 112px; }
+.category-item.bunsik   { left: 154px; top: 112px; }
+.category-item.cafe     { left: 278px; top: 112px; }
+
+.category-item.chicken  { left: 30px;  top: 234px; }
+.category-item.fastfood { left: 146px; top: 234px; }
+.category-item.jokbal   { left: 287px; top: 234px; }
+
+/* 광고 문구 및 버튼 (상단) */
+.banner-title {
+  left: 52px;
+  top: 133px;
+  position: absolute;
+  color: black;
+  font-size: 20px;
+  font-weight: 700;
+  
+}
+
+.banner-btn {
+  width: 163px;
+  height: 31px;
+  left: 52px;
+  top: 193px;
+  position: absolute;
+  background: black;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.banner-btn-text {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* 1. 하단 어두운 네이비색 띠 배너 */
+.bottom-strip-banner {
+  width: 343px;
+  height: 71px;
+  left: 20px;
+  top: 408.99px;
+  position: absolute;
+  background: #03182F;
+  border-radius: 20px;
+  display: flex;         /* 내부 태그와 텍스트를 가로 배치 */
+  align-items: center;   /* 세로축 정중앙 정렬 */
+  overflow: hidden;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+
+.strip-tag {
+  height: 34.50px;
+  padding-left: 15px;    /* 왼쪽 여백 */
+  padding-right: 25px;   /* 오른쪽 여백 (파이는 부분 고려해서 여유있게) */
+  background: #FFE500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ cursor: pointer;
+
+  
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  /* 💡 clip-path로 우측 끝을 삼각형 모양(> 방향)으로 안으로 파이게 자름 */
+  clip-path: polygon(0% 0%, 100% 0%, 85% 50%, 100% 100%, 0% 100%);
+}
+
+/* 3. 오른쪽 광고 문구 위치 세부 조정 */
+.strip-text {
+  margin-left: 15px;     /* 리본 태그와의 간격 */
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.strip-text .white-text {
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.strip-text .yellow-text {
+  color: #FFE500;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* 하단 앱 네비게이션 바 흰색 둥근 배경 박스 */
+.bottom-nav {
+  width: 313px;
+  height: 59px;
+  left: 40px;
+  top: 751px;
+  position: absolute;
+  background: white;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  display: flex;         /* 추가: 내부 아이콘들을 정렬하기 위함 */
+  align-items: center;     /* 추가: 세로축 정중앙 정렬 */
+  justify-content: center; /* 추가: 가로축 정중앙 정렬 */
+}
+
+/* 이제 .bottom-nav 내부에서 고르게 간격을 가짐 */
+.nav-icons-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  width: max-content;
+}
+
+.nav-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+#cartToast {
+  position: absolute;
+  bottom: 40px; /* 아이폰 하단 네비게이션 위에 알맞게 안착 */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 75, 75, 0.92); /* 미션 경고용 피드백 컬러 */
+  color: white;
+  padding: 12px 22px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  white-space: nowrap;
+  
+  /* 등장 애니메이션 제어용 */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* 자바스크립트 클래스(.add("show")) 추가 시 나타남 */
+#cartToast.show {
+  opacity: 1;
+  visibility: visible;
+}

@@ -1,0 +1,192 @@
+/* ============================================
+   결제 화면 (learn_payment)
+   ============================================ */
+.payment-app {
+    width: 393px;
+    height: 852px;
+    display: flex;
+    flex-direction: column;
+    background: #F5F5F5;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #191919;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ---------- 상단바 ---------- */
+.payment-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 16px 10px;
+    background: #FFF;
+}
+
+.payment-back-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #191919;
+}
+
+.payment-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* 오른쪽 흰색 동그라미: 버튼이 아니라 제목을 가운데 맞추기 위한 자리 채우기 */
+.payment-spacer-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #FFF;
+}
+
+/* ---------- 스크롤 영역 ---------- */
+.payment-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 16px 100px;
+}
+
+/* ---------- 결제금액 카드 (learn_cart와 동일한 cart-payment-* 클래스 재사용) ---------- */
+.payment-summary-card {
+    border-radius: 15px;
+    background: #FFF;
+    margin-bottom: 20px;
+}
+
+.cart-payment-rows {
+    display: flex;
+    padding: 24px 22px 25px 23px;
+    flex-direction: column;
+    gap: 10px;
+}
+ 
+.cart-payment-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #191919;
+}
+
+.cart-payment-row span{
+    font-weight: 600;
+}
+#menuAmount, #deliveryFeeAmount{
+    font-weight: 400;
+}
+ 
+.cart-payment-rows hr {
+    border: none;
+    border-top: 1.5px solid #000;
+    margin: 20px 0;
+}
+ 
+.cart-payment-row.total {
+    font-size: 16px;
+    font-weight: 700;
+}
+ 
+
+/* ---------- 약관/동의 리스트 ---------- */
+.payment-agreement-list {
+    border-radius: 16px;
+}
+
+.payment-agreement-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 15px;
+    border-bottom: 1px solid #CCC;
+    font-size: 13px;
+    color: #666;
+}
+
+.payment-agreement-list .payment-agreement-row:last-of-type {
+    border-bottom: none;
+}
+
+.payment-agreement-chevron {
+    transition: transform 0.2s ease;
+    color: #A9A9A9;
+}
+
+.payment-agreement-row.open .payment-agreement-chevron {
+    transform: rotate(90deg);
+}
+
+.payment-agreement-detail {
+    display: none;
+    padding: 0 15px 14px;
+    font-size: 13px;
+    color: #6C6C6C;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+.payment-agreement-detail.open {
+    display: block;
+}
+
+.payment-confirm-text {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: 22px;
+}
+
+/* ---------- 하단 고정바 ---------- */
+.payment-bottombar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 14px 16px;
+    background: #FFF;
+    border-top: 1px solid #EDEDED;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#payAmount{
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.payment-pay-btn {
+    background: #FFE500;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #191919;
+}
+
+/* ---------- 토스트 메시지 ---------- */
+.payment-toast {
+    position: absolute;
+    left: 50%;
+    bottom: 90px;
+    transform: translate(-50%, 12px);
+    background: rgba(25, 25, 25, 0.9);
+    color: #FFF;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 20px 20px;
+    border-radius: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+}
+
+.payment-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}

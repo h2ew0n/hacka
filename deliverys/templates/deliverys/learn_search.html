@@ -1,20 +1,221 @@
 {% extends 'deliverys/base.html' %}
+{% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'deliverys/css/learn_search.css' %}"
+<link rel="stylesheet" href="{% static 'deliverys/css/learn_search.css' %}">
 {% endblock %}
 
 {% block stage_list %}
-    <div class="stage-item active">음식 담기</div>
-    <div class="stage-item">메뉴 담기</div>
-    <div class="stage-item">장바구니 보기</div>
-    <div class="stage-item">결제</div>
+    <div class="stage-item active" >음식 담기</div>
+    <div class="stage-item"  >메뉴 담기</div>
+    <div class="stage-item" >장바구니 보기</div>
+    <div class="stage-item" >결제</div>
 {% endblock %}
 
 {% block guide %}
-<!-- 모바일 가이드(설명) 부분 -->
 {% endblock %}
 
-{% block mobile_ui%}
-<!-- 모바일 해보기 부분 -->
+{% block mobile_ui %}
+<div class="mobile-screen">
+  
+  <form action="{% url 'deliverys:learn_list' %}" method="GET" id="searchForm" style="margin: 0; padding: 0;">
+    <input type="text" name="q" class="search-bar" placeholder="먹고 싶은 음식을 검색해 보세요!">
+    <button type="submit" class="search-icon" style="background: none; border: none; padding: 0; cursor: pointer;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.34-4.34"/>
+      </svg>
+    </button>
+  </form>
+
+  <div class="banner-title">피로클럽은 아침부터 야식까지<br/>무제한 배달팁 0원으로 주문!</div>
+  <div class="banner-btn">
+    <span class="banner-btn-text">지금 바로 가입하기&gt;</span>
+  </div>
+
+  <div class="main-card">
+    <div class="tab-menu">
+      <span class="tab-item">음식배달</span>
+      <span class="tab-item">픽업</span>
+      <span class="tab-item">장보기</span>
+      <span class="tab-item">선물하기</span>
+    </div>
+    <div class="tab-indicator"></div>
+
+    <a href="{% url 'deliverys:learn_list' %}?q=중식" style="text-decoration: none; color: inherit;">
+    <div class="category-item chiga">
+      <div class="category-box"></div>
+      <span class="category-name">중식</span>
+      <div class="category-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+      </div>
+    </div>
+    </a>
+
+    <a href="{% url 'deliverys:learn_list' %}?q=분식" style="text-decoration: none; color: inherit;">
+    <div class="category-item bunsik">
+      <div class="category-box"></div>
+      <span class="category-name">분식</span>
+      <div class="category-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+          </div> 
+    </div>
+    </a>
+
+    <a href="{% url 'deliverys:learn_list' %}?q=카페디저트" style="text-decoration: none; color: inherit;">
+    <div class="category-item cafe">
+      <div class="category-box"></div>
+      <span class="category-name">카페, 디저트</span>
+      <div class="category-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+          </div>
+    </div>
+    </a>
+
+    <a href="{% url 'deliverys:learn_list' %}?q=치킨" style="text-decoration: none; color: inherit;">
+    <div class="category-item chicken">
+      <div class="category-box"></div>
+      <span class="category-name">치킨</span>
+      <div class="category-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+          </div>
+    </div>
+    </a>
+
+    <a href="{% url 'deliverys:learn_list' %}?q=패스트푸드" style="text-decoration: none; color: inherit;">
+    <div class="category-item fastfood">
+      <div class="category-box"></div>
+      <span class="category-name">패스트푸드</span>
+      <div class="category-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+          </div>
+    </div>
+    </a>
+
+    <a href="{% url 'deliverys:learn_list' %}?q=족발보쌈" style="text-decoration: none; color: inherit;">
+    <div class="category-item jokbal">
+      <div class="category-box"></div>
+      <span class="category-name">족발, 보쌈</span>
+      <div class="category-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+          </div>
+    </div>
+    </a>
+
+    <div class="bottom-strip-banner">
+      <div class="strip-tag">피로 클럽</div>
+      <div class="strip-text">
+        <span class="white-text">지금 시작하면 </span>
+        <span class="yellow-text">배달팁 0원!</span>
+      </div>
+    </div>
+  </div> <div class="bottom-nav">
+    <div class="nav-icons-wrapper">
+      <div class="nav-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      </div>
+      <div class="nav-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg>
+      </div>
+      <div class="nav-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg>
+      </div>
+      <div class="nav-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt"><path d="M12 17V7"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"/></svg>
+      </div>
+      <div class="nav-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div id="cartToast" class="cart-toast">이 버튼이 아닙니다!</div>
+
+</div> <div class="util-icon-1">
+  <div class="util-icon-1-pt1"></div>
+  <div class="util-icon-1-pt2"></div>
+</div>
+<div class="util-icon-2">
+  <div class="util-icon-2-pt1"></div>
+  <div class="util-icon-2-pt2"></div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('.search-bar');
+    const searchForm = document.getElementById('searchForm');
+
+    // 검색 작동문 제어
+    if (searchForm && searchInput) {
+      searchForm.addEventListener('submit', function(e) {
+        if (searchInput.value.trim() === "") {
+          e.preventDefault();
+          alert("검색어를 입력해주세요!");
+        }
+      });
+    }
+
+
+    let toastTimer = null;
+    
+    function showToast(message) {
+        const toast = document.getElementById("cartToast");
+        
+        // textToShow 변수 선언
+        const textToShow = message || "이 버튼이 아닙니다!";
+        
+        // [1] ID가 cartToast인 단일 요소 제어
+        if (toast) {
+            toast.textContent = textToShow;
+            toast.classList.add("show");
+        }
+
+        // 기존 타이머가 작동 중이었다면 초기화
+        clearTimeout(toastTimer);
+
+        // 1.5초 뒤에 토스트에서 "show" 클래스 제거
+        toastTimer = setTimeout(() => {
+            if (toast) {
+                toast.classList.remove("show");
+            }
+        }, 1500);
+    }
+
+    // 💡 추가된 부분: 탭 메뉴(.tab-item)를 클릭했을 때 토스트 이벤트 연결
+    document.querySelectorAll('.tab-item').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tabName = this.textContent;
+            showToast(`이 버튼이 아닙니다! '${tabName}' 말고 상단 입력창을 이용해주세요.`);
+        });
+    });
+
+    // 각 오답 요소들에 토스트 이벤트 연결
+    document.querySelectorAll('.category-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const name = this.querySelector('.category-name').textContent;
+            showToast(`지금은 검색 연습 중입니다! '${name}' 버튼이 아닙니다.`);
+        });
+    });
+
+    document.querySelectorAll('.nav-icon').forEach(icon => {
+        icon.addEventListener('click', function() {
+            showToast("이 버튼이 아닙니다! 검색창에 먹고 싶은 음식을 쳐보세요.");
+        });
+    });
+
+    const stripBanner = document.querySelector('.bottom-strip-banner');
+    if (stripBanner) {
+        stripBanner.addEventListener('click', function() {
+            showToast("이 버튼이 아닙니다! 상단 입력창을 이용해주세요.");
+        });
+    }
+
+    const piroBanner = document.querySelector('.banner-btn');
+    if (piroBanner) {
+        piroBanner.addEventListener('click', function() {
+            showToast("이 버튼이 아닙니다! 상단 입력창을 이용해주세요.");
+        });
+    }
+  });
+</script>
 {% endblock %}
