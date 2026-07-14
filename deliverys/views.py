@@ -1,6 +1,7 @@
 import random
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Mission
+import json
 
 # ALL_STORES = [
 #     {"id": 1, "name": "동대문엽기떡볶이", "category": "분식", "menus": [{"id": 101, "name": "엽기떡볶이", "price": 14000}]},
@@ -37,13 +38,14 @@ def initialize_simulation(request):
     return redirect('deliverys:learn_mission')
 
 def main(request):
+    initialize_simulation(request)
     return render(request, 'deliverys/main.html')
 
 # --- 학습 모드 ---
 def learn_mission(request):
+    initialize_simulation(request)
     cart_data = request.session.get('cart_data')
     
-    # 세션이 아예 없으면 메인으로 튕겨내기 (여기서 initialize_simulation을 직접 호출하지 않습니다!)
     if not cart_data:
         return redirect('deliverys:main')
     
@@ -166,8 +168,8 @@ def apply_payment(request): return render(request, 'deliverys/apply_payment.html
 def apply_success(request): return render(request, 'deliverys/apply_success.html')
 
 # --learn_mission 몇인분 count 뽑기 --
-def learn_mission(request):
-    context = {
-        'count': random.randint(1,5),
-    }
-    return render(request, 'deliverys/learn_mission.html', context)
+# def learn_mission(request):
+#     context = {
+#         'count': random.randint(1,5),
+#     }
+#     return render(request, 'deliverys/learn_mission.html', context)
