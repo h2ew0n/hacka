@@ -26,10 +26,7 @@
             class="menu-option-header-button"
             aria-label="메뉴 목록으로 돌아가기"
         >
-            <img
-                src="{% static 'deliverys/icons/back.svg' %}"
-                alt=""
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left-icon lucide-move-left"><path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
         </a>
 
         <!-- JS가 메뉴 이름을 넣는 영역 -->
@@ -46,10 +43,7 @@
                 class="menu-option-header-button"
                 aria-label="공유"
             >
-                <img
-                    src="{% static 'deliverys/icons/share.svg' %}"
-                    alt=""
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-arrow-out-up-right-icon lucide-square-arrow-out-up-right"><path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/><path d="m21 3-9 9"/><path d="M15 3h6v6"/></svg>
             </button>
 
             <button
@@ -57,10 +51,7 @@
                 class="menu-option-header-button"
                 aria-label="검색"
             >
-                <img
-                    src="{% static 'deliverys/icons/search.svg' %}"
-                    alt=""
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
             </button>
 
             <button
@@ -68,10 +59,7 @@
                 class="menu-option-header-button"
                 aria-label="장바구니"
             >
-                <img
-                    src="{% static 'deliverys/icons/cart.svg' %}"
-                    alt=""
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
             </button>
         </div>
     </header>
@@ -122,9 +110,9 @@
             class="menu-option-form"
         >
             <!-- 음료 옵션이 JS로 들어가는 영역 -->
-            <section class="option-section">
+            <section class="option-section" id="first-option-section">
                 <div class="option-heading">
-                    <h2>음료 추가선택</h2>
+                    <h2 id="first-option-title">음료 추가선택</h2>
                     <span class="required-badge">필수</span>
                 </div>
 
@@ -135,9 +123,9 @@
             </section>
 
             <!-- 사이드 옵션이 JS로 들어가는 영역 -->
-            <section class="option-section">
+            <section class="option-section" id="second-option-section">
                 <div class="option-heading">
-                    <h2>사이드 추가선택</h2>
+                    <h2 id="second-option-title">사이드 추가선택</h2>
                     <span class="optional-badge">선택</span>
                 </div>
 
@@ -148,9 +136,9 @@
             </section>
 
             <!-- 기타 옵션이 JS로 들어가는 영역 -->
-            <section class="option-section">
+            <section class="option-section" id="third-option-section">
                 <div class="option-heading">
-                    <h2>기타 선택</h2>
+                    <h2 id="third-option-title">기타 선택</h2>
                     <span class="optional-badge">선택</span>
                 </div>
 
@@ -217,10 +205,6 @@
 
     <!-- 하단 고정 주문바 -->
     <footer class="bottom-order-bar">
-        <div class="order-price-info">
-            <span>배달 최소주문금액</span>
-            <small>18,000원</small>
-        </div>
 
         <button
             id="add-cart-button"
@@ -231,7 +215,14 @@
             0원 담기
         </button>
     </footer>
-
+    <div
+    id="cartToast"
+    class="cart-toast"
+    role="status"
+    aria-live="polite"
+    >
+        미션에 맞는 옵션을 선택해주세요.
+    </div>
 </div>
 
 <!--
