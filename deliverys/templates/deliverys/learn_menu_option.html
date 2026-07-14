@@ -1,4 +1,5 @@
 {% extends 'deliverys/base.html' %}
+{% load static %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'deliverys/css/learn_menu_option.css' %}">
@@ -15,6 +16,225 @@
 <!-- 모바일 가이드(설명) 부분 -->
 {% endblock %}
 
-{% block mobile_ui%}
-<!-- 모바일 해보기 부분 -->
+{% block mobile_ui %}
+<div class="menu-option-screen">
+
+    <!-- 앱 내부 상단바 -->
+    <header class="menu-option-header">
+        <a
+            href="{% url 'deliverys:learn_menu' %}"
+            class="menu-option-header-button"
+            aria-label="메뉴 목록으로 돌아가기"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left-icon lucide-move-left"><path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
+        </a>
+
+        <!-- JS가 메뉴 이름을 넣는 영역 -->
+        <h1
+            id="menu-header-title"
+            class="menu-option-header-title"
+        >
+            메뉴 이름
+        </h1>
+
+        <div class="menu-option-header-actions">
+            <button
+                type="button"
+                class="menu-option-header-button"
+                aria-label="공유"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-arrow-out-up-right-icon lucide-square-arrow-out-up-right"><path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/><path d="m21 3-9 9"/><path d="M15 3h6v6"/></svg>
+            </button>
+
+            <button
+                type="button"
+                class="menu-option-header-button"
+                aria-label="검색"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+            </button>
+
+            <button
+                type="button"
+                class="menu-option-header-button"
+                aria-label="장바구니"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- 가운데 스크롤 영역 -->
+    <div class="menu-option-content">
+
+        <!-- 대표 이미지 -->
+        <section class="product-image-section">
+            <img
+                id="menu-main-image"
+                class="product-main-image"
+                src=""
+                alt=""
+            >
+        </section>
+
+        <!-- 메뉴 기본 정보 -->
+        <section class="product-info-section">
+            <h2
+                id="menu-name"
+                class="product-name"
+            >
+                메뉴 이름
+            </h2>
+
+            <p
+                id="menu-description"
+                class="product-description"
+            >
+                메뉴 설명
+            </p>
+
+            <div class="product-price-row">
+                <span class="product-price-label">가격</span>
+
+                <strong
+                    id="menu-base-price"
+                    class="product-price"
+                >
+                    0원
+                </strong>
+            </div>
+        </section>
+
+        <form
+            id="menu-option-form"
+            class="menu-option-form"
+        >
+            <!-- 음료 옵션이 JS로 들어가는 영역 -->
+            <section class="option-section" id="first-option-section">
+                <div class="option-heading">
+                    <h2 id="first-option-title">음료 추가선택</h2>
+                    <span class="required-badge">필수</span>
+                </div>
+
+                <div
+                    id="drink-option-list"
+                    class="option-list"
+                ></div>
+            </section>
+
+            <!-- 사이드 옵션이 JS로 들어가는 영역 -->
+            <section class="option-section" id="second-option-section">
+                <div class="option-heading">
+                    <h2 id="second-option-title">사이드 추가선택</h2>
+                    <span class="optional-badge">선택</span>
+                </div>
+
+                <div
+                    id="side-option-list"
+                    class="option-list"
+                ></div>
+            </section>
+
+            <!-- 기타 옵션이 JS로 들어가는 영역 -->
+            <section class="option-section" id="third-option-section">
+                <div class="option-heading">
+                    <h2 id="third-option-title">기타 선택</h2>
+                    <span class="optional-badge">선택</span>
+                </div>
+
+                <div
+                    id="extra-option-list"
+                    class="option-list"
+                ></div>
+            </section>
+
+            <!-- 수량 -->
+            <section class="quantity-section">
+                <h2>수량</h2>
+
+                <div class="quantity-controller">
+                    <button
+                        id="quantity-decrease"
+                        type="button"
+                        class="quantity-button"
+                        aria-label="수량 줄이기"
+                    >
+                        −
+                    </button>
+
+                    <span
+                        id="quantity-value"
+                        class="quantity-value"
+                    >
+                        1개
+                    </span>
+
+                    <button
+                        id="quantity-increase"
+                        type="button"
+                        class="quantity-button"
+                        aria-label="수량 늘리기"
+                    >
+                        +
+                    </button>
+                </div>
+            </section>
+
+            <!-- 안내 문구 -->
+            <section class="order-notice-section">
+                <p>
+                    메뉴 사진은 연출된 이미지로 실제 조리된 음식과 다를 수 있어요.
+                </p>
+
+                <p>
+                    메뉴 정보와 관련된 의견이 있다면 의견 보내기 버튼을 눌러주세요.
+                </p>
+
+                <button
+                    type="button"
+                    class="send-opinion-button"
+                >
+                    의견 보내기
+                </button>
+            </section>
+
+            <!-- 고정 주문바에 내용이 가려지는 것 방지 -->
+            <div class="bottom-order-spacer"></div>
+        </form>
+    </div>
+
+    <!-- 하단 고정 주문바 -->
+    <footer class="bottom-order-bar">
+
+        <button
+            id="add-cart-button"
+            type="button"
+            class="add-cart-button"
+            data-cart-url="{% url 'deliverys:learn_cart' %}"
+        >
+            0원 담기
+        </button>
+    </footer>
+    <div
+    id="cartToast"
+    class="cart-toast"
+    role="status"
+    aria-live="polite"
+    >
+        미션에 맞는 옵션을 선택해주세요.
+    </div>
+</div>
+
+<!--
+    외부 JS에서는 Django의 static 태그를 사용할 수 없으므로
+    기본 이미지 주소만 HTML에서 전달합니다.
+-->
+<script>
+    window.LEARN_MENU_OPTION_CONFIG = {
+        defaultImage: "{% static 'deliverys/images/chicken3.png' %}",
+        cartUrl: "{% url 'deliverys:learn_cart' %}"
+    };
+</script>
+
+<script src="{% static 'deliverys/js/learn_menu_option.js' %}"></script>
 {% endblock %}
