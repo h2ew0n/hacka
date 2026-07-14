@@ -1,19 +1,45 @@
-from django.shortcuts import render, get_object_or_404
+import random
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Mission
+
+# ALL_STORES = [
+#     {"id": 1, "name": "동대문엽기떡볶이", "category": "분식", "menus": [{"id": 101, "name": "엽기떡볶이", "price": 14000}]},
+#     {"id": 2, "name": "홍콩반점", "category": "중식", "menus": [{"id": 201, "name": "짬뽕", "price": 8000}]},
+#     {"id": 3, "name": "굽네치킨", "category": "치킨", "menus": [{"id": 301, "name": "오리지널", "price": 16000}]}
+# ]
 
 # Create your views here.
 def initialize_simulation(request):
-    mission = get_object_or_404(Mission, id=mission_id)
-    request.session['cart_data'] = {
+    all_mission = Mission.objects.all()
+    chosen_mission = random.choice(all_mission)
 
+    request.session['cart_data'] = {
+        'mission_id': chosen_mission.pk,
+        'mission_title': chosen_mission.title,
+        'mission_description': chosen_mission.description,
+        'step_guide': chosen_mission.step_guide,
+        'answer_data': chosen_mission.answer_data,
+
+        'current_stage': 1,
+        'selected_store': None,
+        'items': [],
+        'total_price': 0
     }
+
+    request.session.modified = True
 
 def main(request):
     return render(request, 'deliverys/main.html')
 
 # --- 학습 모드 ---
 def learn_mission(request):
-    return render(request, 'deliverys/learn_mission.html')
+    cart_data = request.session.get('cart_data')
+    if not cart_data:
+        return redirect('deliverys:main')
+    context = {
+        'mission_description': cart_data['mission_description']
+    }
+    return render(request, 'deliverys/learn_mission.html', context)
 
 def learn_search(request):
     return render(request, 'deliverys/learn_search.html')
