@@ -235,11 +235,11 @@ def initialize_simulation(request):
     return redirect('deliverys:learn_mission')
 
 def main(request):
-    initialize_simulation(request)
     return render(request, 'deliverys/main.html')
 
 # --- 학습 모드 ---
 def learn_mission(request):
+    initialize_simulation(request)
     cart_data = request.session.get('cart_data')
 
     if not cart_data:
