@@ -47,8 +47,8 @@
     ];
 
     const RECO_ITEMS = [
-        { name: "제로콜라 1.25L", price: 3000, image: "https://lottemartzetta.com/images-v3/932dcbc7-fca8-4d43-bcde-f73d1ce3cc7d/a1721a5b-6cf5-4401-954c-d67ebccc3828/500x500.jpg" },
-        { name: "스프라이트 1.25L", price: 3000, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv0VGj1RKxDdIrS7dZQykznVCthEJXDCBKRh3bRASWFQ&s=10" },
+        { name: "제로콜라 1.25L", price: 3000, image: "🥤" },
+        { name: "스프라이트 1.25L", price: 3000, image: "🥤" },
     ];
 
     const SAVER_DELIVERY_ID = "saver"; // 알뜰배달 식별자
@@ -240,10 +240,13 @@
 
     function renderPayment() {
         const menuTotal = getMenuTotal();
-        const total = menuTotal + DELIVERY_FEE;
+        // 알뜰배달을 선택했을 때만 배달팁(1000원)이 추가된다.
+        const saverSelected = DELIVERY_METHODS.find((d) => d.id === SAVER_DELIVERY_ID)?.selected;
+        const deliveryFee = saverSelected ? DELIVERY_FEE : 0;
+        const total = menuTotal + deliveryFee;
 
         document.getElementById("menuAmount").textContent = formatWon(menuTotal);
-        document.getElementById("deliveryFeeAmount").textContent = formatWon(DELIVERY_FEE);
+        document.getElementById("deliveryFeeAmount").textContent = deliveryFee === 0 ? "0원" : formatWon(deliveryFee);
         document.getElementById("expectedAmount").textContent = formatWon(total);
         document.getElementById("bottomTotal").textContent = formatWon(total);
     }
