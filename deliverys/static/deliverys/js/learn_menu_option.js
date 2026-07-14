@@ -294,6 +294,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+    // 가게별 실제 로고 이미지: views.py의 category_data에서 계산되어
+    // learn_menu_option.html의 <script>가 window.STORE_LOGOS로 미리 전달해준다.
+    // (URL을 여기 JS에 다시 하드코딩하지 않고 서버 쪽 데이터를 그대로 재사용)
+    const STORE_LOGOS = window.STORE_LOGOS || {};
+
     const missionAnswers = {
         "엽기떡볶이": {
             first: "오리지널",
@@ -700,7 +705,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "ld_store",
             JSON.stringify({
                 name: currentMenu.store,
-                image: currentMenu.image,
+                image: STORE_LOGOS[currentMenu.store] || currentMenu.image,
             })
         );
 

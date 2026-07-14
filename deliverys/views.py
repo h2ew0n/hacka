@@ -1,3 +1,4 @@
+import json
 import random
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Mission
@@ -184,6 +185,28 @@ def get_menu_or_none(store, menu_id):
     return next((m for m in store["menus"] if m["id"] == menu_id), None)
 
 
+def _find_store_img(name):
+    """category_data에서 정확한 상호명으로 로고 이미지를 찾아온다."""
+    for store_list in category_data.values():
+        for store in store_list:
+            if store["name"] == name:
+                return store["img_url"]
+    return ""
+
+
+# learn_menu.js / learn_menu_option.js 에서 쓰는 짧은 가게 키(굽네, 홍콩반점 등)를
+# category_data 안의 실제 상호명과 이어주는 매핑.
+# 이렇게 하면 로고 URL을 views.py의 category_data 한 곳에서만 관리하면 된다.
+STORE_LOGOS_FOR_JS = {
+    "굽네": _find_store_img("굽네치킨"),
+    "홍콩반점": _find_store_img("홍콩반점"),
+    "맥도날드": _find_store_img("맥도날드"),
+    "메가mgc": _find_store_img("메가MGC커피"),
+    "엽기떡볶이": _find_store_img("동대문엽기떡볶이"),
+    "피로족발": _find_store_img("피로족발"),
+}
+
+
 # Create your views here.
 def initialize_simulation(request):
     all_mission = Mission.objects.all()
@@ -277,24 +300,12 @@ def learn_list(request):
         'error_message': error_message,
     })
 
-def learn_menu(request, store_id):
-    store = get_store_or_none(store_id)
-    if not store:
-        return redirect('deliverys:learn_list')
-    context = {
-        'store': store,
-        'menus': store['menus'],
-    }
-    return render(request, 'deliverys/learn_menu.html', context)
+def learn_menu(request):
+    return render(request, 'deliverys/learn_menu.html')
 
-def learn_menu_option(request, store_id, menu_id):
-    store = get_store_or_none(store_id)
-    menu = get_menu_or_none(store, menu_id)
-    if not store or not menu:
-        return redirect('deliverys:learn_list')
+def learn_menu_option(request):
     context = {
-        'store': store,
-        'menu': menu,
+        'store_logos_json': json.dumps(STORE_LOGOS_FOR_JS, ensure_ascii=False),
     }
     return render(request, 'deliverys/learn_menu_option.html', context)
 

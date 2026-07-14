@@ -96,15 +96,14 @@
   }
 
   function checkAnswer(element) {
-      const correctAnswer = "{{ target_store }}";
-      const clickedAnswer = element.getAttribute('data-name');
-      const clickedId = element.getAttribute('data-id');
+    const correctAnswer = "{{ target_store }}";
+    const clickedAnswer = element.getAttribute('data-name');
 
-      if (clickedAnswer === correctAnswer) {
-          window.location.href = "/learning/menu/" + clickedId + "/";
-      } else {
-          showToast("땡! 다른 가게를 골라보세요.");
-      }
+    if (clickedAnswer === correctAnswer) {
+        window.location.href = "/learning/menu/?store=" + encodeURIComponent(clickedAnswer);
+    } else {
+        showToast("땡! 다른 가게를 골라보세요.");
+    }
   }
 </script>
 {% endblock %}
