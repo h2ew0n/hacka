@@ -12,7 +12,8 @@
                 "category": "분식",
                 "store": "동대문엽기떡볶이",
                 "menu": "엽기떡볶이",
-                "count": 2
+                "count": 2,
+                "extra": ["치즈 추가"]
             }
         }
     },
@@ -29,7 +30,8 @@
                 "category": "중식",
                 "store": "홍콩반점",
                 "menu": "짬뽕",
-                "count": 1
+                "count": 1,
+                "extra": ["덜 맵게", "군만두 추가"]
             }
         }
     },
@@ -46,7 +48,8 @@
                 "category": "패스트푸드",
                 "store": "맥도날드",
                 "menu": "불고기버거 세트",
-                "count": 2
+                "count": 2,
+                "extra": ["코카콜라", "치즈스틱으로 변경"]
             }
         }
     },
@@ -63,7 +66,8 @@
                 "category": "카페디저트",
                 "store": "메가MGC커피",
                 "menu": "큐브라떼",
-                "count": 1
+                "count": 1,
+                "extra": ["아이스"]
             }
         }
     },
@@ -80,7 +84,8 @@
                 "category": "치킨",
                 "store": "굽네치킨",
                 "menu": "오리지널",
-                "count": 4
+                "count": 4,
+                "extra": ["치즈볼 추가"]
             }
         }
     },
@@ -97,7 +102,8 @@
                 "category": "족발보쌈",
                 "store": "피로족발",
                 "menu": "보쌈",
-                "count": 3
+                "count": 3,
+                "extra":["중", "쌈 채소 추가"]
             }
         }
     }

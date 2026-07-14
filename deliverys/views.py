@@ -250,7 +250,8 @@ def learn_mission(request):
     context = {
         'store': answer.get('store'),
         'menu': answer.get('menu'),
-        'count': answer.get('count')
+        'count': answer.get('count'),
+        'extra': answer.get('extra'),
     }
     
     return render(request, 'deliverys/learn_mission.html', context)
@@ -296,10 +297,10 @@ def learn_list(request):
         elif keyword in ["마라탕", "짜장면", "짬뽕", "중식"]:
             search_key = "중식"
         
-        if search_key != correct_keyword :
-            messages.error(request, f"틀렸습니다! '{keyword}'은(는) 이번 미션에 맞는 카테고리가 아닙니다. 미션을 다시 확인해 보세요!")
+        # if search_key != correct_keyword :
+        #     messages.error(request, f"틀렸습니다! '{keyword}'은(는) 이번 미션에 맞는 카테고리가 아닙니다. 미션을 다시 확인해 보세요!")
             
-            return redirect('deliverys:learn_search')
+        #     return redirect('deliverys:learn_search')
 
         if search_key in category_data:
             stores = category_data[search_key]
