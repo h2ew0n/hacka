@@ -1,0 +1,145 @@
+/* ============================================
+   base.html 공통 요소 격리
+   미션 화면은 header/stage-group/mobile-guide 안 씀
+   ============================================ */
+header {
+    display: none;
+}
+
+.stage-group {
+    display: none;
+}
+
+.mobile-guide {
+    display: none;
+}
+
+/* ============================================
+   메인 컨테이너 재구성
+   ============================================ */
+main {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    padding: 120px 257px 172px 257px;
+    flex-direction: column;
+    align-items: center;
+    gap: 92px;
+    box-sizing: border-box;
+}
+
+/* style.css의 mobile-group / mobile-do 오버라이드 */
+.mobile-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 92px;
+    width: auto;
+    height: auto;
+}
+
+.mobile-do {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 92px;
+    width: auto;
+    height: auto;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* ============================================
+   "미션 제시!" 타이틀
+   ============================================ */
+.mission-title {
+    color: #FFE500;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+/* ============================================
+   미션 카드
+   ============================================ */
+.mission-card {
+    display: flex;
+    width: 926px;
+    height: 363px;
+    padding: 62px 89px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    border: 2.5px solid #FFE500;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+    box-sizing: border-box;
+}
+
+.mission-text {
+    width: 748px;
+    height: 239px;
+    flex-shrink: 0;
+    color: #FFE500;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 60px;
+    letter-spacing: 2.5px;
+}
+
+/* ============================================
+   시작 버튼
+   ============================================ */
+.start-button {
+    display: flex;
+    width: 400px;
+    height: 100px;
+    padding: 19px 0 20px 0;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.start-button span {
+    color: #10245C;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+/* ============================================
+   설명 표시/숨김 토글 버튼
+   ============================================ */
+.guide-toggle-button {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.guide-toggle-button span {
+    color: #10245C;
+    font-family: Inter, sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+}
