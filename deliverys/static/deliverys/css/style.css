@@ -113,3 +113,30 @@ main {
     height: 852px;
     background: #FFF;
 }
+
+/* ============================================
+   설명 보기 토글 (guide-toggle.js와 연동)
+   ============================================ */
+body.guide-hidden header {
+    gap: 70px;
+}
+
+body.guide-hidden .nav-left {
+    display: none;
+}
+
+body.guide-hidden .nav-container {
+    flex: 1;
+    justify-content: center;
+
+}
+
+body.guide-hidden .mobile-guide {
+    display: none;
+}
+
+body.guide-hidden .mobile-group {
+    flex: 1;
+    justify-content: center;
+    margin-left: 0;
+}
