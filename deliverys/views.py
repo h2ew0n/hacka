@@ -9,12 +9,18 @@ from .models import Mission
 # ]
 
 # Create your views here.
+
+
 def initialize_simulation(request):
     all_mission = Mission.objects.all()
+    
+    if not all_mission.exists():
+        return render(request, 'deliverys/error.html', {'message': '등록된 미션이 없습니다.'})
+        
     chosen_mission = random.choice(all_mission)
 
+    # 💾 세션에 완벽하게 데이터 주입
     request.session['cart_data'] = {
-        'mission_id': chosen_mission.pk,
         'mission_title': chosen_mission.title,
         'mission_description': chosen_mission.description,
         'step_guide': chosen_mission.step_guide,
@@ -25,8 +31,10 @@ def initialize_simulation(request):
         'items': [],
         'total_price': 0
     }
-
     request.session.modified = True
+    
+    # 🚀 핵심: 세션을 디스크에 완전히 저장시킨 후, 미션 페이지로 리다이렉트합니다!
+    return redirect('deliverys:learn_mission')
 
 def main(request):
     return render(request, 'deliverys/main.html')
@@ -34,11 +42,19 @@ def main(request):
 # --- 학습 모드 ---
 def learn_mission(request):
     cart_data = request.session.get('cart_data')
+    
+    # 세션이 아예 없으면 메인으로 튕겨내기 (여기서 initialize_simulation을 직접 호출하지 않습니다!)
     if not cart_data:
         return redirect('deliverys:main')
+    
+    answer = cart_data.get('answer_data', {})
+    
     context = {
-        'mission_description': cart_data['mission_description']
+        'store': answer.get('store'),
+        'menu': answer.get('menu'),
+        'count': answer.get('count')
     }
+    
     return render(request, 'deliverys/learn_mission.html', context)
 
 def learn_search(request):
