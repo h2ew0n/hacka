@@ -118,3 +118,28 @@ main {
     font-weight: 500;
     line-height: normal;
 }
+
+/* ============================================
+   설명 표시/숨김 토글 버튼
+   ============================================ */
+.guide-toggle-button {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.guide-toggle-button span {
+    color: #10245C;
+    font-family: Inter, sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+}
