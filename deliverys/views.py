@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import random
 
 # Create your views here.
 def main(request):
@@ -115,3 +116,10 @@ def apply_menu(request): return render(request, 'deliverys/apply_menu.html')
 def apply_cart(request): return render(request, 'deliverys/apply_cart.html')
 def apply_payment(request): return render(request, 'deliverys/apply_payment.html')
 def apply_success(request): return render(request, 'deliverys/apply_success.html')
+
+# --learn_mission 몇인분 count 뽑기 --
+def learn_mission(request):
+    context = {
+        'count': random.randint(1,5),
+    }
+    return render(request, 'deliverys/learn_mission.html', context)
