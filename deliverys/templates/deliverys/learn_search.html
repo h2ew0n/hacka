@@ -185,7 +185,7 @@
     document.querySelectorAll('.tab-item').forEach(tab => {
         tab.addEventListener('click', function() {
             const tabName = this.textContent;
-            showToast(`이 버튼이 아닙니다! '${tabName}' 말고 상단 입력창을 이용해주세요.`);
+            showToast(`'${tabName}' 버튼이 아닙니다`);
         });
     });
 
@@ -193,27 +193,27 @@
     document.querySelectorAll('.category-item').forEach(item => {
         item.addEventListener('click', function() {
             const name = this.querySelector('.category-name').textContent;
-            showToast(`지금은 검색 연습 중입니다! '${name}' 버튼이 아닙니다.`);
+            showToast(`'${name}' 버튼이 아닙니다.`);
         });
     });
 
     document.querySelectorAll('.nav-icon').forEach(icon => {
         icon.addEventListener('click', function() {
-            showToast("이 버튼이 아닙니다! 검색창에 먹고 싶은 음식을 쳐보세요.");
+            showToast("검색창에 음식을 쳐보세요.");
         });
     });
 
     const stripBanner = document.querySelector('.bottom-strip-banner');
     if (stripBanner) {
         stripBanner.addEventListener('click', function() {
-            showToast("이 버튼이 아닙니다! 상단 입력창을 이용해주세요.");
+            showToast("상단 입력창을 이용해주세요.");
         });
     }
 
     const piroBanner = document.querySelector('.banner-btn');
     if (piroBanner) {
         piroBanner.addEventListener('click', function() {
-            showToast("이 버튼이 아닙니다! 상단 입력창을 이용해주세요.");
+            showToast("음식을 골라보세요!");
         });
     }
   });
