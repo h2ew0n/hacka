@@ -139,12 +139,19 @@
   <div class="util-icon-2-pt1"></div>
   <div class="util-icon-2-pt2"></div>
 </div>
+{% if messages %}
+<script>
+    window.DJANGO_MESSAGES = [
+        {% for message in messages %}"{{ message|escapejs }}"{% if not forloop.last %},{% endif %}{% endfor %}
+    ];
+</script>
+{% endif %}
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.querySelector('.search-bar');
     const searchForm = document.getElementById('searchForm');
-
+ 
     // 검색 작동문 제어
     if (searchForm && searchInput) {
       searchForm.addEventListener('submit', function(e) {
@@ -154,62 +161,59 @@
         }
       });
     }
-
-
+ 
+ 
     let toastTimer = null;
-    
-    function showToast(message) {
+ 
+    function showToast(message, duration) {
         const toast = document.getElementById("cartToast");
-        
+ 
         // textToShow 변수 선언
         const textToShow = message || "이 버튼이 아닙니다!";
-        
+ 
         // [1] ID가 cartToast인 단일 요소 제어
         if (toast) {
             toast.textContent = textToShow;
             toast.classList.add("show");
         }
-
+ 
         // 기존 타이머가 작동 중이었다면 초기화
         clearTimeout(toastTimer);
-
-        // 1.5초 뒤에 토스트에서 "show" 클래스 제거
+ 
+        // duration 뒤에 토스트에서 "show" 클래스 제거 (기본 1.5초, 오류 메시지는 더 길게)
         toastTimer = setTimeout(() => {
             if (toast) {
                 toast.classList.remove("show");
             }
-        }, 1500);
+        }, duration || 1500);
     }
-
+ 
+    // learn_list에서 넘어온 오류 메시지가 있으면 페이지 로드 시 바로 보여준다.
+    if (window.DJANGO_MESSAGES && window.DJANGO_MESSAGES.length > 0) {
+        showToast(window.DJANGO_MESSAGES[0], 3000);
+    }
+ 
     // 💡 추가된 부분: 탭 메뉴(.tab-item)를 클릭했을 때 토스트 이벤트 연결
     document.querySelectorAll('.tab-item').forEach(tab => {
         tab.addEventListener('click', function() {
             const tabName = this.textContent;
-            showToast(`'${tabName}' 버튼이 아닙니다`);
+            showToast("이 버튼이 아닙니다.");
         });
     });
-
-    // 각 오답 요소들에 토스트 이벤트 연결
-    document.querySelectorAll('.category-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const name = this.querySelector('.category-name').textContent;
-            showToast(`'${name}' 버튼이 아닙니다.`);
-        });
-    });
-
+ 
     document.querySelectorAll('.nav-icon').forEach(icon => {
         icon.addEventListener('click', function() {
-            showToast("검색창에 음식을 쳐보세요.");
+            showToast("상단 검색창을 \n사용하세요.");
         });
     });
-
+ 
     const stripBanner = document.querySelector('.bottom-strip-banner');
     if (stripBanner) {
         stripBanner.addEventListener('click', function() {
-            showToast("상단 입력창을 이용해주세요.");
+            showToast("상단 검색창을 \n사용하세요.");
         });
     }
-
+ 
     const piroBanner = document.querySelector('.banner-btn');
     if (piroBanner) {
         piroBanner.addEventListener('click', function() {
