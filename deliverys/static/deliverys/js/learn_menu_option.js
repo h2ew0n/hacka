@@ -385,6 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
         menuBasePriceElement.textContent = formatPrice(menu.price);
         menuMainImage.src = menu.image || config.defaultImage || "";
         menuMainImage.alt = menu.name;
+        menuMainImage.referrerPolicy = "no-referrer";
 
         if (firstOptionTitle) {
             firstOptionTitle.textContent = menu.firstTitle || "필수 선택";
@@ -673,21 +674,34 @@ document.addEventListener("DOMContentLoaded", function () {
             'input[name="first-option"]:checked'
         );
 
-        const cartItem = {
-            store: currentMenu.store,
-            name: currentMenu.name,
+        // ld_cartItems / ld_store 형식에 맞춰 저장 (learn_cart.js와 연동되는 부분)
+        const optionLines = [];
+        if (firstSelected && firstSelected.value) {
+            optionLines.push(firstSelected.value);
+        }
+        optionLines.push(...getSelectedCheckboxValues("second"));
+        optionLines.push(...getSelectedCheckboxValues("third"));
+
+        const unitPrice = getOneMenuPrice();
+
+        const newCartItem = {
+            id: Date.now(),
+            menuName: currentMenu.name,
+            optionLines: optionLines,
+            unitPrice: unitPrice,
+            qty: quantity,
             image: currentMenu.image,
-            basePrice: currentMenu.price,
-            firstOption: firstSelected?.value || "",
-            secondOptions: getSelectedCheckboxValues("second"),
-            thirdOptions: getSelectedCheckboxValues("third"),
-            quantity: quantity,
-            totalPrice: getOneMenuPrice() * quantity
         };
 
+        // 기존 장바구니 내용을 유지하지 않고, 방금 담은 항목으로 덮어씌운다.
+        localStorage.setItem("ld_cartItems", JSON.stringify([newCartItem]));
+
         localStorage.setItem(
-            "selectedCartItem",
-            JSON.stringify(cartItem)
+            "ld_store",
+            JSON.stringify({
+                name: currentMenu.store,
+                image: currentMenu.image,
+            })
         );
 
         window.location.href =

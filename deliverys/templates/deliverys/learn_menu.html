@@ -240,25 +240,25 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         ],
         "메가mgc": [
-            { 
+            {
                 name: "메가리카노",
                 price: 3000,
                 review: 356,
                 image: "https://search.pstatic.net/common/?src=https%3A%2F%2Fshop-phinf.pstatic.net%2F20230620_96%2F1687238382216F2bUg_JPEG%2F11618360784073074_1533807001.jpg&type=a340"
             },
-            { 
+            {
                 name: "큐브라떼",
                 price: 4500,
                 review: 226,
                 image: "https://shop-phinf.pstatic.net/20250604_251/1749000649710wJiF7_JPEG/83133457863318362_856819931.jpg?type=o1000"
             },
-            { 
+            {
                 name: "딸기라떼",
                 price: 4000,
                 review: 211,
                 image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTA0MjdfNjAg%2FMDAxNTU2MzcwNTQzNjYx.5TmdlKY66F36H1zAQDi0jB3bF1_p9BeaOb45sDpbRksg.8C22dqrqe-27CrpCy_HP2wmY7Q51cWdCwImRrcrmqewg.PNG.v-v210%2F%25B5%25FE%25B1%25E2_%25B6%25F3%25B6%25BC.png&type=a340"
             },
-            { 
+            {
                 name: "플레인 크로플",
                 price: 3500,
                 review: 174,
@@ -292,25 +292,25 @@ document.addEventListener("DOMContentLoaded", function () {
             },
         ],
         "엽기떡볶이": [
-            { 
+            {
                 name: "엽기떡볶이",
                 price: 14000,
                 review: 398,
                 image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNjAyMTdfMTQ4%2FMDAxNzcxMzI1OTUyNTc3.CUW5kwV5RMbWoq8UUzbGU8tTcmavL18_aWLmtoe0BZgg.4SDZ6c4yYhOnbQsfgPa_lw0p2RujCbtjygjW6hZfa2Yg.JPEG%2F%25BA%25A3%25BD%25BA%25C6%25AE%25BC%25BC%25C6%25AE.jpg&type=a340"
             },
-            { 
+            {
                 name: "엽기반반",
                 price: 14000,
                 review: 341,
                 image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160227_66%2Fqeen33_1456534137459nvgs0_PNG%2F01.png&type=a340"
             },
-            { 
+            {
                 name: "로제엽떡",
                 price: 16000,
                 review: 311,
                 image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDExMjVfMTAz%2FMDAxNzMyNTQ0NzM5MzQ4._F8yrKC2bEhouEZe_fkAt433UaEwujPjiCADMVj2CHsg.zR6mO8je9BB58gijBHSz3U4gexJaP8fw7xxw7I03qPog.JPEG%2Foutput_1484594680.jpg&type=a340"
             },
-            { 
+            {
                 name: "엽기 닭볶음탕",
                 price: 24000,
                 review: 241,
@@ -318,25 +318,25 @@ document.addEventListener("DOMContentLoaded", function () {
             },
         ],
         "피로족발": [
-            { 
+            {
                 name: "족발",
                 price: 14000,
                 review: 398,
                 image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimage.utoimage.com%2Fpreview%2Fcp871385%2F2018%2F12%2F201812006026_500.jpg&type=a340"
             },
-            { 
+            {
                 name: "보쌈",
                 price: 14000,
                 review: 341,
                 image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fthumb2.gettyimageskorea.com%2Fimage_preview%2F700%2F201711%2FMBRF%2FMBRF17017894.jpg&type=a340"
             },
-            { 
+            {
                 name: "족발보쌈",
                 price: 16000,
                 review: 311,
                 image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA2MDNfMTgx%2FMDAxNzE3MzkzNjAzMzM3.Yre-qDBQ-9E8ZxmD9QPWLNLW6j0OLw19KvORXOef15Yg.kpH5A7E07InSL_w77XDAbqBIjcSDqbFY6c7GlJLWk3Mg.JPEG%2F12779185.jpg&type=a340"
             },
-            { 
+            {
                 name: "불족발",
                 price: 24000,
                 review: 241,
@@ -509,6 +509,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             class="menu-image"
                             src="${menu.image}"
                             alt="${escapeHtml(menu.name)}"
+                            referrerpolicy="no-referrer"
                         >
 
                         <span
@@ -566,7 +567,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }));
 
                 window.location.href =
-                    "/learning/menu_option/?store=";
+                    "/learning/menu_option/?store=" + encodeURIComponent(storeKey);
             });
 
             menuListElement.appendChild(menuItem);
