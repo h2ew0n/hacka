@@ -279,75 +279,63 @@ def learn_list(request):
 
     answer = cart_data.get('answer_data', {})
     correct_keyword = answer.get('category')
-    store_mission = answer.get('store'),
-    menu = answer.get('menu'),
-    count =  answer.get('count'),
-    extra = answer.get('extra'),
-    # 1. 검색어를 가져오기 (기본값은 '분식')
-    keyword = request.GET.get('q', '분식')
+    store_mission = answer.get('store')
+    menu = answer.get('menu')
+    count = answer.get('count')
+    extra = answer.get('extra')
 
+    keyword = request.GET.get('q', '분식')
     error_message = None
 
-    # ① 전체 가게 이름 중에 검색어가 포함되는 가게를 전부 모으기
-    matched_stores = []
-    for cat_name, store_list in category_data.items():
-        for store in store_list:
-            if keyword in store["name"]:
-                matched_stores.append(store)
+    # ① 카테고리 키워드 매핑을 먼저 확인 (검색어가 카테고리 자체를 가리키는 경우)
+    CATEGORY_KEYWORD_MAP = {
+        "족발": "족발보쌈", "보쌈": "족발보쌈", "족발, 보쌈": "족발보쌈", "족발보쌈": "족발보쌈",
+        "패스트푸드": "패스트푸드", "햄버거": "패스트푸드", "버거": "패스트푸드",
+        "카페": "카페디저트", "디저트": "카페디저트", "커피": "카페디저트", "카페디저트": "카페디저트",
+        "치킨": "치킨가게", "통닭": "치킨가게", "치킨가게": "치킨가게",
+        "분식": "분식", "떡볶이": "분식", "김밥": "분식",
+        "마라탕": "중식", "짜장면": "중식", "짬뽕": "중식", "중식": "중식",
+    }
 
-    if matched_stores:
-        # 상호명으로 매칭되더라도, 그 가게가 이번 미션의 정답 카테고리에
-        # 속하는지 반드시 확인한다. (다른 카테고리 가게 이름을 검색해서
-        # 통과되는 것을 막기 위함)
-        correct_matched_stores = [
-            s for s in matched_stores if s.get("category") == correct_keyword
-        ]
-
-        if not correct_matched_stores:
-            messages.error(
-                request,
-                f"틀렸습니다! '{keyword}'은(는) 이번 미션에 맞는 카테고리가 아닙니다. 미션을 다시 확인해 보세요!",
-            )
-            return redirect('deliverys:learn_search')
-
-        stores = correct_matched_stores
-        target_store = correct_matched_stores[0]["name"]
-    else:
-        # ② 상호명에 안 걸리면 카테고리 키워드 매핑으로 시도
-        search_key = keyword
-        if keyword in ["족발", "보쌈", "족발, 보쌈", "족발보쌈"]:
-            search_key = "족발보쌈"
-        elif keyword in ["패스트푸드", "햄버거", "버거"]:
-            search_key = "패스트푸드"
-        elif keyword in ["카페", "디저트", "커피", "카페디저트"]:
-            search_key = "카페디저트"
-        elif keyword in ["치킨", "통닭"]:
-            search_key = "치킨"
-        elif keyword in ["분식", "떡볶이", "김밥"]:
-            search_key = "분식"
-        elif keyword in ["마라탕", "짜장면", "짬뽕", "중식"]:
-            search_key = "중식"
+    if keyword in CATEGORY_KEYWORD_MAP:
+        search_key = CATEGORY_KEYWORD_MAP[keyword]
 
         if search_key != correct_keyword:
-            messages.error(request, f"틀렸습니다! '{keyword}'은(는) 이번 미션에 \n 맞는 카테고리가 아닙니다.")
-
+            messages.error(request, f"틀렸습니다! '{keyword}'은(는) 이번 미션에 맞는 카테고리가 아닙니다. 미션을 다시 확인해 보세요!")
             return redirect('deliverys:learn_search')
 
-        if search_key in category_data:
-            stores = category_data[search_key]
-            target_store = "동대문엽기떡볶이"
-            if search_key == "중식":
-                target_store = "홍콩반점"
-            elif search_key == "패스트푸드":
-                target_store = "맥도날드"
-            elif search_key == "카페디저트":
-                target_store = "메가MGC커피"
-            elif search_key == "치킨가게":
-                target_store = "굽네치킨"
-            elif search_key == "족발보쌈":
-                target_store = "피로족발"
+        stores = category_data[search_key]
+        target_store = "동대문엽기떡볶이"
+        if search_key == "중식":
+            target_store = "홍콩반점"
+        elif search_key == "패스트푸드":
+            target_store = "맥도날드"
+        elif search_key == "카페디저트":
+            target_store = "메가MGC커피"
+        elif search_key == "치킨가게":
+            target_store = "굽네치킨"
+        elif search_key == "족발보쌈":
+            target_store = "피로족발"
+
+    else:
+        # ② 카테고리 키워드가 아니면 그때 상호명 부분 일치를 시도 (실제 가게 이름 검색)
+        matched_stores = []
+        for cat_name, store_list in category_data.items():
+            for store in store_list:
+                if keyword in store["name"]:
+                    matched_stores.append(store)
+
+        if matched_stores:
+            correct_matched_stores = [
+                s for s in matched_stores if s.get("category") == correct_keyword
+            ]
+            if not correct_matched_stores:
+                messages.error(request, f"틀렸습니다! '{keyword}'은(는) 이번 미션에 맞는 카테고리가 아닙니다. 미션을 다시 확인해 보세요!")
+                return redirect('deliverys:learn_search')
+
+            stores = correct_matched_stores
+            target_store = correct_matched_stores[0]["name"]
         else:
-            # ③ 어디에도 안 걸리는 검색어
             stores = []
             target_store = None
             error_message = f'"{keyword}"에 대한 검색 결과가 없습니다.'
@@ -360,8 +348,99 @@ def learn_list(request):
         'store_mission': store_mission,
         'menu': menu,
         'count': count,
-        'extra': extra
+        'extra': extra,
     })
+
+# def learn_list(request):
+#     cart_data = request.session.get('cart_data')
+#     if not cart_data:
+#         return redirect('deliverys:main')
+
+#     answer = cart_data.get('answer_data', {})
+#     correct_keyword = answer.get('category')
+#     store_mission = answer.get('store')
+#     menu = answer.get('menu')
+#     count =  answer.get('count')
+#     extra = answer.get('extra')
+#     # 1. 검색어를 가져오기 (기본값은 '분식')
+#     keyword = request.GET.get('q', '분식')
+
+#     error_message = None
+
+#     # ① 전체 가게 이름 중에 검색어가 포함되는 가게를 전부 모으기
+#     matched_stores = []
+#     for cat_name, store_list in category_data.items():
+#         for store in store_list:
+#             if keyword in store["name"]:
+#                 matched_stores.append(store)
+
+#     if matched_stores:
+#         # 상호명으로 매칭되더라도, 그 가게가 이번 미션의 정답 카테고리에
+#         # 속하는지 반드시 확인한다. (다른 카테고리 가게 이름을 검색해서
+#         # 통과되는 것을 막기 위함)
+#         correct_matched_stores = [
+#             s for s in matched_stores if s.get("category") == correct_keyword
+#         ]
+
+#         if not correct_matched_stores:
+#             messages.error(
+#                 request,
+#                 f"틀렸습니다! '{keyword}'은(는) 이번 미션에 맞는 카테고리가 아닙니다. 미션을 다시 확인해 보세요!",
+#             )
+#             return redirect('deliverys:learn_search')
+
+#         stores = correct_matched_stores
+#         target_store = correct_matched_stores[0]["name"]
+#     else:
+#         # ② 상호명에 안 걸리면 카테고리 키워드 매핑으로 시도
+#         search_key = keyword
+#         if keyword in ["족발", "보쌈", "족발, 보쌈", "족발보쌈"]:
+#             search_key = "족발보쌈"
+#         elif keyword in ["패스트푸드", "햄버거", "버거"]:
+#             search_key = "패스트푸드"
+#         elif keyword in ["카페", "디저트", "커피", "카페디저트"]:
+#             search_key = "카페디저트"
+#         elif keyword in ["치킨", "통닭"]:
+#             search_key = "치킨가게"
+#         elif keyword in ["분식", "떡볶이", "김밥"]:
+#             search_key = "분식"
+#         elif keyword in ["마라탕", "짜장면", "짬뽕", "중식"]:
+#             search_key = "중식"
+
+#         if search_key != correct_keyword:
+#             messages.error(request, f"틀렸습니다! '{keyword}'은(는) 이번 미션에 \n 맞는 카테고리가 아닙니다.")
+
+#             return redirect('deliverys:learn_search')
+
+#         if search_key in category_data:
+#             stores = category_data[search_key]
+#             target_store = "동대문엽기떡볶이"
+#             if search_key == "중식":
+#                 target_store = "홍콩반점"
+#             elif search_key == "패스트푸드":
+#                 target_store = "맥도날드"
+#             elif search_key == "카페디저트":
+#                 target_store = "메가MGC커피"
+#             elif search_key == "치킨가게":
+#                 target_store = "굽네치킨"
+#             elif search_key == "족발보쌈":
+#                 target_store = "피로족발"
+#         else:
+#             # ③ 어디에도 안 걸리는 검색어
+#             stores = []
+#             target_store = None
+#             error_message = f'"{keyword}"에 대한 검색 결과가 없습니다.'
+
+#     return render(request, 'deliverys/learn_list.html', {
+#         'stores': stores,
+#         'keyword': keyword,
+#         'target_store': target_store,
+#         'error_message': error_message,
+#         'store_mission': store_mission,
+#         'menu': menu,
+#         'count': count,
+#         'extra': extra
+#     })
 
 def learn_menu(request):
     cart_data = request.session.get('cart_data')
