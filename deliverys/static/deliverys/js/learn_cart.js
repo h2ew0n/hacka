@@ -214,8 +214,8 @@
             el.addEventListener("click", () => {
                 const id = el.getAttribute("data-delivery-select");
                 const target = DELIVERY_METHODS.find((d) => d.id === id);
-                if (!target || target.selected) return; // 이미 선택돼 있으면 그대로 유지
-                target.selected = true;
+                if (!target) return;
+                target.selected = !target.selected; // 이미 선택돼 있으면 해제, 아니면 선택
                 render();
             });
         });
@@ -242,6 +242,13 @@
 
     /* ---------- 알뜰배달 주문하기 ---------- */
     function goToPayment() {
+        const saverSelected = DELIVERY_METHODS.find((d) => d.id === SAVER_DELIVERY_ID)?.selected;
+
+        if (!saverSelected) {
+            showToast("알뜰 배달을 선택해주세요!");
+            return;
+        }
+        
         const menuTotal = getMenuTotal();
         const total = menuTotal + DELIVERY_FEE;
 

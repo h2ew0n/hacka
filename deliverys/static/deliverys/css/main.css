@@ -92,6 +92,13 @@ main {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
     text-decoration: none;
     box-sizing: border-box;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.start-button:hover {
+    background: #FFE500;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.3);
 }
 
 .start-button span {

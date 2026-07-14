@@ -28,14 +28,8 @@ main {
     box-sizing: border-box;
 }
 
-/* style.css의 mobile-group / mobile-do 오버라이드 */
 .mobile-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 92px;
-    width: auto;
-    height: auto;
+    display: contents !important;
 }
 
 .mobile-do {
@@ -107,6 +101,13 @@ main {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
     text-decoration: none;
     box-sizing: border-box;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.start-button:hover {
+    background: #FFE500;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.3);
 }
 
 .start-button span {
@@ -135,7 +136,16 @@ main {
     background: #FFF;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
     cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.guide-toggle-button:hover{
+    background: #FFE500;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.25);
+
+}
+
 
 .guide-toggle-button span {
     color: #10245C;
