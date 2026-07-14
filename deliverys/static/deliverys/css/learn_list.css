@@ -98,13 +98,12 @@
   font-weight: 400;
 }
 
-/* 타이틀 및 소요시간 배지 */
 .time-badge {
   left: 167.06px;
   top: 280.47px;
   position: absolute;
   margin: 0;
-  display: none; /* 피그마 시안에 맞춰 텍스트 겹침 방지차 숨김처리 권장 */
+  display: none; 
 }
 
 .delivery-title {
@@ -142,7 +141,15 @@
   position: absolute;
   background: white;
   border-bottom: 0.75px #F5F5F5 solid;
-  cursor: pointer; /* 클릭 유도 */
+  cursor: pointer; 
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1;
+}
+.store-item:hover {
+  background-color: #F8F9FA; /* 살짝 밝은 회색으로 배경 변경 */
+  transform: translateY(-4px); /* 위로 4px 공중 부양 */
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.08); /* 밑으로 은은한 그림자 추가 */
+  z-index: 5; 
 }
 
 /* 순서대로 top 배치 자동 트리거 */
