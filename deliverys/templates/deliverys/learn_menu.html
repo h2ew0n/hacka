@@ -6,6 +6,46 @@
     rel="stylesheet"
     href="{% static 'deliverys/css/learn_menu.css' %}"
 >
+<style>
+    .cart-toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        transform: translate(-50%, 14px);
+        width: max-content;
+        max-width: calc(100vw - 32px);
+        padding: 13px 18px;
+        box-sizing: border-box;
+        border-radius: 999px;
+        background: red;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+        text-align: center;
+        word-break: keep-all;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        z-index: 999999;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+        box-shadow: 0 5px 16px rgba(0, 0, 0, 0.24);
+    }
+
+    .cart-toast.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0);
+    }
+
+    .menu-link {
+        cursor: pointer;
+    }
+
+    .menu-add-button {
+        cursor: pointer;
+    }
+</style>
 {% endblock %}
 
 {% block stage_list %}
@@ -94,6 +134,14 @@
         </section>
     </main>
 
+    <div
+        id="cartToast"
+        class="cart-toast"
+        role="status"
+        aria-live="polite"
+    >
+        이 버튼이 아닙니다!
+    </div>
 </div>
 
 <!-- Django static 경로를 JavaScript에서 사용하기 위한 숨김 데이터 -->
@@ -111,42 +159,60 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuListElement = document.getElementById("menuList");
     const backButton = document.getElementById("backButton");
     const staticPathData = document.getElementById("staticPathData");
+    const toast = document.getElementById("cartToast");
 
-    const defaultImages = [
-        staticPathData.dataset.chicken1,
-        staticPathData.dataset.chicken2,
-        staticPathData.dataset.chicken3,
-        staticPathData.dataset.chicken1
-    ];
+    let toastTimer = null;
 
-    /*
-     * 식당별 메뉴 데이터
-     * 실제 이미지 파일을 추가하면 image 값만 해당 static 경로로 바꾸면 됩니다.
-     */
+    function showToast(message) {
+        if (!toast) return;
+
+        toast.textContent = message || "이 버튼이 아닙니다!";
+        toast.classList.remove("show");
+
+        // 같은 버튼을 연속해서 눌러도 애니메이션이 다시 실행되도록 처리
+        void toast.offsetWidth;
+
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+
+        toastTimer = setTimeout(function () {
+            toast.classList.remove("show");
+        }, 2200);
+    }
+
+    const defaultImages = staticPathData
+        ? [
+            staticPathData.dataset.chicken1,
+            staticPathData.dataset.chicken2,
+            staticPathData.dataset.chicken3,
+            staticPathData.dataset.chicken1
+        ]
+        : [];
+
     const restaurantMenus = {
         "굽네": [
-            { 
-                name: "황금올리브치킨",
-                price: 23000,
-                review: 365,
+            {
+                name: "고추바사삭",
+                price: 21000,
+                review: 388,
                 image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkvPt8w4C418fKxWnIr_vkNrmbEHoLGYOix7_jLpB0xQ&s=10"
-                },
-            { 
-                name:"[황.양.반] 황올 반+양념 반",
-                price: 24000,
-                review: 256,
-                image: "https://sitem.ssgcdn.com/37/40/73/item/1000599734037_i1_750.jpg" 
             },
-            { 
-                name:"자메이카 통다리구이",
-                price: 24500,
-                review: 232,
+            {
+                name: "오리지널",
+                price: 18000,
+                review: 265,
+                image: "https://sitem.ssgcdn.com/37/40/73/item/1000599734037_i1_750.jpg"
+            },
+            {
+                name: "남해마늘바사삭",
+                price: 22000,
+                review: 221,
                 image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGpLCWCnHVCp6Y1RoH21G4Neic7IusK68XGQc2PhbIXsZvr918tgHiKN1X&s=10"
             },
-            { 
-                name:"핫황금올리브 크리스피",
-                price: 24000,
-                review: 187,
+            {
+                name: "볼케이노",
+                price: 20000,
+                review: 194,
                 image: "https://axeqaqfbtc3l.compat.objectstorage.ap-chuncheon-1.oraclecloud.com/chickenrank-prod/public/chickens/Uc09gWRVCITcsIwk0KytY7cNMKHaVSQn6b4M2RgV.png"
             }
         ],
@@ -282,11 +348,25 @@ document.addEventListener("DOMContentLoaded", function () {
         ],
     };
 
+
     /*
-     * 앞 페이지에서 식당 이름을 넘기는 방법
-     * 1순위: /learning/menu/?store=굽네
-     * 2순위: localStorage.setItem("selectedRestaurant", "굽네")
+     * 식당별 정답 메뉴
+     * 엽기떡볶이-엽기떡볶이
+     * 홍콩반점-짬뽕
+     * 맥도날드-불고기버거 세트
+     * 메가커피-큐브라떼
+     * 굽네치킨-오리지널
+     * 피로족발-보쌈
      */
+    const correctMenus = {
+        "엽기떡볶이": "엽기떡볶이",
+        "홍콩반점": "짬뽕",
+        "맥도날드": "불고기버거 세트",
+        "메가mgc": "큐브라떼",
+        "굽네": "오리지널",
+        "피로족발": "보쌈"
+    };
+
     const params = new URLSearchParams(window.location.search);
     const queryStore =
         params.get("store") ||
@@ -299,10 +379,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
     renderRestaurant(selectedStoreKey);
 
+    /*
+     * 현재 미션에서는 뒤로가기, 공유, 검색, 장바구니가 정답 버튼이 아닙니다.
+     */
+    if (backButton) {
     backButton.addEventListener("click", function () {
-        if (window.history.length > 1) {
-            window.history.back();
-        }
+        window.history.back();
+    });
+}
+
+    const shareButton = document.querySelector('button[aria-label="공유"]');
+    const searchButton = document.querySelector('button[aria-label="검색"]');
+    const cartButton = document.querySelector('button[aria-label="장바구니"]');
+
+    if (shareButton) {
+        shareButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            showToast("공유 버튼이 아닙니다! 현재 식당에서 미션 메뉴를 선택해주세요.");
+        });
+    }
+
+    if (searchButton) {
+        searchButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            showToast("검색 버튼이 아닙니다! 화면에 보이는 메뉴 중 미션 메뉴를 골라주세요.");
+        });
+    }
+
+    if (cartButton) {
+        cartButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            showToast("아직 장바구니 단계가 아닙니다! 먼저 미션에 맞는 메뉴를 담아주세요.");
+        });
+    }
+
+    /*
+     * 상단 진행 단계도 현재 단계 외에는 이동하지 않고 안내만 보여줍니다.
+     */
+    document.querySelectorAll(".stage-item").forEach(function (stageItem) {
+        stageItem.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const stageName = this.textContent.trim();
+
+            if (stageName === "장바구니 보기") {
+                showToast("아직 장바구니를 볼 단계가 아닙니다! 먼저 정답 메뉴를 선택해주세요.");
+            } else if (stageName === "결제") {
+                showToast("아직 결제 단계가 아닙니다! 먼저 메뉴를 담아주세요.");
+            } else if (stageName === "음식 담기") {
+                showToast("지금은 식당 선택이 아니라 메뉴 선택 단계입니다!");
+            } else {
+                showToast("현재는 메뉴를 고르는 단계입니다!");
+            }
+        });
     });
 
     function normalizeStoreName(value) {
@@ -321,6 +450,20 @@ document.addEventListener("DOMContentLoaded", function () {
     function findRestaurantKey(requestedName) {
         const normalizedRequestedName = normalizeStoreName(requestedName);
 
+        const storeAliases = {
+            "굽네": "굽네",
+            "메가": "메가mgc",
+            "메가mgc": "메가mgc",
+            "엽기떡볶이": "엽기떡볶이",
+            "홍콩반점": "홍콩반점",
+            "맥도날드": "맥도날드",
+            "피로족발": "피로족발"
+        };
+
+        if (storeAliases[normalizedRequestedName]) {
+            return storeAliases[normalizedRequestedName];
+        }
+
         const matchedKey = Object.keys(restaurantMenus).find(function (key) {
             const normalizedKey = normalizeStoreName(key);
 
@@ -336,6 +479,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderRestaurant(storeKey) {
         const menus = restaurantMenus[storeKey];
+        const correctMenuName = correctMenus[storeKey];
+
+        if (!menus) {
+            showToast("이 식당의 메뉴 정보를 찾을 수 없습니다.");
+            return;
+        }
 
         storeNameElement.textContent = getDisplayStoreName(storeKey);
         localStorage.setItem("selectedRestaurant", storeKey);
@@ -346,7 +495,12 @@ document.addEventListener("DOMContentLoaded", function () {
             menuItem.className = "menu-item";
 
             menuItem.innerHTML = `
-                <a href="#" class="menu-link" data-menu-index="${index}">
+                <a
+                    href="#"
+                    class="menu-link"
+                    data-menu-index="${index}"
+                    data-menu-name="${escapeHtml(menu.name)}"
+                >
                     <div class="menu-info">
                         <h3>${escapeHtml(menu.name)}</h3>
                         <strong>${menu.price.toLocaleString("ko-KR")}원</strong>
@@ -360,7 +514,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             alt="${escapeHtml(menu.name)}"
                         >
 
-                        <span class="menu-add-button" aria-hidden="true">
+                        <span
+                            class="menu-add-button"
+                            aria-hidden="true"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                                 <g>
                                     <g filter="url(#menuButtonShadow${index})">
@@ -392,6 +549,16 @@ document.addEventListener("DOMContentLoaded", function () {
             menuLink.addEventListener("click", function (event) {
                 event.preventDefault();
 
+                if (!correctMenuName) {
+                    showToast("현재 미션에서 선택해야 하는 식당이 아닙니다. 미션에 제시된 식당을 골라주세요.");
+                    return;
+                }
+
+                if (menu.name !== correctMenuName) {
+                    showToast(`'${menu.name}'은(는) 현재 미션 메뉴가 아닙니다. 다른 메뉴를 골라주세요.`);
+                    return;
+                }
+
                 localStorage.setItem("selectedRestaurant", storeKey);
                 localStorage.setItem("selectedMenu", JSON.stringify({
                     store: storeKey,
@@ -401,12 +568,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     image: menu.image
                 }));
 
-                /*
-                 * 메뉴 옵션 페이지 URL이 정해지면 아래 주석을 해제하고
-                 * 주소만 프로젝트 URL에 맞게 수정하세요.
-                 */
-                // window.location.href =
-                //     `/learning/menu_option/?store=${encodeURIComponent(storeKey)}&menu=${encodeURIComponent(menu.name)}`;
+                window.location.href =
+                    "/learning/menu_option/?store=";
             });
 
             menuListElement.appendChild(menuItem);
@@ -415,13 +578,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getDisplayStoreName(storeKey) {
         const displayNames = {
-            "교촌": "교촌치킨",
-            "bhc": "BHC",
-            "bbq": "BBQ",
             "굽네": "굽네치킨",
-            "메가mgc": "메가MGC커피",
-            "투썸": "투썸플레이스",
-            "컴포즈": "컴포즈커피"
+            "메가mgc": "메가커피",
+            "홍콩반점": "홍콩반점",
+            "맥도날드": "맥도날드",
+            "엽기떡볶이": "엽기떡볶이",
+            "피로족발": "피로족발"
         };
 
         return displayNames[storeKey] || storeKey;
@@ -435,6 +597,30 @@ document.addEventListener("DOMContentLoaded", function () {
             .replaceAll('"', "&quot;")
             .replaceAll("'", "&#039;");
     }
+
+    /*
+     * base.html 등에 있는 약관 버튼/링크를 눌렀을 때도 안내합니다.
+     */
+    document.addEventListener("click", function (event) {
+        const clickedElement = event.target.closest("a, button, [role='button']");
+
+        if (!clickedElement) return;
+        if (clickedElement.closest(".menu-item")) return;
+        if (clickedElement.closest(".learn-menu-header")) return;
+        if (clickedElement.classList.contains("stage-item")) return;
+
+        const clickedText = clickedElement.textContent.trim();
+        const href = clickedElement.getAttribute("href") || "";
+
+        if (
+            clickedText.includes("약관") ||
+            href.includes("terms") ||
+            href.includes("policy")
+        ) {
+            event.preventDefault();
+            showToast("약관 버튼이 아닙니다! 현재 미션에 맞는 메뉴를 선택해주세요.");
+        }
+    });
 });
 </script>
 {% endblock %}
