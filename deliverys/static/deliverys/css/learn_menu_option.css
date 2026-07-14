@@ -18,7 +18,7 @@ img {
 
 
 /* =========================
-   화면 전체
+화면 전체
 ========================= */
 
 .menu-option-screen {
@@ -36,7 +36,7 @@ img {
 
 
 /* =========================
-   상단 고정바
+상단 고정바
 ========================= */
 
 .menu-option-header {
@@ -54,38 +54,10 @@ img {
     border-bottom: 1px solid #eeeeee;
 }
 
-.menu-option-header-title {
-    flex: 1;
-    min-width: 0;
-
-    margin: 0;
-
-    font-size: 18px;
-    font-family: Inter;
-    font-weight: 700;
-    line-height: 18px;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-left:10px;
-}
-
-.menu-option-header-actions {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-
-    flex-shrink: 0;
-    padding-left: 18px;
-    padding-right: 18px;
-    padding-top: 21px;
-    padding-bottom: 20px;
-}
-
+/* 뒤로가기 + 우측 아이콘 공통 버튼 */
 .menu-option-header-button {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
 
     padding: 0;
     border: none;
@@ -93,20 +65,67 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-right: 3px;
 
-    flex-shrink: 0;
+    flex: 0 0 35px;
 
-    color: inherit;
+    color: #111111;
     background-color: transparent;
     text-decoration: none;
     cursor: pointer;
 }
 
-.menu-option-header-button img {
-    width: 22px;
-    height: 22px;
+/* 메뉴 이름 */
+.menu-option-header-title {
+    flex: 1 1 auto;
+    min-width: 0;
 
-    object-fit: contain;
+    margin: 0;
+    padding-left: 10px;
+
+    color: #111111;
+    font-family: Inter, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 오른쪽 아이콘 3개 */
+.menu-option-header-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    flex: 0 0 auto;
+    min-width: 86px;
+
+    gap: 7px;
+    margin-left: auto;
+    padding: 0;
+
+    position: relative;
+    z-index: 2;
+}
+
+/* HTML에서 아이콘은 img가 아니라 svg임 */
+.menu-option-header-button svg {
+    display: block;
+
+    width: 24px;
+    height: 24px;
+
+    flex: 0 0 24px;
+
+    color: #111111;
+    stroke: currentColor;
+
+    overflow: visible;
+    pointer-events: none;
 }
 
 
