@@ -1,4 +1,5 @@
 {% extends 'deliverys/base.html' %}
+{% load static %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'deliverys/css/learn_cart.css' %}">
@@ -16,5 +17,93 @@
 {% endblock %}
 
 {% block mobile_ui%}
-<!-- 모바일 해보기 부분 -->
+<div class="cart-app" id="cartApp">
+    <div class="cart-topbar">
+        <button type="button" class="cart-icon-btn" data-msg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 19L5 12L12 5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19 12H5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <h1 class="cart-title">장바구니</h1>
+        <button type="button" class="cart-icon-btn" data-msg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M16 21V19C16 17.9391 15.5786 16.9217 14.8284 16.1716C14.0783 15.4214 13.0609 15 12 15H6C4.93913 15 3.92172 15.4214 3.17157 16.1716C2.42143 16.9217 2 17.9391 2 19V21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19 8V14" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22 11H16" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="cart-tabs">
+        <button type="button" class="cart-tab-item active" data-msg>배달·픽업</button>
+        <button type="button" class="cart-tab-item" data-msg>장보기·쇼핑</button>
+        <button type="button" class="cart-tab-item" data-msg>특가</button>
+    </div>
+
+    <div class="cart-scroll">
+        <button type="button" class="cart-store-row" data-msg>
+            <span class="cart-store-thumb" id="storeThumb">🍗</span>
+            <span class="cart-store-name" id="storeName">BBQ OO점</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M7.5 15L12.5 10L7.5 5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <div id="cartItemList"><!-- learn_menu / learn_menu_option 결과가 렌더링되는 영역 --></div>
+
+        <div class="cart-reco-section">
+            <h2 class="cart-section-title">함께 먹으면 좋아요</h2>
+            <div class="cart-reco-content">
+                <div id="recoList"></div>
+                <button type="button" class="cart-more-btn" data-msg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    더보기
+                </button>
+            </div>
+        </div>
+
+        <div class="cart-delivery-section">
+            <h2 class="cart-section-title">수령방법을 선택해주세요</h2>
+            <div id="deliveryList"></div>
+        </div>
+
+        <div class="cart-payment-section">
+            <h2 class="cart-section-title">결제금액을 확인해주세요</h2>
+            <div class="cart-payment-rows">
+                <div class="cart-payment-row">
+                    <span>메뉴 금액</span>
+                    <span id="menuAmount">0원</span>
+                </div>
+                <div class="cart-payment-row">
+                    <span>배달팁</span>
+                    <span id="deliveryFeeAmount">0원</span>
+                </div>
+                <hr>
+                <div class="cart-payment-row total">
+                    <span>결제예정금액</span>
+                    <span id="expectedAmount">0원</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-bottombar">
+        <span class="cart-bottom-total" id="bottomTotal">0원</span>
+        <button type="button" class="cart-order-btn" id="orderBtn">알뜰배달 주문하기</button>
+    </div>
+</div>
+
+<div class="cart-toast" id="cartToast">이 버튼이 아닙니다!</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // learn_cart.js 에서 사용할 페이지 이동 경로
+    window.LEARN_CART_URLS = {
+        payment: "{% url 'deliverys:learn_payment' %}"
+    };
+</script>
+<script src="{% static 'deliverys/js/learn_cart.js' %}"></script>
 {% endblock %}
