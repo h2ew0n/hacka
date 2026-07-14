@@ -86,30 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
             screen.appendChild(element);
         }
 
-        Object.assign(element.style, {
-            position: "absolute",
-            left: "50%",
-            bottom: "76px",
-            transform: "translate(-50%, 12px)",
-            width: "max-content",
-            maxWidth: "calc(100% - 28px)",
-            padding: "12px 16px",
-            boxSizing: "border-box",
-            borderRadius: "999px",
-            backgroundColor: "#ff5a5f",
-            color: "#ffffff",
-            fontSize: "12px",
-            fontWeight: "700",
-            lineHeight: "1.4",
-            textAlign: "center",
-            wordBreak: "keep-all",
-            opacity: "0",
-            visibility: "hidden",
-            pointerEvents: "none",
-            zIndex: "99999",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.18)",
-            transition: "opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease"
-        });
+        
 
         const screen = document.querySelector(".menu-option-screen");
         if (screen) {
@@ -120,17 +97,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showToast(message) {
-        toast.textContent = message || "미션에 맞는 옵션을 선택해주세요.";
-        toast.style.opacity = "1";
-        toast.style.visibility = "visible";
-        toast.style.transform = "translate(-50%, 0)";
+        if (!toast) return;
+
+        toast.textContent =
+            message || "미션에 맞는 옵션을 선택해주세요.";
+
+        toast.classList.remove("show");
+
+        void toast.offsetWidth;
+
+        toast.classList.add("show");
 
         clearTimeout(toastTimer);
 
         toastTimer = setTimeout(function () {
-            toast.style.opacity = "0";
-            toast.style.visibility = "hidden";
-            toast.style.transform = "translate(-50%, 12px)";
+            toast.classList.remove("show");
         }, 2200);
     }
 
@@ -467,7 +448,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     option.name !== correctFirstOption
                 ) {
                     this.checked = false;
-                    showToast(`'${option.name}'은(는) 미션에 제시된 옵션이 아닙니다.`);
+                    showToast(`이 옵션은 미션이 아닙니다.`);
                     return;
                 }
 
@@ -524,8 +505,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     showToast(
                         correctOptions.length === 0
-                            ? `'${option.name}'은(는) 현재 미션에서 선택하지 않는 옵션입니다.`
-                            : `'${option.name}'은(는) 미션에 제시된 옵션이 아닙니다.`
+                            ? `이 옵션은 미션이 아닙니다.`
+                            : `이 옵션은 미션이 아닙니다.`
                     );
                     return;
                 }
@@ -630,7 +611,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     quantityDecreaseButton.addEventListener("click", function () {
         if (quantity <= 1) {
-            showToast("수량은 1개보다 적게 설정할 수 없습니다.");
+            showToast("수량은 1개 이상입니다.");
             return;
         }
 
@@ -640,7 +621,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     quantityIncreaseButton.addEventListener("click", function () {
         if (!currentMission) {
-            showToast("현재 미션의 수량 정보를 찾을 수 없습니다.");
+            showToast("찾을 수 없습니다.");
             return;
         }
 
@@ -655,17 +636,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     addCartButton.addEventListener("click", function () {
         if (!currentMission) {
-            showToast("현재 미션 메뉴 정보를 찾을 수 없습니다.");
+            showToast("찾을 수 없습니다.");
             return;
         }
 
         if (quantity !== currentMission.quantity) {
-            showToast(`수량을 ${currentMission.quantity}개로 맞춰주세요.`);
+            showToast(`수량을 ${currentMission.quantity}개로 해주세요.`);
             return;
         }
 
         if (!isMissionComplete()) {
-            showToast("아직 미션에 제시된 옵션을 모두 정확히 선택하지 않았습니다.");
+            showToast("옵션을 정확히 선택하세요.");
             return;
         }
 
@@ -712,7 +693,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     bindWrongButton(
         ".send-opinion-button",
-        "의견 보내기 버튼이 아닙니다! 미션 옵션을 선택해주세요."
+        "미션 옵션을 선택해주세요."
     );
 
     document.querySelectorAll(".stage-item").forEach(function (stageItem) {
