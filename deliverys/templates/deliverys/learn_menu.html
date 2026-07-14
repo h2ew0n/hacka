@@ -6,11 +6,51 @@
     rel="stylesheet"
     href="{% static 'deliverys/css/learn_menu.css' %}"
 >
+<style>
+    .cart-toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        transform: translate(-50%, 14px);
+        width: max-content;
+        max-width: calc(100vw - 32px);
+        padding: 13px 18px;
+        box-sizing: border-box;
+        border-radius: 999px;
+        background: red;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.45;
+        text-align: center;
+        word-break: keep-all;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        z-index: 999999;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+        box-shadow: 0 5px 16px rgba(0, 0, 0, 0.24);
+    }
+
+    .cart-toast.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0);
+    }
+
+    .menu-link {
+        cursor: pointer;
+    }
+
+    .menu-add-button {
+        cursor: pointer;
+    }
+</style>
 {% endblock %}
 
 {% block stage_list %}
-    <div class="stage-item active">음식 담기</div>
-    <div class="stage-item">메뉴 담기</div>
+    <div class="stage-item">음식 담기</div>
+    <div class="stage-item active">메뉴 담기</div>
     <div class="stage-item">장바구니 보기</div>
     <div class="stage-item">결제</div>
 {% endblock %}
@@ -26,17 +66,16 @@
     <header class="learn-menu-header">
         <button
             class="learn-menu-header-button"
+            id="backButton"
             type="button"
             aria-label="뒤로가기"
         >
-            <img
-                src="{% static 'deliverys/icons/back.svg' %}"
-                alt=""
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left-icon lucide-move-left"><path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
         </button>
 
-        <div class="learn-menu-store-name">
-            BBQ 길음센터피스점
+        <!-- 선택한 식당 이름이 JavaScript로 들어갑니다. -->
+        <div class="learn-menu-store-name" id="storeName">
+            BBQ
         </div>
 
         <div class="learn-menu-header-actions">
@@ -45,10 +84,11 @@
                 type="button"
                 aria-label="공유"
             >
-                <img
-                    src="{% static 'deliverys/icons/share.svg' %}"
-                    alt=""
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <path d="M19.25 11.9167V17.4167C19.25 17.9029 19.0568 18.3692 18.713 18.713C18.3692 19.0568 17.9029 19.25 17.4167 19.25H4.58333C4.0971 19.25 3.63079 19.0568 3.28697 18.713C2.94315 18.3692 2.75 17.9029 2.75 17.4167V4.58333C2.75 4.0971 2.94315 3.63079 3.28697 3.28697C3.63079 2.94315 4.0971 2.75 4.58333 2.75H10.0833" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19.25 2.75L11 11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13.75 2.75H19.25V8.25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </button>
 
             <button
@@ -56,10 +96,10 @@
                 type="button"
                 aria-label="검색"
             >
-                <img
-                    src="{% static 'deliverys/icons/search.svg' %}"
-                    alt=""
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <path d="M19.2499 19.2499L15.2716 15.2716" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.0833 17.4167C14.1334 17.4167 17.4167 14.1334 17.4167 10.0833C17.4167 6.03324 14.1334 2.75 10.0833 2.75C6.03324 2.75 2.75 6.03324 2.75 10.0833C2.75 14.1334 6.03324 17.4167 10.0833 17.4167Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </button>
 
             <button
@@ -67,10 +107,11 @@
                 type="button"
                 aria-label="장바구니"
             >
-                <img
-                    src="{% static 'deliverys/icons/cart.svg' %}"
-                    alt=""
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <path d="M6.93819 21C7.48937 21 7.93619 20.5512 7.93619 19.9975C7.93619 19.4438 7.48937 18.995 6.93819 18.995C6.38701 18.995 5.94019 19.4438 5.94019 19.9975C5.94019 20.5512 6.38701 21 6.93819 21Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.9162 21C18.4674 21 18.9142 20.5512 18.9142 19.9975C18.9142 19.4438 18.4674 18.995 17.9162 18.995C17.365 18.995 16.9182 19.4438 16.9182 19.9975C16.9182 20.5512 17.365 21 17.9162 21Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M1 1H2.99601L5.6507 13.4511C5.74808 13.9071 6.00067 14.3148 6.36498 14.6039C6.72929 14.893 7.18254 15.0455 7.64671 15.0351H17.4072C17.8615 15.0344 18.3019 14.878 18.6557 14.5918C19.0096 14.3057 19.2556 13.9068 19.3533 13.4612L21 6.01253H4.06387" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </button>
         </div>
     </header>
@@ -81,91 +122,502 @@
 
             <div class="section-heading">
                 <h2>가장 인기 있는 메뉴</h2>
-                <p>
-                    한 달간 주문수가 많고 만족도가 높은 메뉴예요.
-                </p>
+                <p>한 달간 주문수가 많고 만족도가 높은 메뉴예요.</p>
             </div>
 
-            <div class="menu-list">
+            <!-- 선택한 식당의 메뉴가 JavaScript로 들어갑니다. -->
+            <div class="menu-list" id="menuList"></div>
 
-                <!-- 첫 번째 메뉴 -->
-                <article class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-info">
-                            <h3>황금올리브치킨</h3>
-                            <strong>23,000원</strong>
-                            <span>리뷰 365</span>
-                        </div>
-
-                        <div class="menu-image-box">
-                            <img
-                                class="menu-image"
-                                src="{% static 'deliverys/images/chicken1-1.png' %}"
-                                alt="황금올리브치킨"
-                            >
-
-                            <img
-                                class="plus-icon"
-                                src="{% static 'deliverys/icons/plus.svg' %}"
-                                alt=""
-                            >
-                        </div>
-                    </a>
-                </article>
-
-                <!-- 두 번째 메뉴 -->
-                <article class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-info">
-                            <h3>[황.양.반] 황올 반+양념 반</h3>
-                            <strong>24,000원</strong>
-                            <span>리뷰 256</span>
-                        </div>
-
-                        <div class="menu-image-box">
-                            <img
-                                class="menu-image"
-                                src="{% static 'deliverys/images/chicken2.png' %}"
-                                alt="황올 반 양념 반"
-                            >
-
-                            <img
-                                class="plus-icon"
-                                src="{% static 'deliverys/icons/plus.svg' %}"
-                                alt=""
-                            >
-                        </div>
-                    </a>
-                </article>
-
-                <!-- 세 번째 메뉴 -->
-                <article class="menu-item">
-                    <a href="#" class="menu-link">
-                        <div class="menu-info">
-                            <h3>황금올리브치킨</h3>
-                            <strong>23,000원</strong>
-                            <span>리뷰 256</span>
-                        </div>
-
-                        <div class="menu-image-box">
-                            <img
-                                class="menu-image"
-                                src="{% static 'deliverys/images/chicken3.png' %}"
-                                alt="황금올리브치킨"
-                            >
-
-                            <img
-                                class="plus-icon"
-                                src="{% static 'deliverys/icons/plus.svg' %}"
-                                alt=""
-                            >
-                        </div>
-                    </a>
-                </article>
-
-            </div>
         </section>
     </main>
 
+    <div
+        id="cartToast"
+        class="cart-toast"
+        role="status"
+        aria-live="polite"
+    >
+        이 버튼이 아닙니다!
+    </div>
 </div>
+
+<!-- Django static 경로를 JavaScript에서 사용하기 위한 숨김 데이터 -->
+<div
+    id="staticPathData"
+    data-chicken1="{% static 'deliverys/images/chicken1-1.png' %}"
+    data-chicken2="{% static 'deliverys/images/chicken2.png' %}"
+    data-chicken3="{% static 'deliverys/images/chicken3.png' %}"
+    hidden
+></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const storeNameElement = document.getElementById("storeName");
+    const menuListElement = document.getElementById("menuList");
+    const backButton = document.getElementById("backButton");
+    const staticPathData = document.getElementById("staticPathData");
+    const toast = document.getElementById("cartToast");
+
+    let toastTimer = null;
+
+    function showToast(message) {
+        if (!toast) return;
+
+        toast.textContent = message || "이 버튼이 아닙니다!";
+        toast.classList.remove("show");
+
+        // 같은 버튼을 연속해서 눌러도 애니메이션이 다시 실행되도록 처리
+        void toast.offsetWidth;
+
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+
+        toastTimer = setTimeout(function () {
+            toast.classList.remove("show");
+        }, 2200);
+    }
+
+    const defaultImages = staticPathData
+        ? [
+            staticPathData.dataset.chicken1,
+            staticPathData.dataset.chicken2,
+            staticPathData.dataset.chicken3,
+            staticPathData.dataset.chicken1
+        ]
+        : [];
+
+    const restaurantMenus = {
+        "굽네": [
+            {
+                name: "고추바사삭",
+                price: 21000,
+                review: 388,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkvPt8w4C418fKxWnIr_vkNrmbEHoLGYOix7_jLpB0xQ&s=10"
+            },
+            {
+                name: "오리지널",
+                price: 18000,
+                review: 265,
+                image: "https://sitem.ssgcdn.com/37/40/73/item/1000599734037_i1_750.jpg"
+            },
+            {
+                name: "남해마늘바사삭",
+                price: 22000,
+                review: 221,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGpLCWCnHVCp6Y1RoH21G4Neic7IusK68XGQc2PhbIXsZvr918tgHiKN1X&s=10"
+            },
+            {
+                name: "볼케이노",
+                price: 20000,
+                review: 194,
+                image: "https://axeqaqfbtc3l.compat.objectstorage.ap-chuncheon-1.oraclecloud.com/chickenrank-prod/public/chickens/Uc09gWRVCITcsIwk0KytY7cNMKHaVSQn6b4M2RgV.png"
+            }
+        ],
+        "홍콩반점": [
+            {
+                name: "짜장면",
+                price: 7000,
+                review: 341,
+                image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fcdn.crowdpic.net%2Fdetail-thumb%2Fthumb_d_BA5E89004B5B053E97863AFF99ADFB70.jpg&type=a340"
+            },
+            {
+                name: "짬뽕",
+                price: 8000,
+                review: 298,
+                image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Ff6%2Fb6%2Fd1%2Ff6b6d10cb9a7a3adf34d581fe6c09f03.jpg&type=a340"
+            },
+            {
+                name: "탕수육",
+                price: 16000,
+                review: 257,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F009%2F2018%2F02%2F12%2F0004099251_002_20180212060242191.jpg&type=a340"
+            },
+            {
+                name: "짜장밥",
+                price: 8000,
+                review: 148,
+                image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Frecipe1.ezmember.co.kr%2Fcache%2Frecipe%2F2024%2F06%2F11%2Ffe2a90bcb69730451dcc835d08ef86261.jpg%3Fw%3D1000&type=a340"
+            }
+        ],
+        "메가mgc": [
+            { 
+                name: "메가리카노",
+                price: 3000,
+                review: 356,
+                image: "https://search.pstatic.net/common/?src=https%3A%2F%2Fshop-phinf.pstatic.net%2F20230620_96%2F1687238382216F2bUg_JPEG%2F11618360784073074_1533807001.jpg&type=a340"
+            },
+            { 
+                name: "큐브라떼",
+                price: 4500,
+                review: 226,
+                image: "https://shop-phinf.pstatic.net/20250604_251/1749000649710wJiF7_JPEG/83133457863318362_856819931.jpg?type=o1000"
+            },
+            { 
+                name: "딸기라떼",
+                price: 4000,
+                review: 211,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTA0MjdfNjAg%2FMDAxNTU2MzcwNTQzNjYx.5TmdlKY66F36H1zAQDi0jB3bF1_p9BeaOb45sDpbRksg.8C22dqrqe-27CrpCy_HP2wmY7Q51cWdCwImRrcrmqewg.PNG.v-v210%2F%25B5%25FE%25B1%25E2_%25B6%25F3%25B6%25BC.png&type=a340"
+            },
+            { 
+                name: "플레인 크로플",
+                price: 3500,
+                review: 174,
+                image: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240617_233%2F1718584005781e9za6_JPEG%2FIMG_2232.jpeg&type=a340"
+            },
+        ],
+        "맥도날드": [
+            {
+                name: "빅맥 세트",
+                price: 7200,
+                review: 398,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNjA0MDFfODUg%2FMDAxNzc1MDE2MjMxNDIw.VEt_liCWAN9ByOTtYbJBzDYoXcF_S32Z6Kf1bOfXBVwg.I4xxUZ2RODxUuH4ySQZA16W_c-vFhDDISIGmE3ieIuAg.PNG%2F%25BA%25F2%25B8%25C6.png&type=a340"
+            },
+            {
+                name: "상하이 버거 세트",
+                price: 7400,
+                review: 341,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160310_165%2Fbborori10_1457616873272rCd78_PNG%2F1955%25B9%25F6%25B0%25C5_02.png&type=a340"
+            },
+            {
+                name: "불고기버거 세트",
+                price: 6000,
+                review: 285,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA4MDdfMTI4%2FMDAxNTMzNjE5NjY4MzI4.BNQzfoRZagiIbqtAQ-uIm6k-5Prrr9CmoBATOaWCvi8g.yWzD2-97jU-ghShgmheo3CIf6mF1ygTILjmXabqHPfQg.PNG.ynos33%2Fprov_201803260924164710.png&type=a340"
+            },
+            {
+                name: "맥스파이시 치킨텐더",
+                price: 4500,
+                review: 196,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNjA0MjJfMTM1%2FMDAxNzc2ODI3NjI4ODE1.YsuDWXJQ2zMjH309obTe3yEfusctYICBTGvOge9RmxEg.yHCoAudL76L6O6P20Q0nGazfsAa29A2TyWH4GAfArWwg.PNG%2FChatGPT_Image_2026%25B3%25E2_4%25BF%25F9_22%25C0%25CF_%25BF%25C0%25C8%25C4_12_08_24.png&type=a340"
+            },
+        ],
+        "엽기떡볶이": [
+            { 
+                name: "엽기떡볶이",
+                price: 14000,
+                review: 398,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNjAyMTdfMTQ4%2FMDAxNzcxMzI1OTUyNTc3.CUW5kwV5RMbWoq8UUzbGU8tTcmavL18_aWLmtoe0BZgg.4SDZ6c4yYhOnbQsfgPa_lw0p2RujCbtjygjW6hZfa2Yg.JPEG%2F%25BA%25A3%25BD%25BA%25C6%25AE%25BC%25BC%25C6%25AE.jpg&type=a340"
+            },
+            { 
+                name: "엽기반반",
+                price: 14000,
+                review: 341,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160227_66%2Fqeen33_1456534137459nvgs0_PNG%2F01.png&type=a340"
+            },
+            { 
+                name: "로제엽떡",
+                price: 16000,
+                review: 311,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDExMjVfMTAz%2FMDAxNzMyNTQ0NzM5MzQ4._F8yrKC2bEhouEZe_fkAt433UaEwujPjiCADMVj2CHsg.zR6mO8je9BB58gijBHSz3U4gexJaP8fw7xxw7I03qPog.JPEG%2Foutput_1484594680.jpg&type=a340"
+            },
+            { 
+                name: "엽기 닭볶음탕",
+                price: 24000,
+                review: 241,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA4MDlfMTUx%2FMDAxNjkxNTg4MjAxNzMx.pb5IUorEyxOAdVTzUGUfHNjKBLSsteg_y6tNE5HcD6Ig.chcTZ-ViPTazxh79mY_t9EnEr86nBlf_waAnVSVZLscg.PNG.kjh345881%2F5._%253F%2597%25BD%25EA%25B8%25B0%25EB%258B%25AD%25EB%25B3%25B6%25EC%259D%258C%253F%2583%2595%2528%253F%2595%25AD%25EA%25B3%253F%2529.png&type=a340"
+            },
+        ],
+        "피로족발": [
+            { 
+                name: "족발",
+                price: 14000,
+                review: 398,
+                image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimage.utoimage.com%2Fpreview%2Fcp871385%2F2018%2F12%2F201812006026_500.jpg&type=a340"
+            },
+            { 
+                name: "보쌈",
+                price: 14000,
+                review: 341,
+                image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fthumb2.gettyimageskorea.com%2Fimage_preview%2F700%2F201711%2FMBRF%2FMBRF17017894.jpg&type=a340"
+            },
+            { 
+                name: "족발보쌈",
+                price: 16000,
+                review: 311,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA2MDNfMTgx%2FMDAxNzE3MzkzNjAzMzM3.Yre-qDBQ-9E8ZxmD9QPWLNLW6j0OLw19KvORXOef15Yg.kpH5A7E07InSL_w77XDAbqBIjcSDqbFY6c7GlJLWk3Mg.JPEG%2F12779185.jpg&type=a340"
+            },
+            { 
+                name: "불족발",
+                price: 24000,
+                review: 241,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA3MDdfODAg%2FMDAxNzIwMzM5ODE2MjE1.zZjfoIgLUXRI1pFPLkKOGeTK1YrVNGIixBBNLvjKSDsg.w6hjm4W9PUmiVbw8sv1E29chyLn6qCtNBy7Iohc4NVwg.JPEG%2F2613669766595754-d9613ed5-2fe9-45da-97c0-eaae28d7c4f9.jpg&type=a340"
+            },
+        ],
+    };
+
+
+    /*
+     * 식당별 정답 메뉴
+     * 엽기떡볶이-엽기떡볶이
+     * 홍콩반점-짬뽕
+     * 맥도날드-불고기버거 세트
+     * 메가커피-큐브라떼
+     * 굽네치킨-오리지널
+     * 피로족발-보쌈
+     */
+    const correctMenus = {
+        "엽기떡볶이": "엽기떡볶이",
+        "홍콩반점": "짬뽕",
+        "맥도날드": "불고기버거 세트",
+        "메가mgc": "큐브라떼",
+        "굽네": "오리지널",
+        "피로족발": "보쌈"
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const queryStore =
+        params.get("store") ||
+        params.get("restaurant") ||
+        params.get("store_name");
+
+    const savedStore = localStorage.getItem("selectedRestaurant");
+    const requestedStore = queryStore || savedStore || "굽네";
+    const selectedStoreKey = findRestaurantKey(requestedStore);
+
+    renderRestaurant(selectedStoreKey);
+
+    /*
+     * 현재 미션에서는 뒤로가기, 공유, 검색, 장바구니가 정답 버튼이 아닙니다.
+     */
+    if (backButton) {
+    backButton.addEventListener("click", function () {
+        window.history.back();
+    });
+}
+
+    const shareButton = document.querySelector('button[aria-label="공유"]');
+    const searchButton = document.querySelector('button[aria-label="검색"]');
+    const cartButton = document.querySelector('button[aria-label="장바구니"]');
+
+    if (shareButton) {
+        shareButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            showToast("공유 버튼이 아닙니다! 현재 식당에서 미션 메뉴를 선택해주세요.");
+        });
+    }
+
+    if (searchButton) {
+        searchButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            showToast("검색 버튼이 아닙니다! 화면에 보이는 메뉴 중 미션 메뉴를 골라주세요.");
+        });
+    }
+
+    if (cartButton) {
+        cartButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            showToast("아직 장바구니 단계가 아닙니다! 먼저 미션에 맞는 메뉴를 담아주세요.");
+        });
+    }
+
+    /*
+     * 상단 진행 단계도 현재 단계 외에는 이동하지 않고 안내만 보여줍니다.
+     */
+    document.querySelectorAll(".stage-item").forEach(function (stageItem) {
+        stageItem.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const stageName = this.textContent.trim();
+
+            if (stageName === "장바구니 보기") {
+                showToast("아직 장바구니를 볼 단계가 아닙니다! 먼저 정답 메뉴를 선택해주세요.");
+            } else if (stageName === "결제") {
+                showToast("아직 결제 단계가 아닙니다! 먼저 메뉴를 담아주세요.");
+            } else if (stageName === "음식 담기") {
+                showToast("지금은 식당 선택이 아니라 메뉴 선택 단계입니다!");
+            } else {
+                showToast("현재는 메뉴를 고르는 단계입니다!");
+            }
+        });
+    });
+
+    function normalizeStoreName(value) {
+        return String(value || "")
+            .toLowerCase()
+            .replaceAll(" ", "")
+            .replaceAll("-", "")
+            .replaceAll("_", "")
+            .replace("치킨", "")
+            .replace("커피", "")
+            .replace("플레이스", "")
+            .replace("길음센터피스점", "")
+            .trim();
+    }
+
+    function findRestaurantKey(requestedName) {
+        const normalizedRequestedName = normalizeStoreName(requestedName);
+
+        const storeAliases = {
+            "굽네": "굽네",
+            "메가": "메가mgc",
+            "메가mgc": "메가mgc",
+            "엽기떡볶이": "엽기떡볶이",
+            "홍콩반점": "홍콩반점",
+            "맥도날드": "맥도날드",
+            "피로족발": "피로족발"
+        };
+
+        if (storeAliases[normalizedRequestedName]) {
+            return storeAliases[normalizedRequestedName];
+        }
+
+        const matchedKey = Object.keys(restaurantMenus).find(function (key) {
+            const normalizedKey = normalizeStoreName(key);
+
+            return (
+                normalizedKey === normalizedRequestedName ||
+                normalizedRequestedName.includes(normalizedKey) ||
+                normalizedKey.includes(normalizedRequestedName)
+            );
+        });
+
+        return matchedKey || "굽네";
+    }
+
+    function renderRestaurant(storeKey) {
+        const menus = restaurantMenus[storeKey];
+        const correctMenuName = correctMenus[storeKey];
+
+        if (!menus) {
+            showToast("이 식당의 메뉴 정보를 찾을 수 없습니다.");
+            return;
+        }
+
+        storeNameElement.textContent = getDisplayStoreName(storeKey);
+        localStorage.setItem("selectedRestaurant", storeKey);
+        menuListElement.innerHTML = "";
+
+        menus.forEach(function (menu, index) {
+            const menuItem = document.createElement("article");
+            menuItem.className = "menu-item";
+
+            menuItem.innerHTML = `
+                <a
+                    href="#"
+                    class="menu-link"
+                    data-menu-index="${index}"
+                    data-menu-name="${escapeHtml(menu.name)}"
+                >
+                    <div class="menu-info">
+                        <h3>${escapeHtml(menu.name)}</h3>
+                        <strong>${menu.price.toLocaleString("ko-KR")}원</strong>
+                        <span>리뷰 ${menu.review.toLocaleString("ko-KR")}</span>
+                    </div>
+
+                    <div class="menu-image-box">
+                        <img
+                            class="menu-image"
+                            src="${menu.image}"
+                            alt="${escapeHtml(menu.name)}"
+                        >
+
+                        <span
+                            class="menu-add-button"
+                            aria-hidden="true"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <g>
+                                    <g filter="url(#menuButtonShadow${index})">
+                                        <path d="M20 36.6667C29.2048 36.6667 36.6667 29.2048 36.6667 20C36.6667 10.7953 29.2048 3.33337 20 3.33337C10.7953 3.33337 3.33337 10.7953 3.33337 20C3.33337 29.2048 10.7953 36.6667 20 36.6667Z" fill="white"/>
+                                    </g>
+                                    <path d="M13.3334 20H26.6667" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20 13.3334V26.6667" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
+                                <defs>
+                                    <filter id="menuButtonShadow${index}" x="-1.66663" y="0.333374" width="43.3334" height="43.3334" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                        <feOffset dy="2"/>
+                                        <feGaussianBlur stdDeviation="2.5"/>
+                                        <feComposite in2="hardAlpha" operator="out"/>
+                                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+            `;
+
+            const menuLink = menuItem.querySelector(".menu-link");
+
+            menuLink.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                if (!correctMenuName) {
+                    showToast("현재 미션에서 선택해야 하는 식당이 아닙니다. 미션에 제시된 식당을 골라주세요.");
+                    return;
+                }
+
+                if (menu.name !== correctMenuName) {
+                    showToast(`'${menu.name}'은(는) 현재 미션 메뉴가 아닙니다. 다른 메뉴를 골라주세요.`);
+                    return;
+                }
+
+                localStorage.setItem("selectedRestaurant", storeKey);
+                localStorage.setItem("selectedMenu", JSON.stringify({
+                    store: storeKey,
+                    name: menu.name,
+                    price: menu.price,
+                    review: menu.review,
+                    image: menu.image
+                }));
+
+                window.location.href =
+                    "/learning/menu_option/?store=";
+            });
+
+            menuListElement.appendChild(menuItem);
+        });
+    }
+
+    function getDisplayStoreName(storeKey) {
+        const displayNames = {
+            "굽네": "굽네치킨",
+            "메가mgc": "메가커피",
+            "홍콩반점": "홍콩반점",
+            "맥도날드": "맥도날드",
+            "엽기떡볶이": "엽기떡볶이",
+            "피로족발": "피로족발"
+        };
+
+        return displayNames[storeKey] || storeKey;
+    }
+
+    function escapeHtml(value) {
+        return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+    /*
+     * base.html 등에 있는 약관 버튼/링크를 눌렀을 때도 안내합니다.
+     */
+    document.addEventListener("click", function (event) {
+        const clickedElement = event.target.closest("a, button, [role='button']");
+
+        if (!clickedElement) return;
+        if (clickedElement.closest(".menu-item")) return;
+        if (clickedElement.closest(".learn-menu-header")) return;
+        if (clickedElement.classList.contains("stage-item")) return;
+
+        const clickedText = clickedElement.textContent.trim();
+        const href = clickedElement.getAttribute("href") || "";
+
+        if (
+            clickedText.includes("약관") ||
+            href.includes("terms") ||
+            href.includes("policy")
+        ) {
+            event.preventDefault();
+            showToast("약관 버튼이 아닙니다! 현재 미션에 맞는 메뉴를 선택해주세요.");
+        }
+    });
+});
+</script>
 {% endblock %}

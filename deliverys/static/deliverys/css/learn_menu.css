@@ -25,6 +25,7 @@ img {
 ========================= */
 
 .app-screen {
+    position: relative;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -37,6 +38,9 @@ img {
     overflow: hidden;
 }
 
+.cart-toast {
+    position: absolute;
+}
 
 /* =========================
 앱 내부 상단바
@@ -76,29 +80,23 @@ img {
 .learn-menu-header-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     flex-shrink: 0;
+    margin-left: auto;
 }
 
 
 /* 상단 아이콘 버튼 */
 
 .learn-menu-header-button {
-    width: 22px;
-    height: 22px;
-
-    margin: 0;
-    padding: 0px;
-    border: none;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    flex: 0 0 19px;
-
-    background-color: transparent;
+    padding: 0;
+    border: none;
+    background: none;
     cursor: pointer;
+    flex-shrink: 0;
     
 }
 
@@ -305,16 +303,23 @@ img {
     object-fit: cover;
 }
 
+.menu-image-box {
+    position: relative;
+    flex-shrink: 0;
+}
 
-/* 플러스 아이콘 */
-
-.plus-icon {
+.menu-add-button {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
     width: 40px;
     height: 40px;
+    display: block;
+    z-index: 10;
+}
 
-    position: absolute;
-    right: 4px;
-    bottom: 4px;
-
-    pointer-events: none;
+.menu-add-button svg {
+    display: block;
+    width: 40px;
+    height: 40px;
 }
