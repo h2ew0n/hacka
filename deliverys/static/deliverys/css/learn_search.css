@@ -217,6 +217,14 @@
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1;
+}
+
+.tab-item:hover {
+  transform: translateY(-4px); 
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.08);
+  z-index: 5;
 }
 
 /* [수정] 검은색 인디케이터 밑줄 위치 조정 */
@@ -347,7 +355,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
- cursor: pointer;
+  cursor: pointer;
 
   
   color: black;
@@ -408,6 +416,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 1;
+}
+
+.nav-icon:hover {
+  transform: translateY(-4px); 
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.08);
+  z-index: 5;
 }
 
 
