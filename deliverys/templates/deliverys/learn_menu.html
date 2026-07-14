@@ -1,7 +1,11 @@
 {% extends 'deliverys/base.html' %}
+{% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'deliverys/css/learn_menu.css' %}">
+<link
+    rel="stylesheet"
+    href="{% static 'deliverys/css/learn_menu.css' %}"
+>
 {% endblock %}
 
 {% block stage_list %}
@@ -12,9 +16,156 @@
 {% endblock %}
 
 {% block guide %}
-<!-- 모바일 가이드(설명) 부분 -->
+    <!-- 모바일 가이드(설명) 부분 -->
 {% endblock %}
 
-{% block mobile_ui%}
-<!-- 모바일 해보기 부분 -->
+{% block mobile_ui %}
+<div class="app-screen">
+
+    <!-- 앱 내부 상단바 -->
+    <header class="learn-menu-header">
+        <button
+            class="learn-menu-header-button"
+            type="button"
+            aria-label="뒤로가기"
+        >
+            <img
+                src="{% static 'deliverys/icons/back.svg' %}"
+                alt=""
+            >
+        </button>
+
+        <div class="learn-menu-store-name">
+            BBQ 길음센터피스점
+        </div>
+
+        <div class="learn-menu-header-actions">
+            <button
+                class="learn-menu-header-button"
+                type="button"
+                aria-label="공유"
+            >
+                <img
+                    src="{% static 'deliverys/icons/share.svg' %}"
+                    alt=""
+                >
+            </button>
+
+            <button
+                class="icon-button"
+                type="button"
+                aria-label="검색"
+            >
+                <img
+                    src="{% static 'deliverys/icons/search.svg' %}"
+                    alt=""
+                >
+            </button>
+
+            <button
+                class="icon-button"
+                type="button"
+                aria-label="장바구니"
+            >
+                <img
+                    src="{% static 'deliverys/icons/cart.svg' %}"
+                    alt=""
+                >
+            </button>
+        </div>
+    </header>
+
+    <!-- 스크롤되는 전체 메뉴 영역 -->
+    <main class="menu-content">
+        <section class="menu-section">
+
+            <div class="section-heading">
+                <h2>가장 인기 있는 메뉴</h2>
+                <p>
+                    한 달간 주문수가 많고 만족도가 높은 메뉴예요.
+                </p>
+            </div>
+
+            <div class="menu-list">
+
+                <!-- 첫 번째 메뉴 -->
+                <article class="menu-item">
+                    <a href="#" class="menu-link">
+                        <div class="menu-info">
+                            <h3>황금올리브치킨</h3>
+                            <strong>23,000원</strong>
+                            <span>리뷰 365</span>
+                        </div>
+
+                        <div class="menu-image-box">
+                            <img
+                                class="menu-image"
+                                src="{% static 'deliverys/images/chicken1-1.png' %}"
+                                alt="황금올리브치킨"
+                            >
+
+                            <img
+                                class="plus-icon"
+                                src="{% static 'deliverys/icons/plus.svg' %}"
+                                alt=""
+                            >
+                        </div>
+                    </a>
+                </article>
+
+                <!-- 두 번째 메뉴 -->
+                <article class="menu-item">
+                    <a href="#" class="menu-link">
+                        <div class="menu-info">
+                            <h3>[황.양.반] 황올 반+양념 반</h3>
+                            <strong>24,000원</strong>
+                            <span>리뷰 256</span>
+                        </div>
+
+                        <div class="menu-image-box">
+                            <img
+                                class="menu-image"
+                                src="{% static 'deliverys/images/chicken2.png' %}"
+                                alt="황올 반 양념 반"
+                            >
+
+                            <img
+                                class="plus-icon"
+                                src="{% static 'deliverys/icons/plus.svg' %}"
+                                alt=""
+                            >
+                        </div>
+                    </a>
+                </article>
+
+                <!-- 세 번째 메뉴 -->
+                <article class="menu-item">
+                    <a href="#" class="menu-link">
+                        <div class="menu-info">
+                            <h3>황금올리브치킨</h3>
+                            <strong>23,000원</strong>
+                            <span>리뷰 256</span>
+                        </div>
+
+                        <div class="menu-image-box">
+                            <img
+                                class="menu-image"
+                                src="{% static 'deliverys/images/chicken3.png' %}"
+                                alt="황금올리브치킨"
+                            >
+
+                            <img
+                                class="plus-icon"
+                                src="{% static 'deliverys/icons/plus.svg' %}"
+                                alt=""
+                            >
+                        </div>
+                    </a>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+</div>
 {% endblock %}

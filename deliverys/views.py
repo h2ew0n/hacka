@@ -18,7 +18,7 @@ def learn_menu(request):
     return render(request, 'deliverys/learn_menu.html')
 
 def learn_menu_option(request):
-    return render(request, 'deliverys/learn_option.html')
+    return render(request, 'deliverys/learn_menu_option.html')
 
 def learn_cart(request):
     return render(request, 'deliverys/learn_cart.html')

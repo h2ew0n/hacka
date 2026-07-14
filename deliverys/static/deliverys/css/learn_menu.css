@@ -1,0 +1,320 @@
+/* =========================
+기본 설정
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    font: inherit;
+}
+
+img {
+    display: block;
+}
+
+
+/* =========================
+앱 화면 전체
+========================= */
+
+.app-screen {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+
+/* =========================
+앱 내부 상단바
+========================= */
+
+.learn-menu-header {
+    width: 100%;
+    max-width: 100%;
+    height: 63px;
+    padding: 0 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    flex-shrink: 0;
+
+    background-color: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+/* 가게 이름 */
+
+.learn-menu-store-name {
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+/* 오른쪽 아이콘 묶음 */
+
+.learn-menu-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+
+/* 상단 아이콘 버튼 */
+
+.learn-menu-header-button {
+    width: 22px;
+    height: 22px;
+
+    margin: 0;
+    padding: 0px;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 19px;
+
+    background-color: transparent;
+    cursor: pointer;
+    
+}
+
+.learn-menu-header-button img {
+    display: block;
+
+    width: 22px;
+    height: 22px;
+
+    object-fit: contain;
+}
+
+
+/* =========================
+스크롤 영역
+========================= */
+
+.menu-content {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+
+    margin: 0;
+    padding: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background-color: #ffffff;
+}
+
+
+/* 스크롤바 */
+
+.menu-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.menu-content::-webkit-scrollbar-thumb {
+    background-color: #d4d4d4;
+    border-radius: 10px;
+}
+
+.menu-content::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+
+/* =========================
+메뉴 섹션 제목
+========================= */
+
+.menu-section {
+    width: 100%;
+}
+
+.section-heading {
+    padding: 20px 14px 12px;
+}
+
+.section-heading h2 {
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.6px;
+}
+
+.section-heading p {
+    color: #7E8082;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.36px;
+}
+
+
+/* =========================
+메뉴 목록
+========================= */
+
+.menu-list {
+    width: 100%;
+}
+
+
+/* 메뉴 한 칸 */
+
+.menu-item {
+    width: 100%;
+    min-height: 116px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    background-color: #ffffff;
+}
+
+
+/* 메뉴 전체 클릭 링크 */
+
+.menu-link {
+    width: 100%;
+    min-height: 116px;
+    padding: 15px 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    color: inherit;
+    text-decoration: none;
+
+    transition: background-color 0.15s ease;
+}
+
+.menu-link:hover {
+    background-color: #fafafa;
+}
+
+
+/* =========================
+왼쪽 메뉴 정보
+========================= */
+
+.menu-info {
+    flex: 1;
+    min-width: 0;
+    min-height: 82px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* 메뉴 이름 */
+
+.menu-info h3 {
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding-bottom: 30px;
+}
+
+
+/* 가격 */
+
+.menu-info strong {
+    color: #000;
+    font-family: Inter;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+
+/* 리뷰 */
+
+.menu-info span {
+    color: #7E8082;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+/* =========================
+오른쪽 메뉴 이미지
+========================= */
+
+.menu-image-box {
+    width: 120px;
+    height: 119px;
+
+    position: relative;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+
+    background-color: #f7f7f7;
+}
+
+
+/* 실제 음식 이미지 */
+
+.menu-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* 플러스 아이콘 */
+
+.plus-icon {
+    width: 40px;
+    height: 40px;
+
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+
+    pointer-events: none;
+}
