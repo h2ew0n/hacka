@@ -19,20 +19,22 @@
 {% block mobile_ui %}
 <div class="iphone-content">
   <div class="top-search-bar-frame">
-    <div class="vector-arrow-left">←</div> 
+    <a href="/learning/search" style="text-decoration: none; color: inherit;">
+  <div class="vector-arrow-left">←</div>
+    </a>
     <div class="search-bar-bg">
       <span class="search-keyword-text">{{ keyword }}</span>
-      <div class="clear-icon-x">×</div> 
+      <div class="clear-icon-x" onclick="showToast('이 버튼이 아닙니다!')">×</div> 
     </div>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart" onclick="showToast('이 버튼이 아닙니다!')"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
   </div>
 
   <div class="category-tab-frame">
     <div class="category-tab-list">
-      <div class="tab-item active"><span class="tab-text-bold">전체</span></div>
-      <div class="tab-item"><span class="tab-text-gray">배달 99+</span></div>
-      <div class="tab-item"><span class="tab-text-gray">픽업 99+</span></div>
-      <div class="tab-item"><span class="tab-text-gray">장보기∙쇼핑 99+</span></div>
+      <div class="tab-item active"><span class="tab-text-bold" onclick="showToast('이 버튼이 아닙니다!')" >전체</span></div>
+      <div class="tab-item"><span class="tab-text-gray" onclick="showToast('이 버튼이 아닙니다!')" >배달 99+</span></div>
+      <div class="tab-item"><span class="tab-text-gray" onclick="showToast('이 버튼이 아닙니다!')" >픽업 99+</span></div>
+      <div class="tab-item"><span class="tab-text-gray" onclick="showToast('이 버튼이 아닙니다!')" >장보기∙쇼핑 99+</span></div>
     </div>
   </div>
   
