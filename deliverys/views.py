@@ -279,7 +279,7 @@ def learn_list(request):
 
     answer = cart_data.get('answer_data', {})
     correct_keyword = answer.get('category')
-    store = answer.get('store'),
+    store_mission = answer.get('store'),
     menu = answer.get('menu'),
     count =  answer.get('count'),
     extra = answer.get('extra'),
@@ -357,7 +357,7 @@ def learn_list(request):
         'keyword': keyword,
         'target_store': target_store,
         'error_message': error_message,
-        'store': store,
+        'store_mission': store_mission,
         'menu': menu,
         'count': count,
         'extra': extra
