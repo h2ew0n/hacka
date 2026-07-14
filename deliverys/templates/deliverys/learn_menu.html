@@ -124,136 +124,168 @@ document.addEventListener("DOMContentLoaded", function () {
      * 실제 이미지 파일을 추가하면 image 값만 해당 static 경로로 바꾸면 됩니다.
      */
     const restaurantMenus = {
-        "교촌": [
-            { name: "허니콤보", price: 23000, review: 365, image: defaultImages[0] },
-            { name: "레드콤보", price: 23000, review: 284, image: defaultImages[1] },
-            { name: "반반콤보", price: 24000, review: 241, image: defaultImages[2] },
-            { name: "교촌오리지날", price: 20000, review: 198, image: defaultImages[3] }
-        ],
-        "bhc": [
-            { name: "뿌링클", price: 23000, review: 412, image: defaultImages[0] },
-            { name: "맛초킹", price: 23000, review: 326, image: defaultImages[1] },
-            { name: "골드킹", price: 23000, review: 279, image: defaultImages[2] },
-            { name: "후라이드치킨", price: 20000, review: 205, image: defaultImages[3] }
-        ],
-        "bbq": [
-            { name: "황금올리브치킨", price: 23000, review: 365, image: defaultImages[0] },
-            { name: "[황.양.반] 황올 반+양념 반", price: 24000, review: 256, image: defaultImages[1] },
-            { name: "자메이카 통다리구이", price: 24500, review: 232, image: defaultImages[2] },
-            { name: "핫황금올리브 크리스피", price: 24000, review: 187, image: defaultImages[3] }
-        ],
         "굽네": [
-            { name: "고추바사삭", price: 21000, review: 388, image: defaultImages[0] },
-            { name: "오리지널", price: 18000, review: 265, image: defaultImages[1] },
-            { name: "남해마늘바사삭", price: 22000, review: 221, image: defaultImages[2] },
-            { name: "볼케이노", price: 20000, review: 194, image: defaultImages[3] }
-        ],
-
-        "샹츠 마라": [
-            { name: "마라탕", price: 10000, review: 302, image: defaultImages[0] },
-            { name: "마라샹궈", price: 18000, review: 247, image: defaultImages[1] },
-            { name: "꿔바로우", price: 16000, review: 214, image: defaultImages[2] },
-            { name: "마라볶음밥", price: 9000, review: 163, image: defaultImages[3] }
+            { 
+                name: "황금올리브치킨",
+                price: 23000,
+                review: 365,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkvPt8w4C418fKxWnIr_vkNrmbEHoLGYOix7_jLpB0xQ&s=10"
+                },
+            { 
+                name:"[황.양.반] 황올 반+양념 반",
+                price: 24000,
+                review: 256,
+                image: "https://sitem.ssgcdn.com/37/40/73/item/1000599734037_i1_750.jpg" 
+            },
+            { 
+                name:"자메이카 통다리구이",
+                price: 24500,
+                review: 232,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGpLCWCnHVCp6Y1RoH21G4Neic7IusK68XGQc2PhbIXsZvr918tgHiKN1X&s=10"
+            },
+            { 
+                name:"핫황금올리브 크리스피",
+                price: 24000,
+                review: 187,
+                image: "https://axeqaqfbtc3l.compat.objectstorage.ap-chuncheon-1.oraclecloud.com/chickenrank-prod/public/chickens/Uc09gWRVCITcsIwk0KytY7cNMKHaVSQn6b4M2RgV.png"
+            }
         ],
         "홍콩반점": [
-            { name: "짜장면", price: 7000, review: 341, image: defaultImages[0] },
-            { name: "짬뽕", price: 8000, review: 298, image: defaultImages[1] },
-            { name: "탕수육", price: 16000, review: 257, image: defaultImages[2] },
-            { name: "짜장밥", price: 8000, review: 148, image: defaultImages[3] }
+            {
+                name: "짜장면",
+                price: 7000,
+                review: 341,
+                image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fcdn.crowdpic.net%2Fdetail-thumb%2Fthumb_d_BA5E89004B5B053E97863AFF99ADFB70.jpg&type=a340"
+            },
+            {
+                name: "짬뽕",
+                price: 8000,
+                review: 298,
+                image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Ff6%2Fb6%2Fd1%2Ff6b6d10cb9a7a3adf34d581fe6c09f03.jpg&type=a340"
+            },
+            {
+                name: "탕수육",
+                price: 16000,
+                review: 257,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F009%2F2018%2F02%2F12%2F0004099251_002_20180212060242191.jpg&type=a340"
+            },
+            {
+                name: "짜장밥",
+                price: 8000,
+                review: 148,
+                image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Frecipe1.ezmember.co.kr%2Fcache%2Frecipe%2F2024%2F06%2F11%2Ffe2a90bcb69730451dcc835d08ef86261.jpg%3Fw%3D1000&type=a340"
+            }
         ],
-        "춘리마라탕": [
-            { name: "소고기 마라탕", price: 12000, review: 316, image: defaultImages[0] },
-            { name: "마라샹궈", price: 18000, review: 229, image: defaultImages[1] },
-            { name: "크림새우", price: 15000, review: 186, image: defaultImages[2] },
-            { name: "계란볶음밥", price: 8000, review: 141, image: defaultImages[3] }
-        ],
-        "피로반점": [
-            { name: "간짜장", price: 8000, review: 273, image: defaultImages[0] },
-            { name: "차돌짬뽕", price: 10000, review: 244, image: defaultImages[1] },
-            { name: "고추잡채밥", price: 10000, review: 173, image: defaultImages[2] },
-            { name: "깐풍기", price: 18000, review: 152, image: defaultImages[3] }
-        ],
-
-        "엽기떡볶이": [
-            { name: "엽기떡볶이", price: 14000, review: 421, image: defaultImages[0] },
-            { name: "엽기반반", price: 14000, review: 318, image: defaultImages[1] },
-            { name: "로제떡볶이", price: 16000, review: 276, image: defaultImages[2] },
-            { name: "엽기닭볶음탕", price: 24000, review: 189, image: defaultImages[3] }
-        ],
-        "응급실 떡볶이": [
-            { name: "응급실 국물떡볶이", price: 14000, review: 294, image: defaultImages[0] },
-            { name: "부상맛 떡볶이", price: 14000, review: 237, image: defaultImages[1] },
-            { name: "로제 국물떡볶이", price: 16000, review: 202, image: defaultImages[2] },
-            { name: "모둠튀김", price: 7000, review: 181, image: defaultImages[3] }
-        ],
-        "싸다김밥": [
-            { name: "싸다김밥", price: 3500, review: 311, image: defaultImages[0] },
-            { name: "참치김밥", price: 4500, review: 265, image: defaultImages[1] },
-            { name: "돈가스김밥", price: 5000, review: 214, image: defaultImages[2] },
-            { name: "치즈라볶이", price: 7000, review: 177, image: defaultImages[3] }
-        ],
-        "스쿨푸드": [
-            { name: "모짜렐라 스팸계란마리", price: 10000, review: 278, image: defaultImages[0] },
-            { name: "매운 까르보나라 떡볶이", price: 13000, review: 239, image: defaultImages[1] },
-            { name: "장조림버터비빔밥", price: 11000, review: 205, image: defaultImages[2] },
-            { name: "통새우마리", price: 10500, review: 164, image: defaultImages[3] }
-        ],
-
         "메가mgc": [
-            { name: "메가리카노", price: 3000, review: 356, image: defaultImages[0] },
-            { name: "큐브라떼", price: 4500, review: 226, image: defaultImages[1] },
-            { name: "딸기라떼", price: 4000, review: 211, image: defaultImages[2] },
-            { name: "플레인 크로플", price: 3500, review: 174, image: defaultImages[3] }
+            { 
+                name: "메가리카노",
+                price: 3000,
+                review: 356,
+                image: "https://search.pstatic.net/common/?src=https%3A%2F%2Fshop-phinf.pstatic.net%2F20230620_96%2F1687238382216F2bUg_JPEG%2F11618360784073074_1533807001.jpg&type=a340"
+            },
+            { 
+                name: "큐브라떼",
+                price: 4500,
+                review: 226,
+                image: "https://shop-phinf.pstatic.net/20250604_251/1749000649710wJiF7_JPEG/83133457863318362_856819931.jpg?type=o1000"
+            },
+            { 
+                name: "딸기라떼",
+                price: 4000,
+                review: 211,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTA0MjdfNjAg%2FMDAxNTU2MzcwNTQzNjYx.5TmdlKY66F36H1zAQDi0jB3bF1_p9BeaOb45sDpbRksg.8C22dqrqe-27CrpCy_HP2wmY7Q51cWdCwImRrcrmqewg.PNG.v-v210%2F%25B5%25FE%25B1%25E2_%25B6%25F3%25B6%25BC.png&type=a340"
+            },
+            { 
+                name: "플레인 크로플",
+                price: 3500,
+                review: 174,
+                image: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240617_233%2F1718584005781e9za6_JPEG%2FIMG_2232.jpeg&type=a340"
+            },
         ],
-        "투썸": [
-            { name: "아메리카노", price: 4700, review: 319, image: defaultImages[0] },
-            { name: "로얄 밀크티", price: 5500, review: 218, image: defaultImages[1] },
-            { name: "스트로베리 초콜릿 생크림", price: 6800, review: 247, image: defaultImages[2] },
-            { name: "티라미수", price: 6500, review: 201, image: defaultImages[3] }
-        ],
-        "던킨": [
-            { name: "글레이즈드 도넛", price: 1900, review: 301, image: defaultImages[0] },
-            { name: "카카오 후로스티드", price: 2100, review: 216, image: defaultImages[1] },
-            { name: "보스턴 크림", price: 2100, review: 188, image: defaultImages[2] },
-            { name: "아이스 아메리카노", price: 4000, review: 154, image: defaultImages[3] }
-        ],
-        "컴포즈": [
-            { name: "빅포즈 아메리카노", price: 2500, review: 337, image: defaultImages[0] },
-            { name: "와플", price: 3500, review: 229, image: defaultImages[1] },
-            { name: "쿠키초코 프라페", price: 4500, review: 191, image: defaultImages[2] },
-            { name: "생초콜릿 라떼", price: 4300, review: 172, image: defaultImages[3] }
-        ],
-
         "맥도날드": [
-            { name: "빅맥 세트", price: 7200, review: 398, image: defaultImages[0] },
-            { name: "상하이 버거 세트", price: 7400, review: 341, image: defaultImages[1] },
-            { name: "불고기버거 세트", price: 6000, review: 285, image: defaultImages[2] },
-            { name: "맥스파이시 치킨텐더", price: 4500, review: 196, image: defaultImages[3] }
+            {
+                name: "빅맥 세트",
+                price: 7200,
+                review: 398,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNjA0MDFfODUg%2FMDAxNzc1MDE2MjMxNDIw.VEt_liCWAN9ByOTtYbJBzDYoXcF_S32Z6Kf1bOfXBVwg.I4xxUZ2RODxUuH4ySQZA16W_c-vFhDDISIGmE3ieIuAg.PNG%2F%25BA%25F2%25B8%25C6.png&type=a340"
+            },
+            {
+                name: "상하이 버거 세트",
+                price: 7400,
+                review: 341,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160310_165%2Fbborori10_1457616873272rCd78_PNG%2F1955%25B9%25F6%25B0%25C5_02.png&type=a340"
+            },
+            {
+                name: "불고기버거 세트",
+                price: 6000,
+                review: 285,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA4MDdfMTI4%2FMDAxNTMzNjE5NjY4MzI4.BNQzfoRZagiIbqtAQ-uIm6k-5Prrr9CmoBATOaWCvi8g.yWzD2-97jU-ghShgmheo3CIf6mF1ygTILjmXabqHPfQg.PNG.ynos33%2Fprov_201803260924164710.png&type=a340"
+            },
+            {
+                name: "맥스파이시 치킨텐더",
+                price: 4500,
+                review: 196,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNjA0MjJfMTM1%2FMDAxNzc2ODI3NjI4ODE1.YsuDWXJQ2zMjH309obTe3yEfusctYICBTGvOge9RmxEg.yHCoAudL76L6O6P20Q0nGazfsAa29A2TyWH4GAfArWwg.PNG%2FChatGPT_Image_2026%25B3%25E2_4%25BF%25F9_22%25C0%25CF_%25BF%25C0%25C8%25C4_12_08_24.png&type=a340"
+            },
         ],
-        "롯데리아": [
-            { name: "리아 불고기 세트", price: 7100, review: 316, image: defaultImages[0] },
-            { name: "새우버거 세트", price: 7100, review: 288, image: defaultImages[1] },
-            { name: "한우불고기버거 세트", price: 10000, review: 213, image: defaultImages[2] },
-            { name: "모짜렐라 인 더 버거 세트", price: 8500, review: 184, image: defaultImages[3] }
+        "엽기떡볶이": [
+            { 
+                name: "엽기떡볶이",
+                price: 14000,
+                review: 398,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNjAyMTdfMTQ4%2FMDAxNzcxMzI1OTUyNTc3.CUW5kwV5RMbWoq8UUzbGU8tTcmavL18_aWLmtoe0BZgg.4SDZ6c4yYhOnbQsfgPa_lw0p2RujCbtjygjW6hZfa2Yg.JPEG%2F%25BA%25A3%25BD%25BA%25C6%25AE%25BC%25BC%25C6%25AE.jpg&type=a340"
+            },
+            { 
+                name: "엽기반반",
+                price: 14000,
+                review: 341,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20160227_66%2Fqeen33_1456534137459nvgs0_PNG%2F01.png&type=a340"
+            },
+            { 
+                name: "로제엽떡",
+                price: 16000,
+                review: 311,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDExMjVfMTAz%2FMDAxNzMyNTQ0NzM5MzQ4._F8yrKC2bEhouEZe_fkAt433UaEwujPjiCADMVj2CHsg.zR6mO8je9BB58gijBHSz3U4gexJaP8fw7xxw7I03qPog.JPEG%2Foutput_1484594680.jpg&type=a340"
+            },
+            { 
+                name: "엽기 닭볶음탕",
+                price: 24000,
+                review: 241,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA4MDlfMTUx%2FMDAxNjkxNTg4MjAxNzMx.pb5IUorEyxOAdVTzUGUfHNjKBLSsteg_y6tNE5HcD6Ig.chcTZ-ViPTazxh79mY_t9EnEr86nBlf_waAnVSVZLscg.PNG.kjh345881%2F5._%253F%2597%25BD%25EA%25B8%25B0%25EB%258B%25AD%25EB%25B3%25B6%25EC%259D%258C%253F%2583%2595%2528%253F%2595%25AD%25EA%25B3%253F%2529.png&type=a340"
+            },
         ],
-        "버거킹": [
-            { name: "와퍼 세트", price: 9100, review: 379, image: defaultImages[0] },
-            { name: "콰트로치즈와퍼 세트", price: 10000, review: 302, image: defaultImages[1] },
-            { name: "통새우와퍼 세트", price: 10000, review: 261, image: defaultImages[2] },
-            { name: "치킨킹 세트", price: 8500, review: 193, image: defaultImages[3] }
+        "피로족발": [
+            { 
+                name: "족발",
+                price: 14000,
+                review: 398,
+                image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fimage.utoimage.com%2Fpreview%2Fcp871385%2F2018%2F12%2F201812006026_500.jpg&type=a340"
+            },
+            { 
+                name: "보쌈",
+                price: 14000,
+                review: 341,
+                image: "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fthumb2.gettyimageskorea.com%2Fimage_preview%2F700%2F201711%2FMBRF%2FMBRF17017894.jpg&type=a340"
+            },
+            { 
+                name: "족발보쌈",
+                price: 16000,
+                review: 311,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA2MDNfMTgx%2FMDAxNzE3MzkzNjAzMzM3.Yre-qDBQ-9E8ZxmD9QPWLNLW6j0OLw19KvORXOef15Yg.kpH5A7E07InSL_w77XDAbqBIjcSDqbFY6c7GlJLWk3Mg.JPEG%2F12779185.jpg&type=a340"
+            },
+            { 
+                name: "불족발",
+                price: 24000,
+                review: 241,
+                image: "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNDA3MDdfODAg%2FMDAxNzIwMzM5ODE2MjE1.zZjfoIgLUXRI1pFPLkKOGeTK1YrVNGIixBBNLvjKSDsg.w6hjm4W9PUmiVbw8sv1E29chyLn6qCtNBy7Iohc4NVwg.JPEG%2F2613669766595754-d9613ed5-2fe9-45da-97c0-eaae28d7c4f9.jpg&type=a340"
+            },
         ],
-        "맘스터치": [
-            { name: "싸이버거 세트", price: 7300, review: 402, image: defaultImages[0] },
-            { name: "화이트갈릭버거 세트", price: 7900, review: 298, image: defaultImages[1] },
-            { name: "인크레더블버거 세트", price: 8300, review: 247, image: defaultImages[2] },
-            { name: "딥치즈버거 세트", price: 7800, review: 216, image: defaultImages[3] }
-        ]
     };
 
     /*
      * 앞 페이지에서 식당 이름을 넘기는 방법
-     * 1순위: /learning/menu/?store=bbq
-     * 2순위: localStorage.setItem("selectedRestaurant", "bbq")
+     * 1순위: /learning/menu/?store=굽네
+     * 2순위: localStorage.setItem("selectedRestaurant", "굽네")
      */
     const params = new URLSearchParams(window.location.search);
     const queryStore =
@@ -262,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
         params.get("store_name");
 
     const savedStore = localStorage.getItem("selectedRestaurant");
-    const requestedStore = queryStore || savedStore || "bbq";
+    const requestedStore = queryStore || savedStore || "굽네";
     const selectedStoreKey = findRestaurantKey(requestedStore);
 
     renderRestaurant(selectedStoreKey);
@@ -299,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         });
 
-        return matchedKey || "bbq";
+        return matchedKey || "굽네";
     }
 
     function renderRestaurant(storeKey) {
