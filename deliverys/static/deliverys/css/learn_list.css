@@ -25,6 +25,11 @@
   z-index: 10;
 }
 
+.top-search-bar-frame svg{
+    cursor:pointer;
+}
+
+
 .vector-arrow-left {
   font-size: 20px;
   font-weight: bold;
