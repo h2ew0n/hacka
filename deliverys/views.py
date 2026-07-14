@@ -257,7 +257,20 @@ def learn_mission(request):
     return render(request, 'deliverys/learn_mission.html', context)
 
 def learn_search(request):
-    return render(request, 'deliverys/learn_search.html')
+    cart_data = request.session.get('cart_data')
+    
+    if not cart_data:
+        return redirect('deliverys:main')
+    
+    answer = cart_data.get('answer_data', {})
+    
+    context = {
+        'store': answer.get('store'),
+        'menu': answer.get('menu'),
+        'count': answer.get('count'),
+        'extra': answer.get('extra'),
+    }
+    return render(request, 'deliverys/learn_search.html', context)
 
 def learn_list(request):
     cart_data = request.session.get('cart_data')
