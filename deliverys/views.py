@@ -2,6 +2,8 @@ import json
 import random
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Mission
+import json
+from django.contrib import messages
 
 # ============================================================
 # 가게 + 메뉴 + 메뉴옵션 데이터
@@ -106,7 +108,7 @@ CATEGORY_MENUS = {
             "options": [],
         },
     ],
-    "치킨": [
+    "치킨가게": [
         {
             "id": 1, "name": "후라이드치킨", "price": 18000,
             "options": [
@@ -155,7 +157,7 @@ category_data = {
         {"name": "던킨", "rating": "4.9", "review_count": "175", "min_order": "15,900원", "time": "약 15분", "img_url": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTA4MDFfMzgg%2FMDAxNTY0NjQ1OTAzMjMz.SbUOz-VXJlS37BNTTFw1fTTuIEUDJA6o9iJbpOq4wMUg.NVxuAMl9ZxwhmEeqpdRe_h9pMDHhPB69NIgTNH4m4Zkg.JPEG.duckdesign%2F0cHLGe6M_400x400.jpg&type=a340"},
         {"name": "컴포즈커피", "rating": "4.8", "review_count": "158", "min_order": "8,900원", "time": "약 39분", "img_url": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA5MjVfNCAg%2FMDAxNzU4Nzc2MTI4MjM0.MWQHWzzVUtOWVH1EnLQ7h4xJ1sp5BAxSmK--t3yllQcg.L64Dnhspxm8ozjiMgG0EvcGU-00AGs1wE-MiF-tacEcg.PNG%2F%25B4%25D9%25BF%25EE%25B7%25CE%25B5%25E5_%25281%2529.png&type=a340"}
     ],
-    "치킨": [
+    "치킨가게": [
         {"name": "교촌", "rating": "4.7", "review_count": "1,342", "min_order": "11,000원", "time": "약 22분", "img_url": "https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F5562%2F2020%2F08%2F14%2F0000012854_001_20200814102054160.jpg&type=a340"},
         {"name": "BHC", "rating": "4.9", "review_count": "744", "min_order": "20,000원", "time": "약 32분", "img_url": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA2MTZfMjg3%2FMDAxNjIzODA2NDc3NjY5.ooK9MfX81XTOznDbUiJCgeg5zl30JbOAJtypG0id_zMg.TR1JrvWOQQXvTWdNrYriizVaP0PovnTy2sIsoXfw-mgg.JPEG.congha%2Fbhc1.jpg&type=a340"},
         {"name": "BBQ", "rating": "4.9", "review_count": "469", "min_order": "18,000원", "time": "약 63분", "img_url": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzEyMTVfMjE1%2FMDAxNzAyNjE2NDQ4MzMy.IMCFZgy0hrz0r6kLG2c8yEkCJtbK7wJyTNMcBVbyTiog.Zgxr85up_ouZX9T1hvT8qngh0sB4IG6E1pfjKG2ra9Ig.PNG.moneyhero7779%2Fimage.png&type=a340"},
@@ -208,42 +210,62 @@ STORE_LOGOS_FOR_JS = {
 
 
 # Create your views here.
+
+
 def initialize_simulation(request):
     all_mission = Mission.objects.all()
+    
+    if not all_mission.exists():
+        return render(request, 'deliverys/error.html', {'message': '등록된 미션이 없습니다.'})
+        
     chosen_mission = random.choice(all_mission)
 
+    # 💾 세션에 완벽하게 데이터 주입
     request.session['cart_data'] = {
-        'mission_id': chosen_mission.pk,
         'mission_title': chosen_mission.title,
         'mission_description': chosen_mission.description,
         'step_guide': chosen_mission.step_guide,
         'answer_data': chosen_mission.answer_data,
 
-        'current_stage': 1,
-        'selected_store': None,
-        'items': [],
-        'total_price': 0
+        'current_stage': 1
     }
-
     request.session.modified = True
+    
+    # 🚀 핵심: 세션을 디스크에 완전히 저장시킨 후, 미션 페이지로 리다이렉트합니다!
+    return redirect('deliverys:learn_mission')
 
 def main(request):
+    initialize_simulation(request)
     return render(request, 'deliverys/main.html')
 
 # --- 학습 모드 ---
 def learn_mission(request):
     cart_data = request.session.get('cart_data')
+    
     if not cart_data:
         return redirect('deliverys:main')
+    
+    answer = cart_data.get('answer_data', {})
+    
     context = {
-        'mission_description': cart_data['mission_description']
+        'store': answer.get('store'),
+        'menu': answer.get('menu'),
+        'count': answer.get('count')
     }
+    
     return render(request, 'deliverys/learn_mission.html', context)
 
 def learn_search(request):
     return render(request, 'deliverys/learn_search.html')
 
 def learn_list(request):
+    cart_data = request.session.get('cart_data')
+    if not cart_data:
+        return redirect('deliverys:main')
+
+    answer = cart_data.get('answer_data', {})
+    correct_keyword = answer.get('category')
+    # 1. 검색어를 가져오기 (기본값은 '분식')
     keyword = request.GET.get('q', '분식')
 
     error_message = None
@@ -268,11 +290,16 @@ def learn_list(request):
         elif keyword in ["카페", "디저트", "커피", "카페디저트"]:
             search_key = "카페디저트"
         elif keyword in ["치킨", "통닭"]:
-            search_key = "치킨"
+            search_key = "치킨가게"
         elif keyword in ["분식", "떡볶이", "김밥"]:
             search_key = "분식"
         elif keyword in ["마라탕", "짜장면", "짬뽕", "중식"]:
             search_key = "중식"
+        
+        if search_key != correct_keyword :
+            messages.error(request, f"틀렸습니다! '{keyword}'은(는) 이번 미션에 맞는 카테고리가 아닙니다. 미션을 다시 확인해 보세요!")
+            
+            return redirect('deliverys:learn_search')
 
         if search_key in category_data:
             stores = category_data[search_key]
@@ -283,7 +310,7 @@ def learn_list(request):
                 target_store = "맥도날드"
             elif search_key == "카페디저트":
                 target_store = "메가MGC커피"
-            elif search_key == "치킨":
+            elif search_key == "치킨가게":
                 target_store = "굽네치킨"
             elif search_key == "족발보쌈":
                 target_store = "피로족발"
@@ -301,6 +328,10 @@ def learn_list(request):
     })
 
 def learn_menu(request):
+    cart_data = request.session.get('cart_data')
+    if not cart_data:
+        return redirect('deliverys:main')
+    
     return render(request, 'deliverys/learn_menu.html')
 
 def learn_menu_option(request):
@@ -327,8 +358,8 @@ def apply_payment(request): return render(request, 'deliverys/apply_payment.html
 def apply_success(request): return render(request, 'deliverys/apply_success.html')
 
 # --learn_mission 몇인분 count 뽑기 --
-def learn_mission(request):
-    context = {
-        'count': random.randint(1,5),
-    }
-    return render(request, 'deliverys/learn_mission.html', context)
+# def learn_mission(request):
+#     context = {
+#         'count': random.randint(1,5),
+#     }
+#     return render(request, 'deliverys/learn_mission.html', context)
