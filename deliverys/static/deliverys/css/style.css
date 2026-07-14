@@ -112,4 +112,6 @@ main {
     width: 393px;
     height: 852px;
     background: #FFF;
+    position: relative;
+    overflow: hidden;
 }

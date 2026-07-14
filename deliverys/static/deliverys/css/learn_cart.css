@@ -440,12 +440,15 @@
 }
  
 /* ---------- 토스트 메시지 ---------- */
+
+/* 모바일 화면을 감싸는 프레임 div */
+
 .cart-toast {
     position: absolute;
-    left: 50%;
-    bottom: 90px;
+    left: 40%;
+    bottom: 40%;
     transform: translate(-50%, 12px);
-    background: rgba(25, 25, 25, 0.9);
+    background: rgba(255, 59, 59, 0.9);
     color: #FFF;
     font-size: 20px;
     font-weight: 500;
@@ -459,5 +462,5 @@
  
 .cart-toast.show {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translate(-30%, 0);
 }
